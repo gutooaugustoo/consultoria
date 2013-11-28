@@ -2,8 +2,11 @@
 $pgLogin = true;
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-if($_POST['documento'] != '' && $_POST['password'] != ''){		
-	if(!$Login->efetuarLogin($_POST['documento'], $_POST['password']) ){ 			
+$documento = $_POST['documento'];
+$password = $_POST['password'];
+
+if( $documento != '' && $password != ''){		
+	if( !$Login->efetuarLogin($documento, $password) ){ 			
 		Uteis::alertJava("Login ou senha inválidos.", true);
 	}
 }
@@ -20,13 +23,21 @@ if( !EMPRESA ){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo NOME_APP?></title>
+<link rel="shortcut icon" href="logoico.ico" />
 
-<?php require_once($_SERVER['DOCUMENT_ROOT'].CAMINHO_CFG."include/css.php");?>
-
-<?php require_once($_SERVER['DOCUMENT_ROOT'].CAMINHO_CFG."include/js.php");?>
-<script src="<?php echo CAMINHO_CFG?>js/login.js" language="javascript" type="text/javascript"></script>
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'].CAM_CFG."include/css.php");
+require_once($_SERVER['DOCUMENT_ROOT'].CAM_CFG."include/js.php");
+?>
 
 </head>
+
+<style>
+#div_login {
+	margin: auto auto;
+	width: 350px;
+}
+</style>
 
 <body>
 <div id="centro"> <br />
@@ -36,13 +47,12 @@ if( !EMPRESA ){
       <p><strong>Sistema administrativo</strong></p> 
       <p>
         <label>CPF:</label>
-        <input type="text" name="documento" id="documento" class="required cpf" value="<?php echo $login_temp?>" autocomplete="off" />
+        <input type="text" name="documento" id="documento" class="required cpf" value="<?php echo $login_temp?>"/>
         <span class="placeholder">Campo Obrigatório</span> </p>
       <p>
         <label>Senha</label>
-        <input type="password" name="password" id="password" class="required" value="<?php echo $senha_temp?>" autocomplete="off" />
-        <span class="placeholder">Campo Obrigatório</span> 
-        <input type="checkbox" value="1" onclick="mostraSenha(this)" /><small>mostrar a senha</small></p>
+        <input type="password" name="password" id="password" class="required" value="<?php echo $senha_temp?>"/>
+        <span class="placeholder">Campo Obrigatório</span> </p>
       <p>
         <button class="button blue submit">Efetuar Login</button>
       </p>

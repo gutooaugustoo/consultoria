@@ -62,7 +62,7 @@ legend {
 }
 
 .conteudo_nivel{
-	background: url('/consultoria/images/_marca_dagua.png') no-repeat center center #FFF fixed;
+	background: url('/sistema/images/_marca_dagua.png') no-repeat center center #FFF fixed;
 	position: absolute;	
 	width: 95%;
 	left:2.5%;
@@ -75,7 +75,7 @@ legend {
 }
 
 .body {
-	background: url('/consultoria/images/_marca_dagua.png') no-repeat center center fixed;
+	background: url('/sistema/images/_marca_dagua.png') no-repeat center center fixed;
 	min-width:850px;
 	min-height:600px;
 }
@@ -119,7 +119,7 @@ legend {
 
 .fechar{
 	position: absolute;
-	background: url('/consultoria/images/fechar.png') no-repeat;
+	background: url('/sistema/images/fechar.png') no-repeat;
 	width: 22px;
 	height: 22px;
 	right: 1.5%;
@@ -227,7 +227,7 @@ legend {
 	overflow-wrap: break-word;
 	color: #333;
 	background-color: #fafafa;
-	background-image: url('/consultoria/images/info.png');
+	background-image: url('/sistema/images/info.png');
 	background-repeat: no-repeat;
 	background-position:5px;	
 	border-radius: 5px 5px 5px 5px;	
@@ -294,7 +294,7 @@ legend {
 	overflow-wrap: break-word;
 	color: #333;
 	background-color: #fafafa;
-	background-image: url('/consultoria/images/aviso.png');
+	background-image: url('/sistema/images/aviso.png');
 	background-repeat: no-repeat;
 	background-position: 5px;
 	border-radius: 5px 5px 5px 5px;
