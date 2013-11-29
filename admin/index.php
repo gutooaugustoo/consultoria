@@ -17,9 +17,10 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/js.php");
 
 <body class="body" >
 <div id="divs_jquery"> </div>
-<div id="cssmenu">
-  <?php require_once "menu.php"?>
-  <font onclick="carregarModulo('<?php echo CAM_VIEW."teste/lista.php" ?>', '#centro')">ABRIR TESTE</font>
+<div id="cssmenu">      
+  <?php require_once "menu.php"?>  
+  <font onclick="carregarModulo('<?php echo CAM_VIEW."pessoa/lista.php" ?>', '#centro')">pessoa</font>
+  <font onclick="carregarModulo('<?php echo CAM_VIEW."funcionario/lista.php" ?>', '#centro')">funcionario</font>
 </div>
 <div id="alertas"></div>
 <div id="centro"></div>

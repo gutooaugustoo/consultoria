@@ -29,6 +29,7 @@ define("MSG_CADNEW", "Cadastro efetuado com sucesso.");
 define("MSG_CADUP", "Cadastro atualizado com sucesso.");
 define("MSG_CADDEL", "Cadastro deletado com sucesso.");
 define("MSG_OBRIGAT", "Preenchimento obrigat&oacute;rio:");
+define("MSG_ERR", "Não foi possível completar a a&ccedil;&atilde;o");
 
 //AUTOLOAD DE CLASSES
 function __autoload($class) {

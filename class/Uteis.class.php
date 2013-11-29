@@ -55,12 +55,12 @@ class Uteis {
 				//Destinatários
 				if ($valor['email'] != "")
 					$mensagem .= "<br>E-mail:" . $valor['email'] . " - Nome: " . $valor['nome'];
-					//if( $valor['email'] != "" ) $mailer->AddAddress($valor['email'], $valor['nome']);
+				//if( $valor['email'] != "" ) $mailer->AddAddress($valor['email'], $valor['nome']);
 			}
 		}
-	
+
 		if (EMPRESA) {
-			$mailer -> AddAddress(ENVIO_TESTE, "Teste");			
+			$mailer -> AddAddress(ENVIO_TESTE, "Teste");
 		}
 
 		$mailer -> Subject = utf8_decode($assunto);
@@ -472,12 +472,19 @@ class Uteis {
 		}
 		return $bool;
 	}
-	
+
 	static function verificaChecked($bool) {
 		return ($bool) ? "checked" : "";
 	}
-	
-	
+
+	static function montarUpdate($array = array()) {
+		$sqlSets = "";
+		foreach ($array as $key => $value) {
+			$sqlSets .= "$key = $value, ";
+		}					
+		return substr($sqlSets, 0, -2);
+	}
+
 	static function pr($arr, $exit = 0) {
 		echo "<pre>";
 		print_r($arr);

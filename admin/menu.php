@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php";
+
 $Modulo = new Modulo();
 //$Funcionario = new Funcionario($_SESSION["idFuncionario"]);
 ?>
@@ -13,6 +14,7 @@ $Modulo = new Modulo();
 	$id_jaFoi2 = array("0");
 
 	$rsModulo = $Modulo -> selectModulo_permissao(" AND M.modulo_id IS NULL " . $andFunc);
+	
 	if ($rsModulo) {
 		foreach ($rsModulo as $valorModulo) {
 

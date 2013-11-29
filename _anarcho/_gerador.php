@@ -26,7 +26,12 @@ function separaString($string) {
 		$srting_final .= $value;
 	}
 
-	return $srting_final;
+	return trim(str_replace(array(
+		"id",
+		"ID",
+		"Id",
+		"iD"
+	), "", $srting_final));
 
 }
 
@@ -37,14 +42,23 @@ if ($_POST["table"]) {
 
 		$j = 0;
 		$campos = array();
+		$temExcluido = false;
+		$primeiroCampoValido = "";
 
 		while ($row = mysql_fetch_array($colunas)) {
-			//print_r($row);exit;
+
+			//print_r($row); //exit;
+			if ($row['Field'] == "excluido")
+				$temExcluido = true;
+
 			if ($row['Field'] != 'dataCadastro' && $row['Field'] != 'excluido') {
+
 				$campos[$j]['nome'] = $row['Field'];
 				$campos[$j]['nomeAmigavel'] = separaString($row['Field']);
-				$campos[$j]['nomeComTabela'] = $row['Field'].ucfirst($table);
-				$campos[$j]['tipo'] = str_replace(array(
+				$campos[$j]['nomeComTabela'] = $row['Field'] . ucfirst($table);			
+				$campos[$j]['default'] = $row['Default'];	
+				$campos[$j]['accNulo'] = ($row['Null'] == 'NO') ? 0 : 1;
+				$tipo = str_replace(array(
 					"(",
 					")",
 					"0",
@@ -57,10 +71,25 @@ if ($_POST["table"]) {
 					"7",
 					"8",
 					"9"
-				), "", (string)$row['Type']);
-				$campos[$j]['accNulo'] = ($row['Null'] == 'NO') ? 0 : 1;
-				$campos[$j]['relac'] = ($row['Key'] == 'PRI') ? 'pk' : ($row['Key'] == 'MUL' ? 'fk' : '');
-				$campos[$j]['default'] = $row['Default'];
+				), "", (string)$row['Type']);				
+				$campos[$j]['tipo'] = $tipo; 
+					
+				if ( $tipo == "varchar" )
+					$primeiroCampoValido = $row['Field'];
+
+				if ($row['Key'] == 'PRI') {
+					$campos[$j]['relac'] = 'pk';
+				} elseif ($row['Key'] == 'MUL') {
+					$campos[$j]['relac'] = 'fk';
+
+					$tbReference = mysql_query("SELECT REFERENCED_TABLE_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_NAME = '$table' AND COLUMN_NAME = '" . $row['Field'] . "'");
+					$tbReference = mysql_fetch_array($tbReference);
+					//print_r($tbReference);exit;
+					$campos[$j]['relacTb'] = ucfirst($tbReference['REFERENCED_TABLE_NAME']);
+
+				} else {
+					$campos[$j]['relac'] = '';
+				}		
 
 				$j++;
 			}
@@ -94,12 +123,12 @@ if ($_POST["table"]) {
 		}
 
 	}
-	echo "<b>Códigos gerados com sucesso - " . date('d/m/Y H:i:s')."</b>";
-	
-	foreach ($gerada as $key => $value) {		
-		echo "<li>".$key." - ".implode(", ", $value)."</li>";
+	echo "<b>Códigos gerados com sucesso - " . date('d/m/Y H:i:s') . "</b>";
+
+	foreach ($gerada as $key => $value) {
+		echo "<li>" . $key . " - " . implode(", ", $value) . "</li>";
 	}
-	
+
 } else {
 	echo "Nenhuma tabel foi selecionada";
 

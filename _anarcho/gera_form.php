@@ -8,61 +8,59 @@ foreach ($campos as $campo) {
 	if ($campo['relac'] == 'pk') {
 
 		$form .= "
-					<input type=\"hidden\" id=\"" . $campo['nomeComTabela'] . "\" name=\"" . $campo['nomeComTabela'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "() ?>\" />
+						<input type=\"hidden\" id=\"" . $campo['nomeComTabela'] . "\" name=\"" . $campo['nomeComTabela'] . "\" value=\"<?php echo \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "() ?>\" />
 		";
 
 	} elseif ($campo['relac'] == 'fk') {
 
 		$form .= "
-					<p>
-					<label>" . $campo['nomeAmigavel'] . ":</label>
-					<?php 
-					\$Fk = new \$Fk();" . ($campo['accNulo'] == 1 ? "" : "
-					Html::set_cssClass(array(\"required\"));") . "
-					echo \$Fk->select" . $tableUp . "_html('" . $campo['nome'] . "', \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "());
-					?>";
+						<p>
+						<label>" . $campo['nomeAmigavel'] . ":</label>
+						<?php /*\$" . $campo['relacTb'] . " = new " . $campo['relacTb'] . "();" . ($campo['accNulo'] == 1 ? "" : "
+						Html::set_cssClass(array(\"required\"));") . "
+						echo \$" . $campo['relacTb'] . " -> select" . $campo['relacTb'] . "_html('" . $campo['nome'] . "', \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "()); */ ?>";
 
 	} elseif ($campo['tipo'] == 'int' || $campo['tipo'] == 'double') {
 
 		$form .= "
-					<p>
-					<label>" . $campo['nomeAmigavel'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "numeric\" />";
+						<p>
+						<label>" . $campo['nomeAmigavel'] . ":</label>
+						<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "numeric\" />";
 
 	} elseif ($campo['tipo'] == 'tinyint') {
 
 		$form .= "
-					<p><label for=\"" . $campo['nome'] . "\" >
-					<input type=\"checkbox\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"1\" class=\"\"
-					<?php echo Uteis::verificaChecked(\$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "())?> />
-					" . $campo['nomeAmigavel'] . ":</label>";
+						<p><label for=\"" . $campo['nome'] . "\" >
+						<input type=\"checkbox\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"1\" class=\"\"
+						<?php echo Uteis::verificaChecked(\$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "())?> />
+						" . $campo['nomeAmigavel'] . ":</label>";
 
 	} elseif ($campo['tipo'] == 'date') {
 
 		$form .= "
-					<p>
-					<label>" . $campo['nomeAmigavel'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "data\" />";
+						<p>
+						<label>" . $campo['nomeAmigavel'] . ":</label>
+						<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "data\" />";
 
-	} elseif ($campo['tipo'] == 'datetime' || $campo['tipo'] == 'varchar') {
+	} elseif ($campo['tipo'] == 'datetime' || $campo['tipo'] == 'varchar' || $campo['tipo'] == 'char') {
 
 		$form .= "
-					<p>
-					<label>" . $campo['nomeAmigavel'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" />";
+						<p>
+						<label>" . $campo['nomeAmigavel'] . ":</label>
+						<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" />";
 
 	} elseif ($campo['tipo'] == 'text') {
 
 		$form .= "
-					<p>
-					<label>" . $campo['nomeAmigavel'] . ":</label>
-					<textarea name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" cols=\"60\" rows=\"4\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" ><?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?></textarea>";
+						<p>
+						<label>" . $campo['nomeAmigavel'] . ":</label>
+						<textarea name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" cols=\"60\" rows=\"4\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" ><?php echo \$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "()?></textarea>";
 
 	}
 
 	if ($campo['relac'] != 'pk') {
 		$form .= "
-					<span class=\"placeholder\" >" . ($campo['accNulo'] == 1 ? "" : "Campo obrigatório") . "</span></p>
+						<span class=\"placeholder\" >" . ($campo['accNulo'] == 1 ? "" : "Campo obrigatório") . "</span></p>
 		";
 	}
 
@@ -96,6 +94,7 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 						<p><button class=\"button blue\" 
 						onclick=\"postForm('form_<?php echo \$nomeTable ?>', '<?php echo \$acao?>')\" >Enviar</button>
 						</p>
+						
 					</div>
 				</form>
 			</fieldset>			

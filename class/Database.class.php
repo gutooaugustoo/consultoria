@@ -43,30 +43,34 @@ class Database {
 		}
 	}
 
-	function query($sql, $gravaLog = false) {
+	function query($sql, $msg = "") {
 
-		if (!($query = mysql_query($sql)))
-			$this -> mostraErr($sql);
-
-		return $query;
+		if (!($query = mysql_query($sql))){
+			//$this -> mostraErr($sql);				
+			return array(false, MSG_ERR);
+		}		
+		return array($query, $msg);
 
 	}
 
 	function mostraErr($sql = "", $soEmail = false) {
 
 		$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
-		
-		if ( EMPRESA ) {
-			$emails =  array(0 => array("email" => ENVIO_TESTE, "nome" => "Administrador"));
+
+		if (EMPRESA) {
+			$emails = array(0 => array(
+					"email" => ENVIO_TESTE,
+					"nome" => "Administrador"
+				));
 			Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);
 		}
-		
+
 		if (!$soEmail) {
-			if ( EMPRESA ) {
+			if (EMPRESA) {
 				//echo json_encode(array("mensagem" => "Erro: Nao foi possivel completar, comunique o responsavel. Nao repita a acao enquanto o erro nao for corrigido"));
 				echo "Erro: " . $mensagemErro;
-			} else {				
-				echo "Erro: ".$mensagemErro;
+			} else {
+				echo "Erro: " . $mensagemErro;
 			}
 			exit ;
 		}
@@ -83,6 +87,7 @@ class Database {
 
 	function executarQuery($sql) {
 		$result = $this -> query($sql);
+		$result = $result[0];
 		for ($i = 0; $i < $this -> numRows($result); $i++) {
 			$array[$i] = $this -> fetchArray($result);
 		}
@@ -93,10 +98,10 @@ class Database {
 	function gravarBD($texto) {
 
 		$res = mysql_real_escape_string(trim($texto));
-		
-		if( is_numeric($res) ) {
+
+		if (is_numeric($res)) {
 			return $res;
-		}elseif( is_null($res) || $res === '' ) {
+		} elseif (is_null($res) || $res === '') {
 			return "NULL";
 		} else {
 			return "'" . $res . "'";

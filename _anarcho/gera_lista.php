@@ -35,7 +35,7 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	
 	\$ordem = \$_REQUEST[\"ordem\"];
 		
-	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . "->tabela" . $tableUp . "_html(\" WHERE id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
+	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\" WHERE id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
 	\$arrayRetorno[\"tabela\"] = \$idTabela;
 	\$arrayRetorno[\"ordem\"] = \$ordem;
 	
@@ -46,10 +46,10 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 
 \$colunas = array(" . $carrega2 . "\"\");
 
-\$where = \" WHERE excluido = 0\";
+".($temExcluido ? "\$where .= \" WHERE excluido = 0\";" : "\$where .= \"\";")."
 
 Html::set_colunas(\$colunas);
-\$corpoTabela = \$" . $tableUp . "->tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
+\$corpoTabela = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
 ?>
 
 <fieldset>
