@@ -45,30 +45,6 @@ class Database {
 
 	function query($sql, $gravaLog = false) {
 
-		//GRAVAR AÇÕES DOS FUNCIONARIOS
-		if ( EMPRESA && $gravaLog) {
-
-			$Log = new Log();
-
-			$Log -> setAcao($sql);			
-			$Log -> setTb(get_class($this));
-
-			if ($_SESSION['idFuncionario_SS'])
-				$Log -> setFuncionarioIdFuncionario($_SESSION['idFuncionario_SS']);
-			if ($_SESSION['idClientePj_SS'])
-				$Log -> setClientePjIdClientePj($_SESSION['idClientePj_SS']);
-			if ($_SESSION['idClientePf_SS'])
-				$Log -> setClientePfIdClientePf($_SESSION['idClientePf_SS']);
-			if ($_SESSION['idProfessor_SS'])
-				$Log -> setProfessorIdProfessor($_SESSION['idProfessor_SS']);
-
-			if (!mysql_query($Log -> addLog()))
-				$this -> mostraErr($Log -> addLog(), true);
-
-			unset($Log);
-
-		}
-
 		if (!($query = mysql_query($sql)))
 			$this -> mostraErr($sql);
 
@@ -116,9 +92,8 @@ class Database {
 
 	function gravarBD($texto) {
 
-		$res = mysql_escape_string(trim($texto));
-		//mysql_real_escape_string
-
+		$res = mysql_real_escape_string(trim($texto));
+		
 		if( is_numeric($res) ) {
 			return $res;
 		}elseif( is_null($res) || $res === '' ) {

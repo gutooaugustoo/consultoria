@@ -6,7 +6,8 @@ foreach ($campos as $campo) {
 	//echo"<pre>";print_r($campo);echo"</pre>";
 	$attr .= "
 	protected \$" . $campo['nome'];
-	if( $campo['default'] != "" ) $attr .= " = ".(is_numeric($campo['default']) ? $campo['default'] : "\"".$campo['default']."\"");
+	if ($campo['default'] != "")
+		$attr .= " = " . (is_numeric($campo['default']) ? $campo['default'] : "\"" . $campo['default'] . "\"");
 	$attr .= ";";
 }
 
@@ -39,6 +40,7 @@ foreach ($campos as $campo) {
 	}
 
 	$sets .= "
+		return \$this;
 	}
 	";
 }
@@ -101,11 +103,14 @@ $insert .= ")\";";
 //UPDATE
 $update = "SET ";
 $x = "";
+
 foreach ($campos as $campo) {
+		
 	if ($campo['relac'] != 'pk')
 		$x .= $campo['nome'] . " = \$this->" . $campo['nome'] . ", ";
 }
 $update .= substr($x, 0, -2);
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 $conteudoArquivo = "<?php
@@ -118,7 +123,7 @@ class " . $tableUp . "_m extends Database {
 		
 		parent::__construct();
 		
-		if( \$id != \"\" ){
+		if( is_numeric(\$id) ){
 		
 			\$array = \$this->select(\" WHERE id = \".\$this->gravarBD(\$id) );			
 			" . $contruct . "
@@ -131,12 +136,11 @@ class " . $tableUp . "_m extends Database {
 	}
 		
 	//SETS
-	" . $sets . "
-	
+	" . $sets . "	
 	//GETS
 	" . $gets . "
 			
-	//INTERAÇÃO COM O BANCO
+	//MANUSEANDO O BANCO
 		
 	function insert() {
 		" . $insert . "
@@ -147,7 +151,10 @@ class " . $tableUp . "_m extends Database {
 	function delete() {
 		if( \$this->id ){
 			\$sql = \"UPDATE " . $table . " SET excluido = 1 WHERE id = \".\$this->id;
-			\$this->query(\$sql);
+			//\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this->id;
+			return \$this->query(\$sql);
+		}else{
+			return false;
 		}
 	}
 
@@ -156,14 +163,18 @@ class " . $tableUp . "_m extends Database {
 			\$sql = \"UPDATE " . $table . "
 			" . $update . "
 			WHERE id = \$this->id\";
-			\$this->query(\$sql);
+			return \$this->query(\$sql);
+		}else{
+			return false;
 		}
 	}
 	
 	function updateCampo(\$campo, \$valor) {		
 		if( \$this->id ){
 			\$sql = \"UPDATE " . $table . " SET \$campo = \".\$this->gravarBD(\$valor).\" WHERE id = \$this->id\";
-			\$this->query(\$sql);
+			return \$this->query(\$sql);
+		}else{
+			return false;
 		}
 	}
 
@@ -177,12 +188,12 @@ class " . $tableUp . "_m extends Database {
 
 $nomeArquivo = "../class/model/" . $tableUp . "_m.class.php";
 
-if( !file_exists($nomeArquivo) || $sobrescrever ) {
+if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);
 	fclose($arquivo);
-
+	$gerada['model'][] = $table;
 } else {
 	echo "Arquivo já esxiste ($nomeArquivo).<br />";
 	//exit;

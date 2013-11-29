@@ -19,6 +19,7 @@ define("CAM_UP", "/consultoria/upload/");
 define("CAM_UP_ROOT", $_SERVER['DOCUMENT_ROOT']."/consultoria/upload/");
 
 define("CAM_IMG", "/consultoria/images/");
+define("CAM_IMG2", "http://".$_SERVER['SERVER_NAME']."/consultoria/images/");
 define("CAM_CFG", "/consultoria/config/");
 define("CAM_CLASS", "/consultoria/class/");	
 define("CAM_VIEW", "/consultoria/view/");

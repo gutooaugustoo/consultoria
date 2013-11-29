@@ -49,9 +49,9 @@ foreach ($campos as $campo) {
 
 	if ($campo['relac'] != 'pk') {
 		$carrega4 .= "
-		\$" . $campo['nome'] . " = \$post['" . $campo['nome'] . "'];";
+		\$" . $campo['nome'] . " = (\$post['" . $campo['nome'] . "']);";
 
-		if (!$campo['accNulo']) {
+		if (!$campo['accNulo'] && $campo['tipo'] != 'tinyint' ) {
 			$carrega4 .= "
 		if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nome2'] . "\");";
 		}
@@ -62,14 +62,16 @@ foreach ($campos as $campo) {
 }
 
 //
-$carrega5 = "";
+$carrega5 = "
+		\$this";
 foreach ($campos as $campo) {
 
 	if ($campo['relac'] != 'pk') {
 		$carrega5 .= "
-		\$this->set_" . $campo['nome'] . "(\$" . $campo['nome'] . ");";
+			->set_" . $campo['nome'] . "(\$" . $campo['nome'] . ")";
 	}
 }
+$carrega5 .= ";";
 
 $conteudoArquivo = "<?php
 class " . $tableUp . " extends " . $tableUp . "_m {
@@ -91,19 +93,19 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 		return Html::select(\$nomeId, \$idAtual, \$array);
 	}
 	
-	function selectMultiple_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+	/*function selectMultiple_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		\$where .= \" AND excluido = 0\";
 		\$campos = array(\"id AS id\", \"primeiroCampo AS legenda\");
 		\$array = \$this->select(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
-	}
+	}*/
 	
-	function checkBox_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+	/*function checkBox_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		\$where .= \" AND excluido = 0\";
 		\$campos = array(\"id AS id\", \"primeiroCampo AS legenda\");
 		\$array = \$this->select(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
-	}
+	}*/
 			
 	function tabela_html(\$where = \"\", \$caminho = \"\", \$atualizar = \"\", \$ondeAtualizar = \"\", \$campos = array(\"*\"), \$apenasLinha = false){
 		
@@ -169,20 +171,17 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 		//SETAR" . $carrega5 . "
 		
 		if( \$id ){			
-			\$this->set_id(\$id);
-			\$this->update();
-			return array(true, MSG_CADATU);
-		}else{
-			\$id = \$this->insert();
-			return array(\$id, MSG_CADNEW);			
+			\$this->set_id(\$id);			
+			return array(\$this->update(), MSG_CADUP);
+		}else{			
+			return array(\$this->insert(), MSG_CADNEW);			
 		}
 
 	}
 		
 	function deletar(\$id) {
-		\$this->set_id(\$id);
-		\$this->delete();
-		return array(true, MSG_CADDEL);
+		\$this->set_id(\$id);	
+		return array(	\$this->delete(), MSG_CADDEL);
 	}
 	
 }
@@ -196,7 +195,7 @@ if( !file_exists($nomeArquivo) || $sobrescrever ) {
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);
 	fclose($arquivo);
-
+	$gerada['controller'][] = $table;
 } else {
 	echo "Arquivo já esxiste ($nomeArquivo).<br />";
 	//exit;

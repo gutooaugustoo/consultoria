@@ -29,7 +29,7 @@ if( \$_REQUEST['acao'] == \"deletar\" ){
 	
 	\$res = \$" . $tableUp . "->cadastrar(\$id, \$_POST);
 
-	if( \$res[0] == true ){
+	if( \$res[0] != false){
 		\$arrayRetorno['fecharNivel'] = true;			
 	}else{
 		//
@@ -53,7 +53,7 @@ if( !file_exists($nomeArquivo) || $sobrescrever ) {
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);
 	fclose($arquivo);
-
+	$gerada['acao'][] = $table;
 } else {
 	echo "Arquivo já esxiste ($nomeArquivo).<br />";
 	//exit;

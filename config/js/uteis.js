@@ -385,7 +385,7 @@ function acaoJson(val) {
 		//ATUALIZAR APENAS A LINHA
 		if (jsonR.tabela != '' && jsonR.tabela != undefined && jsonR.ordem != '' && jsonR.ordem != undefined) {
 
-			var oUpdate = $(jsonR.tabela).dataTable();
+			var oUpdate = $('#'+jsonR.tabela).dataTable();
 
 			if (jsonR.updateTr == '' || jsonR.updateTr == undefined || jsonR.updateTr == null) {
 
@@ -404,7 +404,7 @@ function acaoJson(val) {
 		if (jsonR.addLinha != undefined && jsonR.addLinha == true) {
 			if (jsonR.tabela != '' && jsonR.tabela != undefined && jsonR.updateTr != '' && jsonR.updateTr != undefined) {
 
-				var oTb = $(jsonR.tabela).dataTable();
+				var oTb = $('#'+jsonR.tabela).dataTable();
 				var a = oTb.fnAddData(jsonR.updateTr);
 				var oRow = oTb.fnSettings().aoData[a[0]].nTr;
 

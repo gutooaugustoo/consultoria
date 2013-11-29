@@ -1,5 +1,4 @@
 <?php
-//PASTAS
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php";
 ?>
 
@@ -20,7 +19,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/js.php");
 <div id="divs_jquery"> </div>
 <div id="cssmenu">
   <?php require_once "menu.php"?>
-  <font onclick="carregarModulo('<?php echo CAM_VIEW."modelo/lista.php" ?>', '#centro')">ABRIR TESTE</font>
+  <!-- <font onclick="carregarModulo('<?php echo CAM_VIEW."tabela/lista.php" ?>', '#centro')">ABRIR TESTE</font> -->
 </div>
 <div id="alertas"></div>
 <div id="centro"></div>

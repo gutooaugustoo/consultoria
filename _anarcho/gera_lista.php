@@ -77,7 +77,7 @@ if( !file_exists($nomeArquivo) || $sobrescrever ) {
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);
 	fclose($arquivo);
-
+	$gerada['lista'][] = $table;
 } else {
 	echo "Arquivo já esxiste ($nomeArquivo).<br />";
 	//exit;

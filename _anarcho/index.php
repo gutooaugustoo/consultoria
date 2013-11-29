@@ -113,7 +113,7 @@ $_POST["database"] = "consultoria";
   </form>
   
 <?php if ($_POST["table"]) {?>	
-   <p><input type="submit" id="gerar" name="gerar" value="Gerar códigos" onclick="postForm('geraCodigo', 'geraCod.php', '#res')" />   
+   <p><input type="submit" id="gerar" name="gerar" value="Gerar códigos" onclick="postForm('geraCodigo', '_gerador.php', '#res')" />   
    </p>
    <div id="res"></div>
 <?php } ?>

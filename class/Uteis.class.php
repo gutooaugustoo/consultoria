@@ -149,7 +149,7 @@ class Uteis {
 								<tbody>
 									<tr>
 										<td style=\"text-align: center\"> 
-											<img src=\"" . CAMINHO_IMG2 . "_cabecalho.png\" />
+											<img src=\"" . CAM_IMG2 . "_cabecalho.png\" />
 										</td>
 									</tr>
 								</tbody>
@@ -173,7 +173,7 @@ class Uteis {
 						<tr>
 							<td class=\"rodape\">
 							<a href=\"http://www.companhiadeidiomas.com.br\" target=\"_blank\">							
-							<img alt=\"Companhia de Idiomas\" border=\"0\" src=\"" . CAMINHO_IMG2 . "_rodape.png\" /></a>
+							<img alt=\"Companhia de Idiomas\" border=\"0\" src=\"" . CAM_IMG2 . "_rodape.png\" /></a>
 							</td>
 						</tr>
 					</tbody>
@@ -232,7 +232,7 @@ class Uteis {
 	//EXECUTAR UMA QUERY NO BANCO
 	static function executarQuery($sql) {
 		$Database = new Database();
-		return $Database -> executeQuery($sql);
+		return $Database -> executarQuery($sql);
 	}
 
 	//HORAS EM INT (converte para minutos)
@@ -403,7 +403,7 @@ class Uteis {
 	//STATUS DO CADASTRO (ativo ou inativo)
 	static function exibirStatus($bool, $mostraImg = true) {
 		if ($mostraImg)
-			return "<img src=\"" . CAMINHO_IMG . ($bool ? "ativo" : "inativo") . ".png\" >";
+			return "<img src=\"" . CAM_IMG . ($bool ? "ativo" : "inativo") . ".png\" >";
 		else
 			return ($bool ? "Sim" : "Não");
 	}
@@ -429,7 +429,7 @@ class Uteis {
 			elseif ($status == "3")
 				$res = "inativo.png";
 
-			return $res ? "<img src=\"" . CAMINHO_IMG . $res . "\" title=\"$legenda\" >" : "";
+			return $res ? "<img src=\"" . CAM_IMG . $res . "\" title=\"$legenda\" >" : "";
 
 		} else {
 

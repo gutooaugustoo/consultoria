@@ -1,33 +1,33 @@
 <?php
 include 'config.php';
 
-function separaString($string){
-		
+function separaString($string) {
+
 	$array = str_split($string);
 	$srting_final = "";
 	$proximoMaiuscula = TRUE;
-	
+
 	foreach ($array as $key => $value) {
-		
-		if( $proximoMaiuscula ){
+
+		if ($proximoMaiuscula) {
 			$value = strtoupper($value);
 			$proximoMaiuscula = FALSE;
 		}
-				
-		if( $value == "_" || $value == "-" ){
-			$value = " ";			
-			$proximoMaiuscula = TRUE;			
+
+		if ($value == "_" || $value == "-") {
+			$value = " ";
+			$proximoMaiuscula = TRUE;
 		}
-		
-		if( ctype_upper($value) ) {			
+
+		if (ctype_upper($value)) {
 			$value = " $value";
 		}
-					
+
 		$srting_final .= $value;
 	}
-	
+
 	return $srting_final;
-	
+
 }
 
 if ($_POST["table"]) {
@@ -42,7 +42,7 @@ if ($_POST["table"]) {
 			//print_r($row);exit;
 			if ($row['Field'] != 'dataCadastro' && $row['Field'] != 'excluido') {
 				$campos[$j]['nome'] = $row['Field'];
-				$campos[$j]['nome2'] = separaString($row['Field']);				
+				$campos[$j]['nome2'] = separaString($row['Field']);
 				$campos[$j]['tipo'] = str_replace(array(
 					"(",
 					")",
@@ -68,32 +68,37 @@ if ($_POST["table"]) {
 
 		if (isset($_POST["classm"])) {
 
-			include 'geraClassM.php';
+			include 'gera_model.php';
 		}
 
 		if (isset($_POST["class"])) {
 
-			include 'geraClass.php';
+			include 'gera_controller.php';
 		}
 
 		if (isset($_POST["lista"])) {
 
-			include 'geraLista.php';
+			include 'gera_lista.php';
 		}
 
 		if (isset($_POST["form"])) {
 
-			include 'geraForm.php';
+			include 'gera_form.php';
 		}
 
 		if (isset($_POST["acao"])) {
 
-			include 'geraAcao.php';
+			include 'gera_acao.php';
 		}
 
 	}
-	echo "Códigos gerados com sucesso - " . date('d/m/Y H:i:s');
+	echo "<b>Códigos gerados com sucesso - " . date('d/m/Y H:i:s')."</b>";
+	
+	foreach ($gerada as $key => $value) {		
+		echo "<li>".$key." - ".implode(", ", $value)."</li>";
+	}
+	
 } else {
 	echo "Nenhuma tabel foi selecionada";
-	
+
 }
