@@ -23,6 +23,5 @@ function __autoload($class) {
 }
 
 $conn= mysql_pconnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASS) or exit( mysql_error() );
-$sobrescrever = true;
 
 ?>

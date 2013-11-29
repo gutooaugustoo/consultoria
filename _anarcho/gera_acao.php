@@ -6,13 +6,13 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
 \$" . $tableUp . " = new " . $tableUp . "();
 
-\$id = \$_REQUEST['id'];
-
 \$arrayRetorno = array();
 
 if( \$_REQUEST['acao'] == \"deletar\" ){
-
-	\$res = \$" . $tableUp . "->deletar(\$id);
+		
+	\$id" . $tableUp . " = \$_REQUEST['id'];
+	
+	\$res = \$" . $tableUp . "->deletar" . $tableUp . "(\$id" . $tableUp . ");
 	
 	if( \$res[0] === true ){
 		
@@ -26,8 +26,10 @@ if( \$_REQUEST['acao'] == \"deletar\" ){
 	}
 	
 }elseif( \$_REQUEST['acao'] == \"cadastrar\" ){
+		
+	\$id" . $tableUp . " = \$_REQUEST['id" . $tableUp . "'];
 	
-	\$res = \$" . $tableUp . "->cadastrar(\$id, \$_POST);
+	\$res = \$" . $tableUp . "->cadastrar" . $tableUp . "(\$id" . $tableUp . ", \$_POST);
 
 	if( \$res[0] != false){
 		\$arrayRetorno['fecharNivel'] = true;			
@@ -48,7 +50,7 @@ if (!file_exists($pathname))
 	mkdir($pathname, 0700);
 $nomeArquivo = $pathname . "/acao.php";
 
-if( !file_exists($nomeArquivo) || $sobrescrever ) {
+if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);

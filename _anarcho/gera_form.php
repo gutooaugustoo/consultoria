@@ -8,55 +8,55 @@ foreach ($campos as $campo) {
 	if ($campo['relac'] == 'pk') {
 
 		$form .= "
-					<input type=\"hidden\" id=\"" . $campo['nome'] . "\" name=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $campo['nome'] . " ?>\" />
+					<input type=\"hidden\" id=\"" . $campo['nomeComTabela'] . "\" name=\"" . $campo['nomeComTabela'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "() ?>\" />
 		";
 
 	} elseif ($campo['relac'] == 'fk') {
 
 		$form .= "
 					<p>
-					<label>" . $campo['nome2'] . ":</label>
+					<label>" . $campo['nomeAmigavel'] . ":</label>
 					<?php 
 					\$Fk = new \$Fk();" . ($campo['accNulo'] == 1 ? "" : "
 					Html::set_cssClass(array(\"required\"));") . "
-					echo \$Fk->select_html('" . $campo['nome'] . "', \$" . $tableUp . "->get_" . $campo['nome'] . "());
+					echo \$Fk->select" . $tableUp . "_html('" . $campo['nome'] . "', \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "());
 					?>";
 
 	} elseif ($campo['tipo'] == 'int' || $campo['tipo'] == 'double') {
 
 		$form .= "
 					<p>
-					<label>" . $campo['nome2'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nome'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "numeric\" />";
+					<label>" . $campo['nomeAmigavel'] . ":</label>
+					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "numeric\" />";
 
 	} elseif ($campo['tipo'] == 'tinyint') {
 
 		$form .= "
 					<p><label for=\"" . $campo['nome'] . "\" >
 					<input type=\"checkbox\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"1\" class=\"\"
-					<?php echo Uteis::verificaChecked(\$" . $tableUp . "->get_" . $campo['nome'] . "())?> />
-					" . $campo['nome2'] . ":</label>";
+					<?php echo Uteis::verificaChecked(\$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "())?> />
+					" . $campo['nomeAmigavel'] . ":</label>";
 
 	} elseif ($campo['tipo'] == 'date') {
 
 		$form .= "
 					<p>
-					<label>" . $campo['nome2'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nome'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "data\" />";
+					<label>" . $campo['nomeAmigavel'] . ":</label>
+					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required ") . "data\" />";
 
 	} elseif ($campo['tipo'] == 'datetime' || $campo['tipo'] == 'varchar') {
 
 		$form .= "
 					<p>
-					<label>" . $campo['nome2'] . ":</label>
-					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nome'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" />";
+					<label>" . $campo['nomeAmigavel'] . ":</label>
+					<input type=\"text\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"<?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?>\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" />";
 
 	} elseif ($campo['tipo'] == 'text') {
 
 		$form .= "
 					<p>
-					<label>" . $campo['nome2'] . ":</label>
-					<textarea name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" cols=\"60\" rows=\"4\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" ><?php echo \$" . $tableUp . "->get_" . $campo['nome'] . "()?></textarea>";
+					<label>" . $campo['nomeAmigavel'] . ":</label>
+					<textarea name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" cols=\"60\" rows=\"4\" class=\"" . ($campo['accNulo'] == 1 ? "" : "required") . "\" ><?php echo \$" . $tableUp . "->get_" . $campo['nomeComTabela'] . "()?></textarea>";
 
 	}
 
@@ -70,9 +70,9 @@ foreach ($campos as $campo) {
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
-\$id = \$_REQUEST[\"id\"];
+\$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
 
-\$" . $tableUp . " = new " . $tableUp . "(\$id);
+\$" . $tableUp . " = new " . $tableUp . "(\$id" . $tableUp . ");
 
 \$nomeTable = \"" . ($table) . "\";
 \$legendForm = \"" . ($tabelaNome) . "\";
@@ -110,8 +110,7 @@ if (!file_exists($pathname))
 	mkdir($pathname, 0700);
 $nomeArquivo = $pathname . "/form.php";
 
-if( !file_exists($nomeArquivo) || $sobrescrever ) {
-
+if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);

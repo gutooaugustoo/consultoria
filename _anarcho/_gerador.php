@@ -42,7 +42,8 @@ if ($_POST["table"]) {
 			//print_r($row);exit;
 			if ($row['Field'] != 'dataCadastro' && $row['Field'] != 'excluido') {
 				$campos[$j]['nome'] = $row['Field'];
-				$campos[$j]['nome2'] = separaString($row['Field']);
+				$campos[$j]['nomeAmigavel'] = separaString($row['Field']);
+				$campos[$j]['nomeComTabela'] = $row['Field'].ucfirst($table);
 				$campos[$j]['tipo'] = str_replace(array(
 					"(",
 					")",
@@ -65,6 +66,7 @@ if ($_POST["table"]) {
 			}
 		}
 		//echo"<pre>";print_r($campos);echo"</pre>";
+		$sobrescrever = $_POST["sobrescrever"];
 
 		if (isset($_POST["classm"])) {
 
@@ -81,7 +83,7 @@ if ($_POST["table"]) {
 			include 'gera_lista.php';
 		}
 
-		if (isset($_POST["form"])) {
+		if (isset($_POST["formulario"])) {
 
 			include 'gera_form.php';
 		}

@@ -84,6 +84,11 @@ $_POST["database"] = "consultoria";
 					
 					<p>Gerar códigos da(s) tabela(s): <b><?php foreach($_POST["table"] as $table_post) echo "<li>$table_post</li>"?></b></p>
 					
+					<p><label for="sobrescrever">
+					<input type="checkbox" name="sobrescrever" id="sobrescrever" value="1" <?php echo isset($_POST["sobrescrever"]) ? "checked" : ""?>  />
+          Sobrescrever arquivos:</label></p>
+          
+          
 					<label for="classm">
 					<input type="checkbox" name="classm" id="classm" value="1" <?php echo isset($_POST["classm"]) ? "checked" : ""?>  />
           Class model:</label>
@@ -96,8 +101,8 @@ $_POST["database"] = "consultoria";
 					<input type="checkbox" name="lista" id="lista" value="1" <?php echo isset($_POST["lista"]) ? "checked" : ""?> />
           Lista:</label>
           
-          <label for="form">
-					<input type="checkbox" name="form" id="form" value="1" <?php echo isset($_POST["form"]) ? "checked" : ""?> />
+          <label for="formulario">
+					<input type="checkbox" name="formulario" id="formulario" value="1" <?php echo isset($_POST["formulario"]) ? "checked" : ""?> />
           Form:</label>
           
           <label for="acao">

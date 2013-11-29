@@ -4,7 +4,7 @@ $tableUp = ucfirst($table);
 $carrega = "";
 foreach ($campos as $campo) {
 	$carrega .= "
-				\$this->" . $campo['nome'] . " = \$iten['" . $campo['nome'] . "'];";
+				\$this->" . $campo['nomeComTabela'] . " = \$iten['" . $campo['nome'] . "'];";
 }
 
 //
@@ -15,28 +15,10 @@ foreach ($campos as $campo) {
 
 		if ($campo['tipo'] == 'double' || $campo['tipo'] == 'tinyint') {
 			$carrega2 .= "
-					\$linha[] = \$this->get_" . $campo['nome'] . "(true);";
+				\$colunas[] = \$this->get_" . $campo['nomeComTabela'] . "(true);";
 		} else {
 			$carrega2 .= "
-					\$linha[] = \$this->get_" . $campo['nome'] . "();";
-		}
-
-	}
-
-}
-
-//
-$carrega3 = "";
-foreach ($campos as $campo) {
-
-	if ($campo['relac'] != 'pk') {
-
-		if ($campo['tipo'] == 'double' || $campo['tipo'] == 'tinyint') {
-			$carrega3 .= "
-					\$html .= \"<td>\".\$this->get_" . $campo['nome'] . "(true).\"</td>\";";
-		} else {
-			$carrega3 .= "
-					\$html .= \"<td>\".\$this->get_" . $campo['nome'] . "().\"</td>\";";
+				\$colunas[] = \$this->get_" . $campo['nomeComTabela'] . "();";
 		}
 
 	}
@@ -51,9 +33,9 @@ foreach ($campos as $campo) {
 		$carrega4 .= "
 		\$" . $campo['nome'] . " = (\$post['" . $campo['nome'] . "']);";
 
-		if (!$campo['accNulo'] && $campo['tipo'] != 'tinyint' ) {
+		if (!$campo['accNulo'] && $campo['tipo'] != 'tinyint') {
 			$carrega4 .= "
-		if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nome2'] . "\");";
+		if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nomeAmigavel'] . "\");";
 		}
 		$carrega4 .= "
 		";
@@ -68,7 +50,7 @@ foreach ($campos as $campo) {
 
 	if ($campo['relac'] != 'pk') {
 		$carrega5 .= "
-			->set_" . $campo['nome'] . "(\$" . $campo['nome'] . ")";
+			->set_" . $campo['nomeComTabela'] . "(\$" . $campo['nome'] . ")";
 	}
 }
 $carrega5 .= ";";
@@ -77,8 +59,8 @@ $conteudoArquivo = "<?php
 class " . $tableUp . " extends " . $tableUp . "_m {
 		
 	//CONSTRUTOR
-	function __construct(\$id) {
-		parent::__construct(\$id);	
+	function __construct(\$id" . $tableUp . ") {
+		parent::__construct(\$id" . $tableUp . ");	
 	}
 
 	function __destruct(){
@@ -86,102 +68,96 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 	}
 
 	//GERAR ELEMENTOS
-	function select_html(\$nomeId, \$idAtual = \"\", \$where = \"WHERE 1 \") {
+	function select" . $tableUp . "_html(\$nomeId, \$idAtual = \"\", \$where = \"WHERE 1 \") {
 		\$where .= \" AND excluido = 0\";
 		\$campos = array(\"id AS id\", \"primeiroCampo AS legenda\");
-		\$array = \$this->select(\$where, \$campos);
+		\$array = \$this->select" . $tableUp . "(\$where, \$campos);
 		return Html::select(\$nomeId, \$idAtual, \$array);
 	}
 	
-	/*function selectMultiple_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+	/*function selectMultiple" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		\$where .= \" AND excluido = 0\";
 		\$campos = array(\"id AS id\", \"primeiroCampo AS legenda\");
-		\$array = \$this->select(\$where, \$campos);
+		\$array = \$this->select" . $tableUp . "(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
 	}*/
 	
-	/*function checkBox_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+	/*function checkBox" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		\$where .= \" AND excluido = 0\";
 		\$campos = array(\"id AS id\", \"primeiroCampo AS legenda\");
-		\$array = \$this->select(\$where, \$campos);
+		\$array = \$this->select" . $tableUp . "(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
 	}*/
 			
-	function tabela_html(\$where = \"\", \$caminho = \"\", \$atualizar = \"\", \$ondeAtualizar = \"\", \$campos = array(\"*\"), \$apenasLinha = false){
-		
-		\$html = \"\";
-		\$cont = 0;
+	function tabela" . $tableUp . "_html(\$where = \"\", \$caminho = \"\", \$atualizar = \"\", \$ondeAtualizar = \"\", \$campos = array(\"*\"), \$apenasLinha = false){
 			
-		\$array = \$this->select(\$where, \$campos);
+		\$array = \$this->select" . $tableUp . "(\$where, \$campos);
 		
 		if( \$array ){
-			
-			\$html .= \"<tbody>\";
+				
+			\$cont = 0;				
+			\$linha = array();
 						
-			foreach(\$array as \$iten){				
+			foreach(\$array as \$iten){
+					
+				\$colunas = array();				
 				" . $carrega . "
 				
 				\$ordem = ( \$apenasLinha !== false ) ? \$apenasLinha : \$cont++;				
 				
 				\$urlAux = \"?ordem=\".\$ordem.\"&tabela=\".Html::get_idTabela();
 				
-				\$atualizarFinal = \$atualizar.\$urlAux.\"&tr=1&id=\".\$this->id;
+				\$atualizarFinal = \$atualizar.\$urlAux.\"&tr=1&id" . $tableUp . "=\".\$this->id" . $tableUp . ";
 						
-				\$editar = \"<img src=\\\"\".CAM_IMG.\"editar.png\\\" title=\\\"Editar registro\\\" onclick=\\\"abrirNivelPagina(this, '\".\$caminho.\"form.php?id=\".\$this->id.\"', '\$atualizarFinal', '\$ondeAtualizar')\\\" >\";
+				\$editar = \"<img src=\\\"\".CAM_IMG.\"editar.png\\\" title=\\\"Editar registro\\\" onclick=\\\"abrirNivelPagina(this, '\".\$caminho.\"form.php?id" . $tableUp . "=\".\$this->id" . $tableUp . ".\"', '\$atualizarFinal', '\$ondeAtualizar')\\\" >\";
 				
-				\$deletar = \"<img src=\\\"\".CAM_IMG.\"excluir.png\\\" title=\\\"Excluir registro\\\" onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php\".\$urlAux.\"', '\".\$this->id.\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";
-								
+				\$deletar = \"<img src=\\\"\".CAM_IMG.\"excluir.png\\\" title=\\\"Excluir registro\\\" onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php\".\$urlAux.\"', '\".\$this->id" . $tableUp . ".\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";							
+				" . $carrega2 . "
+							
 				if( \$apenasLinha !== false ){
-
-					\$linha = array();
-					" . $carrega2 . "
-					
-					\$linha[] = \$editar;
-					\$linha[] = \$deletar;
-										
+						
+					\$colunas[] = implode(ICON_SEPARATOR, array(
+						\$editar,
+						\$deletar
+					));									
 					break;
 					
 				}else{
-
-					\$html .= \"<tr>\";
-					" . $carrega3 . "
-					
-					\$html .= \"<td align=\\\"center\\\" >\$editar</td>\";					
-					\$html .= \"<td align=\\\"center\\\" >\$deletar</td>\";
 						
-					
-					\$html .= \"</tr>\";
+					\$colunas[] = array(
+						\$editar,
+						\$deletar
+					);
+					\$linhas[] = \$colunas;
 					
 				}
 								
 			}
-			
-			\$html .= \"</tbody>\";
-			
+	
 		}		
 	
-		return ( \$apenasLinha !== false ) ? \$linha : Html::montarColunas(\$html, 2);
+		return ( \$apenasLinha !== false ) ? \$colunas : Html::montarColunas(\$linhas);
 		
 	}
 	
 	//AÇÕES
-	function cadastrar(\$id, \$post = array()){
+	function cadastrar" . $tableUp . "(\$id" . $tableUp . ", \$post = array()){
 		
 		//CARREGAR DO POST" . $carrega4 . "		
 		//SETAR" . $carrega5 . "
 		
-		if( \$id ){			
-			\$this->set_id(\$id);			
-			return array(\$this->update(), MSG_CADUP);
+		if( \$id" . $tableUp . " ){			
+			\$this->set_id" . $tableUp . "(\$id" . $tableUp . ");			
+			return array(\$this->update" . $tableUp . "(), MSG_CADUP);
 		}else{			
-			return array(\$this->insert(), MSG_CADNEW);			
+			return array(\$this->insert" . $tableUp . "(), MSG_CADNEW);			
 		}
 
 	}
 		
-	function deletar(\$id) {
-		\$this->set_id(\$id);	
-		return array(	\$this->delete(), MSG_CADDEL);
+	function deletar" . $tableUp . "(\$id" . $tableUp . ") {
+		\$this->set_id" . $tableUp . "(\$id" . $tableUp . ");	
+		return array(	\$this->delete" . $tableUp . "(), MSG_CADDEL);
 	}
 	
 }
@@ -190,7 +166,7 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 
 $nomeArquivo = "../class/controller/" . $tableUp . ".class.php";
 
-if( !file_exists($nomeArquivo) || $sobrescrever ) {
+if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);

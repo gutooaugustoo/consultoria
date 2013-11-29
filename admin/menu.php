@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php";
 $Modulo = new Modulo();
-$Funcionario = new Funcionario($_SESSION["idFuncionario"]);
+//$Funcionario = new Funcionario($_SESSION["idFuncionario"]);
 ?>
 
 <ul>

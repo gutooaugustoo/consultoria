@@ -5,7 +5,7 @@ $attr = "";
 foreach ($campos as $campo) {
 	//echo"<pre>";print_r($campo);echo"</pre>";
 	$attr .= "
-	protected \$" . $campo['nome'];
+	protected \$" . $campo['nomeComTabela'];
 	if ($campo['default'] != "")
 		$attr .= " = " . (is_numeric($campo['default']) ? $campo['default'] : "\"" . $campo['default'] . "\"");
 	$attr .= ";";
@@ -15,28 +15,28 @@ foreach ($campos as $campo) {
 $contruct = "";
 foreach ($campos as $campo) {
 	$contruct .= "
-			\$this->" . $campo['nome'] . " = \$array[0]['" . $campo['nome'] . "'];";
+			\$this->" . $campo['nomeComTabela'] . " = \$array[0]['" . $campo['nome'] . "'];";
 }
 
 //SETS
 $sets = "";
 foreach ($campos as $campo) {
 	$sets .= "
-	function set_" . $campo['nome'] . "(\$valor) {
+	function set_" . $campo['nomeComTabela'] . "(\$valor) {
 		";
 
 	if ($campo['tipo'] == 'int') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"NULL\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"NULL\";";
 	} elseif ($campo['tipo'] == 'double') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarMoeda(\$valor)) : \"0\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarMoeda(\$valor)) : \"0\";";
 	} elseif ($campo['tipo'] == 'tinyint') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"0\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"0\";";
 	} elseif ($campo['tipo'] == 'date') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarData(\$valor)) : \"NULL\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarData(\$valor)) : \"NULL\";";
 	} elseif ($campo['tipo'] == 'datetime') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarDataHora(\$valor)) : \"NULL\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(Uteis::gravarDataHora(\$valor)) : \"NULL\";";
 	} elseif ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
-		$sets .= "\$this->" . $campo['nome'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"NULL\";";
+		$sets .= "\$this->" . $campo['nomeComTabela'] . " = (\$valor) ? \$this->gravarBD(\$valor) : \"NULL\";";
 	}
 
 	$sets .= "
@@ -50,7 +50,7 @@ $gets = "";
 foreach ($campos as $campo) {
 
 	$gets .= "
-	function get_" . $campo['nome'] . "";
+	function get_" . $campo['nomeComTabela'] . "";
 
 	if ($campo['tipo'] == 'double') {
 		$gets .= "(\$formatarMoeda = false) {
@@ -64,17 +64,17 @@ foreach ($campos as $campo) {
 	}
 
 	if ($campo['tipo'] == 'int') {
-		$gets .= "return (\$this->" . $campo['nome'] . ");";
+		$gets .= "return (\$this->" . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'double') {
-		$gets .= "return !\$formatarMoeda ? Uteis::exibirMoeda(\$this->" . $campo['nome'] . ") : \"R\$ \".Uteis::formatarMoeda(\$this->" . $campo['nome'] . ");";
+		$gets .= "return !\$formatarMoeda ? Uteis::exibirMoeda(\$this->" . $campo['nomeComTabela'] . ") : \"R\$ \".Uteis::formatarMoeda(\$this->" . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'tinyint') {
-		$gets .= "return !\$mostrarImagem ? \$this->" . $campo['nome'] . " : Uteis::exibirStatus(\$this->" . $campo['nome'] . ");";
+		$gets .= "return !\$mostrarImagem ? \$this->" . $campo['nomeComTabela'] . " : Uteis::exibirStatus(\$this->" . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'date') {
-		$gets .= "if( \$this->" . $campo['nome'] . " ) return Uteis::exibirData(\$this->" . $campo['nome'] . ");";
+		$gets .= "if( \$this->" . $campo['nomeComTabela'] . " ) return Uteis::exibirData(\$this->" . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'datetime') {
-		$gets .= "if( \$this->" . $campo['nome'] . " ) return Uteis::exibirDataHora(\$this->" . $campo['nome'] . ");";
+		$gets .= "if( \$this->" . $campo['nomeComTabela'] . " ) return Uteis::exibirDataHora(\$this->" . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
-		$gets .= "return (\$this->" . $campo['nome'] . ");";
+		$gets .= "return (\$this->" . $campo['nomeComTabela'] . ");";
 	}
 
 	$gets .= "
@@ -95,7 +95,7 @@ $insert .= ")
 $x = "";
 foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
-		$x .= "\$this->" . $campo['nome'] . ", ";
+		$x .= "\$this->" . $campo['nomeComTabela'] . ", ";
 }
 $insert .= substr($x, 0, -2);
 $insert .= ")\";";
@@ -105,12 +105,11 @@ $update = "SET ";
 $x = "";
 
 foreach ($campos as $campo) {
-		
+
 	if ($campo['relac'] != 'pk')
-		$x .= $campo['nome'] . " = \$this->" . $campo['nome'] . ", ";
+		$x .= $campo['nome'] . " = \$this->" . $campo['nomeComTabela'] . ", ";
 }
 $update .= substr($x, 0, -2);
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 $conteudoArquivo = "<?php
@@ -119,13 +118,13 @@ class " . $tableUp . "_m extends Database {
 	// ATRIBUTOS" . $attr . "
 	
 	//CONSTRUTOR
-	function __construct( \$id = \"\" ) {
+	function __construct( \$id" . $tableUp . " = \"\" ) {
 		
 		parent::__construct();
 		
-		if( is_numeric(\$id) ){
+		if( is_numeric(\$id" . $tableUp . ") ){
 		
-			\$array = \$this->select(\" WHERE id = \".\$this->gravarBD(\$id) );			
+			\$array = \$this->select" . $tableUp . "(\" WHERE id = \".\$this->gravarBD(\$id" . $tableUp . ") );			
 			" . $contruct . "
 			
 		}
@@ -142,43 +141,43 @@ class " . $tableUp . "_m extends Database {
 			
 	//MANUSEANDO O BANCO
 		
-	function insert() {
+	function insert" . $tableUp . "() {
 		" . $insert . "
 		\$result = \$this->query(\$sql);
 		return mysql_insert_id(\$this->connect);
 	}
 	
-	function delete() {
-		if( \$this->id ){
-			\$sql = \"UPDATE " . $table . " SET excluido = 1 WHERE id = \".\$this->id;
-			//\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this->id;
+	function delete" . $tableUp . "() {
+		if( \$this->id" . $tableUp . " ){
+			\$sql = \"UPDATE " . $table . " SET excluido = 1 WHERE id = \".\$this->id" . $tableUp . ";
+			//\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this->id" . $tableUp . ";
 			return \$this->query(\$sql);
 		}else{
 			return false;
 		}
 	}
 
-	function update() {
-		if( \$this->id ){
+	function update" . $tableUp . "() {
+		if( \$this->id" . $tableUp . " ){
 			\$sql = \"UPDATE " . $table . "
 			" . $update . "
-			WHERE id = \$this->id\";
+			WHERE id = \$this->id" . $tableUp . "\";
 			return \$this->query(\$sql);
 		}else{
 			return false;
 		}
 	}
 	
-	function updateCampo(\$campo, \$valor) {		
-		if( \$this->id ){
-			\$sql = \"UPDATE " . $table . " SET \$campo = \".\$this->gravarBD(\$valor).\" WHERE id = \$this->id\";
+	function updateCampo" . $tableUp . "(\$campo, \$valor) {		
+		if( \$this->id" . $tableUp . " ){
+			\$sql = \"UPDATE " . $table . " SET \$campo = \".\$this->gravarBD(\$valor).\" WHERE id = \$this->id" . $tableUp . "\";
 			return \$this->query(\$sql);
 		}else{
 			return false;
 		}
 	}
 
-	function select(\$where = \"\", \$campos = array(\"*\") ) {	
+	function select" . $tableUp . "(\$where = \"\", \$campos = array(\"*\") ) {	
 		\$sql = \"SELECT SQL_CACHE \".implode(\",\", \$campos).\" FROM " . $table . " \".\$where;
 		return \$this->executarQuery(\$sql);
 	}

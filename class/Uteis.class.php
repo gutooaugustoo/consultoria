@@ -403,7 +403,7 @@ class Uteis {
 	//STATUS DO CADASTRO (ativo ou inativo)
 	static function exibirStatus($bool, $mostraImg = true) {
 		if ($mostraImg)
-			return "<img src=\"" . CAM_IMG . ($bool ? "ativo" : "inativo") . ".png\" >";
+			return "<img src=\"" . CAM_IMG . ($bool ? "ativo" : "inativo") . ".png\" />";
 		else
 			return ($bool ? "Sim" : "Não");
 	}
@@ -429,7 +429,7 @@ class Uteis {
 			elseif ($status == "3")
 				$res = "inativo.png";
 
-			return $res ? "<img src=\"" . CAM_IMG . $res . "\" title=\"$legenda\" >" : "";
+			return $res ? "<img src=\"" . CAM_IMG . $res . "\" title=\"$legenda\" />" : "";
 
 		} else {
 

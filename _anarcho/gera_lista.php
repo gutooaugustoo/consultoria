@@ -10,13 +10,13 @@ foreach ($campos as $campo) {
 $carrega2 = "";
 foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
-		$carrega2 .= "\"" . $campo['nome2'] . "\", ";
+		$carrega2 .= "\"" . $campo['nomeAmigavel'] . "\", ";
 }
 
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
-\$id = \$_REQUEST[\"id\"];
+\$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
 
 \$" . $tableUp . " = new " . $tableUp . "();
 
@@ -35,7 +35,7 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	
 	\$ordem = \$_REQUEST[\"ordem\"];
 		
-	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . "->tabela_html(\" WHERE id = \$id\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
+	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . "->tabela" . $tableUp . "_html(\" WHERE id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
 	\$arrayRetorno[\"tabela\"] = \$idTabela;
 	\$arrayRetorno[\"ordem\"] = \$ordem;
 	
@@ -44,12 +44,12 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	
 }
 
-\$colunas = array(" . $carrega2 . ");
+\$colunas = array(" . $carrega2 . "\"\");
 
 \$where = \" WHERE excluido = 0\";
 
 Html::set_colunas(\$colunas);
-\$corpoTabela = \$" . $tableUp . "->tabela_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
+\$corpoTabela = \$" . $tableUp . "->tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
 ?>
 
 <fieldset>
@@ -72,7 +72,7 @@ if (!file_exists($pathname))
 	mkdir($pathname, 0700);
 $nomeArquivo = $pathname . "/lista.php";
 
-if( !file_exists($nomeArquivo) || $sobrescrever ) {
+if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudoArquivo);
