@@ -5,12 +5,12 @@ $idEstadocivil = $_REQUEST["idEstadocivil"];
 
 $Estadocivil = new Estadocivil();
 
-$idTabela = "tb_estadocivil";
-$campos = array("id", "nome", );
-
 $caminho = CAM_VIEW."estadocivil/";
 $atualizar = CAM_VIEW."estadocivil/lista.php";
 $ondeAtualizar = "tr";	
+
+$idTabela = "tb_estadocivil";
+$campos = array("E.id", "E.nome", );
 
 Html::set_idTabela($idTabela);
 
@@ -29,24 +29,29 @@ if( $_REQUEST["tr"] == "1" ){
 	
 }
 
-$colunas = array("Nome", "");
+$where .= " WHERE 1 ";
 
-$where .= "";
+$colunas = array("Nome", "");
 
 Html::set_colunas($colunas);
 $corpoTabela = $Estadocivil -> tabelaEstadocivil_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
+
 ?>
 
 <fieldset>
   <legend>Estadocivil</legend>
+  
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-	onclick="abrirNivelPagina(this, '<?php echo $caminho."form.php"?>', '<?php echo $atualizar?>', '#centro')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."form.php"?>', '<?php echo $atualizar?>', '#centro')" /> 
   </div>
-  <div class="lista"> 
-  	<?php echo $corpoTabela?>      
-  </div>
+  
+  <div class="lista">
+		<?php echo $corpoTabela;?>
+	</div>
+	
+	<script>
+	tabelaDataTable('<?php echo $idTabela?>', 'simples');
+	</script>
+	   	      
 </fieldset>
-<script>
-tabelaDataTable('<?php echo $idTabela?>', '');
-</script> 

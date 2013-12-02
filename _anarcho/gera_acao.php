@@ -1,6 +1,4 @@
 <?php
-$tableUp = ucfirst($table);
-
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 

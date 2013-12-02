@@ -12,21 +12,21 @@ class Pessoa extends Pessoa_m {
 
 	//GERAR ELEMENTOS
 	function selectPessoa_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
-		$where .= " AND excluido = 0";
+		$where .= " AND P.excluido = 0";
 		$campos = array("id", "documento AS legenda");
 		$array = $this -> selectPessoa($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultiplePessoa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
-		$where .= " AND excluido = 0";
+	function selectMultiplePessoa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+		$where .= " AND P.excluido = 0";
 		$campos = array("id", "documento AS legenda");
 		$array = $this -> selectPessoa($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxPessoa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
-		$where .= " AND excluido = 0";
+		$where .= " AND P.excluido = 0";
 		$campos = array("id", "documento AS legenda");
 		$array = $this -> selectPessoa($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
@@ -49,11 +49,11 @@ class Pessoa extends Pessoa_m {
 				$this -> __construct($iten['id']); 				
 				
 				$Pais = new Pais( $this -> get_pais_idPessoa() );
-					$colunas[] = $Pais -> get_idPais();
+				$colunas[] = $Pais -> get_idPais();
 				$Tipodocumentounico = new Tipodocumentounico( $this -> get_tipoDocumentoUnico_idPessoa() );
-					$colunas[] = $Tipodocumentounico -> get_DocumentoTipodocumentounico();
+				$colunas[] = $Tipodocumentounico -> get_idTipodocumentounico();
 				$Estadocivil = new Estadocivil( $this -> get_estadoCivil_idPessoa() );
-					$colunas[] = $Estadocivil -> get_idEstadocivil();
+				$colunas[] = $Estadocivil -> get_idEstadocivil();
 				$colunas[] = $this -> get_nomePessoa();
 				$colunas[] = $this -> get_rgPessoa();
 				$colunas[] = $this -> get_fotoPessoa();
@@ -105,12 +105,16 @@ class Pessoa extends Pessoa_m {
 		
 		//CARREGAR DO POST
 		$pais_id = ($post['pais_id']);
+			 if( $pais_id == '' ) return array(false, MSG_OBRIGAT." Pais");
 		
 		$tipoDocumentoUnico_id = ($post['tipoDocumentoUnico_id']);
+			 if( $tipoDocumentoUnico_id == '' ) return array(false, MSG_OBRIGAT." Tipo Documento Unico");
 		
 		$estadoCivil_id = ($post['estadoCivil_id']);
+			 if( $estadoCivil_id == '' ) return array(false, MSG_OBRIGAT." Estado Civil");
 		
 		$nome = ($post['nome']);
+			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 		
 		$rg = ($post['rg']);
 		
@@ -121,10 +125,13 @@ class Pessoa extends Pessoa_m {
 		$cargo = ($post['cargo']);
 		
 		$sexo = ($post['sexo']);
+			 if( $sexo == '' ) return array(false, MSG_OBRIGAT." Sexo");
 		
 		$senha = ($post['senha']);
+			 if( $senha == '' ) return array(false, MSG_OBRIGAT." Senha");
 		
 		$documento = ($post['documento']);
+			 if( $documento == '' ) return array(false, MSG_OBRIGAT." Documento");
 		
 		$inativo = ($post['inativo']);
 				

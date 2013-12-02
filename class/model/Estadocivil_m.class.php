@@ -92,8 +92,8 @@ class Estadocivil_m extends Database {
 		}
 	}
 
-	function selectEstadocivil($where = "", $campos = array("*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM estadocivil ".$where;
+	function selectEstadocivil($where = "", $campos = array("E.*") ) {	
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM estadocivil AS E ".$where;
 		return $this -> executarQuery($sql);
 	}
 		

@@ -180,7 +180,7 @@ class Pessoa_m extends Database {
 	}
 	
 	function deletePessoa() {
-		return $this -> updateCampoPessoa(array("excluido" => "1"), MSG_CADDEL);
+		return $this -> updateCampoPessoa(array("P.excluido" => "1"), MSG_CADDEL);
 	}
 
 	function updatePessoa() {
@@ -217,8 +217,8 @@ class Pessoa_m extends Database {
 		}
 	}
 
-	function selectPessoa($where = "", $campos = array("*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM pessoa ".$where;
+	function selectPessoa($where = "", $campos = array("P.*") ) {	
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM pessoa AS P ".$where;
 		return $this -> executarQuery($sql);
 	}
 		

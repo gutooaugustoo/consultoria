@@ -18,12 +18,12 @@ class Estadocivil extends Estadocivil_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleEstadocivil_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleEstadocivil_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
 		$campos = array("id", "nome AS legenda");
 		$array = $this -> selectEstadocivil($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxEstadocivil_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
@@ -91,6 +91,7 @@ class Estadocivil extends Estadocivil_m {
 		
 		//CARREGAR DO POST
 		$nome = ($post['nome']);
+			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 				
 		//SETAR
 		$this

@@ -18,12 +18,12 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
 		$campos = array("id", "class AS legenda");
 		$array = $this -> selectTipodocumentounico($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
@@ -92,8 +92,10 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 		
 		//CARREGAR DO POST
 		$nome = ($post['nome']);
+			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 		
 		$class = ($post['class']);
+			 if( $class == '' ) return array(false, MSG_OBRIGAT." Class");
 				
 		//SETAR
 		$this

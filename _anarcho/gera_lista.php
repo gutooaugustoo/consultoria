@@ -1,16 +1,25 @@
 <?php
-$tableUp = ucfirst($table);
-$tabelaNome = separaString($table);
-
 $carrega = "";
 foreach ($campos as $campo) {
-	$carrega .= "\"" . $campo['nome'] . "\", ";
+	$carrega .= "\"" . $tableAs . "." . $campo['nome'] . "\", ";
 }
 
 $carrega2 = "";
 foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
 		$carrega2 .= "\"" . $campo['nomeAmigavel'] . "\", ";
+}
+
+$carrega3 = "";
+if (isset($_POST["filtro"])) {
+	foreach ($campos as $campo) {
+		if ($campo['relac'] == 'fk') {
+			$carrega3 .= "
+	\$" . $campo['nome'] . " = implode(\",\", \$_POST['" . $campo['nome'] . "']);
+	if( \$" . $campo['nome'] . " ) \$where .= \" AND " . $tableAs . "." . $campo['nome'] . " IN(\".\$" . $campo['nome'] . ".\")\";
+	";
+		}
+	}
 }
 
 $conteudoArquivo = "<?php
@@ -20,12 +29,12 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
 \$" . $tableUp . " = new " . $tableUp . "();
 
-\$idTabela = \"tb_" . $table . "\";
-\$campos = array(" . $carrega . ");
-
 \$caminho = CAM_VIEW.\"" . $table . "/\";
 \$atualizar = CAM_VIEW.\"" . $table . "/lista.php\";
 \$ondeAtualizar = \"tr\";	
+
+\$idTabela = \"tb_" . $table . "\";
+\$campos = array(" . $carrega . ");
 
 Html::set_idTabela(\$idTabela);
 
@@ -44,34 +53,39 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	
 }
 
+" . ($temExcluido ? "\$where = \" WHERE " . $tableAs . ".excluido = 0\";" : "\$where .= \" WHERE 1 \";") . "
+" . $carrega3 . "
 \$colunas = array(" . $carrega2 . "\"\");
-
-".($temExcluido ? "\$where .= \" WHERE excluido = 0\";" : "\$where .= \"\";")."
 
 Html::set_colunas(\$colunas);
 \$corpoTabela = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
+
 ?>
 
 <fieldset>
   <legend>" . $tabelaNome . "</legend>
+  
   <div class=\"menu_interno\"> 
   	<img src=\"<?php echo CAM_IMG.\"novo.png\";?>\" title=\"Novo cadastro\" 
-	onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"form.php\"?>', '<?php echo \$atualizar?>', '#centro')\" /> 
+		onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"form.php\"?>', " . (isset($_POST["filtro"]) ? "'click', '#btFiltro_" . $table . "'" : "'<?php echo \$atualizar?>', '#centro'") . ")\" /> 
   </div>
-  <div class=\"lista\"> 
-  	<?php echo \$corpoTabela?>      
-  </div>
+  
+  <div class=\"lista\">
+		<?php echo \$corpoTabela;?>
+	</div>
+	
+	<script>
+	tabelaDataTable('<?php echo \$idTabela?>', '" . (isset($_POST["filtro"]) ? "" : "simples") . "');
+	</script>
+	   	      
 </fieldset>
-<script>
-tabelaDataTable('<?php echo \$idTabela?>', '');
-</script> 
 ";
 
 $pathname = "../view/" . $table;
 if (!file_exists($pathname))
 	mkdir($pathname, 0700);
-$nomeArquivo = $pathname . "/lista.php";
 
+$nomeArquivo = $pathname . "/lista.php";
 if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');

@@ -18,12 +18,12 @@ class Funcionario extends Funcionario_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleFuncionario_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleFuncionario_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
 		$campos = array("id", " AS legenda");
 		$array = $this -> selectFuncionario($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxFuncionario_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";

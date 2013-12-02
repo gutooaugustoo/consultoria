@@ -58,7 +58,7 @@ class Html {
 	static function select($nomeId, $idAtual, $array) {
 
 		$html = "<select name=\"$nomeId\" id=\"$nomeId\" " . self::montaClass() . " " . self::montaEventos() . " >
-		<option value=\"0\">Selecione</option>";
+		<option value=\"\">Selecione</option>";
 
 		foreach ($array as $iten) {
 			$selecionado = ($idAtual == $iten['id']) ? "selected" : "";
@@ -76,7 +76,7 @@ class Html {
 	static function selectMultiple($nomeId, $idsAtuais = array(), $array) {
 
 		$html = "<select name=\"" . $nomeId . "[]\" id=\"$nomeId\" multiple=\"multiple\" " . self::montaClass() . " " . self::montaEventos() . " >
-		<option value=\"\">Selecione</option>";
+		<option value=\"\">Todos</option>";
 
 		foreach ($array as $iten) {
 			$selecionado = (in_array($iten['id'], $idsAtuais)) ? "selected" : "";
@@ -157,6 +157,12 @@ class Html {
 		return $html;
 
 	}
-
+	
+	static function selectMultipleStatus_html($nome = "status", $idAtual = array("0")){
+		$array[] = array("id" => "0", "legenda" => "Ativo");
+		$array[] = array("id" => "1", "legenda" => "Inativo");		
+		return self::selectMultiple($nome, $idAtual, $array);		 
+	}
+	
 }
 ?>

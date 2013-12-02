@@ -1,6 +1,4 @@
 <?php
-$tableUp = ucfirst($table);
-
 $attr = "";
 foreach ($campos as $campo) {
 	//echo"<pre>";print_r($campo);echo"</pre>";
@@ -35,7 +33,7 @@ foreach ($campos as $campo) {
 		$sets .= "\$this -> " . $campo['nomeComTabela'] . " = (\$valor) ? \$this -> gravarBD(Uteis::gravarData(\$valor)) : \"NULL\";";
 	} elseif ($campo['tipo'] == 'datetime') {
 		$sets .= "\$this -> " . $campo['nomeComTabela'] . " = (\$valor) ? \$this -> gravarBD(Uteis::gravarDataHora(\$valor)) : \"NULL\";";
-	} else{ //if ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
+	} else {//if ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
 		$sets .= "\$this -> " . $campo['nomeComTabela'] . " = (\$valor) ? \$this -> gravarBD(\$valor) : \"NULL\";";
 	}
 
@@ -73,7 +71,7 @@ foreach ($campos as $campo) {
 		$gets .= "if( \$this -> " . $campo['nomeComTabela'] . " ) return Uteis::exibirData(\$this -> " . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'datetime') {
 		$gets .= "if( \$this -> " . $campo['nomeComTabela'] . " ) return Uteis::exibirDataHora(\$this -> " . $campo['nomeComTabela'] . ");";
-	} else{ //if ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
+	} else {//if ($campo['tipo'] == 'text' || $campo['tipo'] == 'varchar') {
 		$gets .= "return (\$this -> " . $campo['nomeComTabela'] . ");";
 	}
 
@@ -102,9 +100,9 @@ $insert .= ")\";";
 
 //DELETE
 $modelDelete = "";
-if( $temExcluido ){
-	$modelDelete .= "return \$this -> updateCampo" . $tableUp . "(array(\"excluido\" => \"1\"), MSG_CADDEL);";
-}else{
+if ($temExcluido) {
+	$modelDelete .= "return \$this -> updateCampo" . $tableUp . "(array(\"" . $tableAs . ".excluido\" => \"1\"), MSG_CADDEL);";
+} else {
 	$modelDelete .= "
 	if( \$this -> id" . $tableUp . " ){
 		\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this -> id" . $tableUp . ";			
@@ -114,7 +112,7 @@ if( $temExcluido ){
 	}
 	";
 }
-		
+
 //UPDATE
 $update = "	array(";
 $update2 = "";
@@ -124,11 +122,10 @@ foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
 		$update2 .= "		
 					\"" . $campo['nome'] . "\" => \$this -> " . $campo['nome'] . $tableUp . ", ";
-		
-}
-$update .= substr($update2, 0, -2)."				
-				), MSG_CADUP";
 
+}
+$update .= substr($update2, 0, -2) . "				
+				), MSG_CADUP";
 
 //\$sql =  WHERE id = \$this -> id" . $tableUp . "\";
 
@@ -171,14 +168,14 @@ class " . $tableUp . "_m extends Database {
 	}
 	
 	function delete" . $tableUp . "() {
-		".$modelDelete."
+		" . $modelDelete . "
 	}
 
 	function update" . $tableUp . "() {
 		if( \$this -> id" . $tableUp . " ){
 				
 			return \$this -> updateCampo" . $tableUp . "(
-			".$update."	
+			" . $update . "	
 			);
 			
 		}else{
@@ -188,15 +185,15 @@ class " . $tableUp . "_m extends Database {
 	
 	function updateCampo" . $tableUp . "(\$sets = array(), \$msg) {		
 		if( \$this -> id" . $tableUp . " && is_array(\$sets) ){
-			\$sql = \"UPDATE " . $table . " SET \".Uteis::montarUpdate(\$sets).\" WHERE id = \".\$this -> id" . $tableUp.";							
+			\$sql = \"UPDATE " . $table . " SET \".Uteis::montarUpdate(\$sets).\" WHERE id = \".\$this -> id" . $tableUp . ";							
 			return \$this -> query(\$sql, \$msg);
 		}else{
 			return array(false, MSG_ERR);
 		}
 	}
 
-	function select" . $tableUp . "(\$where = \"\", \$campos = array(\"*\") ) {	
-		\$sql = \"SELECT SQL_CACHE \".implode(\",\", \$campos).\" FROM " . $table . " \".\$where;
+	function select" . $tableUp . "(\$where = \"\", \$campos = array(\"" . $tableAs . ".*\") ) {	
+		\$sql = \"SELECT SQL_CACHE \".implode(\",\", \$campos).\" FROM " . $table . " AS " . $tableAs . " \".\$where;
 		return \$this -> executarQuery(\$sql);
 	}
 		

@@ -5,12 +5,12 @@ $idPais = $_REQUEST["idPais"];
 
 $Pais = new Pais();
 
-$idTabela = "tb_pais";
-$campos = array("id", "nacionalidade", "pais", );
-
 $caminho = CAM_VIEW."pais/";
 $atualizar = CAM_VIEW."pais/lista.php";
 $ondeAtualizar = "tr";	
+
+$idTabela = "tb_pais";
+$campos = array("P.id", "P.nacionalidade", "P.pais", );
 
 Html::set_idTabela($idTabela);
 
@@ -29,24 +29,29 @@ if( $_REQUEST["tr"] == "1" ){
 	
 }
 
-$colunas = array("Nacionalade", "Pais", "");
+$where .= " WHERE 1 ";
 
-$where .= "";
+$colunas = array("Nacionalade", "Pais", "");
 
 Html::set_colunas($colunas);
 $corpoTabela = $Pais -> tabelaPais_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
+
 ?>
 
 <fieldset>
   <legend>Pais</legend>
+  
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-	onclick="abrirNivelPagina(this, '<?php echo $caminho."form.php"?>', '<?php echo $atualizar?>', '#centro')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."form.php"?>', '<?php echo $atualizar?>', '#centro')" /> 
   </div>
-  <div class="lista"> 
-  	<?php echo $corpoTabela?>      
-  </div>
+  
+  <div class="lista">
+		<?php echo $corpoTabela;?>
+	</div>
+	
+	<script>
+	tabelaDataTable('<?php echo $idTabela?>', 'simples');
+	</script>
+	   	      
 </fieldset>
-<script>
-tabelaDataTable('<?php echo $idTabela?>', '');
-</script> 

@@ -18,12 +18,12 @@ class Pais extends Pais_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultiplePais_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultiplePais_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
 		$campos = array("id", "pais AS legenda");
 		$array = $this -> selectPais($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxPais_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
@@ -92,8 +92,10 @@ class Pais extends Pais_m {
 		
 		//CARREGAR DO POST
 		$nacionalidade = ($post['nacionalidade']);
+			 if( $nacionalidade == '' ) return array(false, MSG_OBRIGAT." Nacionalade");
 		
 		$pais = ($post['pais']);
+			 if( $pais == '' ) return array(false, MSG_OBRIGAT." Pais");
 				
 		//SETAR
 		$this

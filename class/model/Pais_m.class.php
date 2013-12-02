@@ -104,8 +104,8 @@ class Pais_m extends Database {
 		}
 	}
 
-	function selectPais($where = "", $campos = array("*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM pais ".$where;
+	function selectPais($where = "", $campos = array("P.*") ) {	
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM pais AS P ".$where;
 		return $this -> executarQuery($sql);
 	}
 		

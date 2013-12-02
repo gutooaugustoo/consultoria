@@ -44,16 +44,23 @@ if ($_POST["table"]) {
 		$campos = array();
 		$temExcluido = false;
 		$primeiroCampoValido = "";
-
+		$tableAs = strtoupper(substr($table, 0, 1));
+		$tableUp = ucfirst($table);
+		$tabelaNome = separaString($table);
+		
 		while ($row = mysql_fetch_array($colunas)) {
 
 			//print_r($row); //exit;
+			
 			if ($row['Field'] == "excluido")
 				$temExcluido = true;
-
+			
+			if ($row['Field'] == "inativo")
+				$temInativo = true;
+						
 			if ($row['Field'] != 'dataCadastro' && $row['Field'] != 'excluido') {
 
-				$campos[$j]['nome'] = $row['Field'];
+				$campos[$j]['nome'] = trim($row['Field']);				
 				$campos[$j]['nomeAmigavel'] = separaString($row['Field']);
 				$campos[$j]['nomeComTabela'] = $row['Field'] . ucfirst($table);			
 				$campos[$j]['default'] = $row['Default'];	
@@ -107,6 +114,11 @@ if ($_POST["table"]) {
 			include 'gera_controller.php';
 		}
 
+		if (isset($_POST["filtro"])) {
+
+			include 'gera_filtro.php';
+		}
+		
 		if (isset($_POST["lista"])) {
 
 			include 'gera_lista.php';

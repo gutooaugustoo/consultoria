@@ -2,7 +2,7 @@
 class Database {
 
 	// class attributes
-	var $connect;
+	protected $connect;
 
 	// constructor
 	function __construct() {
@@ -45,36 +45,37 @@ class Database {
 
 	function query($sql, $msg = "") {
 
-		if (!($query = mysql_query($sql))){
-			//$this -> mostraErr($sql);				
-			return array(false, MSG_ERR);
-		}		
-		return array($query, $msg);
+		if (!($query = mysql_query($sql))) {
+			return array(
+				false,
+				$this -> mostraErr($sql)
+			);
+		}
+		return array(
+			$query,
+			$msg
+		);
 
 	}
 
-	function mostraErr($sql = "", $soEmail = false) {
-
-		$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
+	function mostraErr($sql = "") {
 
 		if (EMPRESA) {
-			$emails = array(0 => array(
-					"email" => ENVIO_TESTE,
-					"nome" => "Administrador"
-				));
-			Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);
-		}
+			$mensagemErro = MSG_ERR;
 
-		if (!$soEmail) {
-			if (EMPRESA) {
-				//echo json_encode(array("mensagem" => "Erro: Nao foi possivel completar, comunique o responsavel. Nao repita a acao enquanto o erro nao for corrigido"));
-				echo "Erro: " . $mensagemErro;
-			} else {
-				echo "Erro: " . $mensagemErro;
-			}
-			exit ;
-		}
+			/*$emails = array(0 => array(
+			 "email" => ENVIO_TESTE,
+			 "nome" => "Administrador"
+			 ));
+			 Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);*/
+			 
+		} else {
+			$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
 
+		}
+		echo $mensagemErro;
+		exit;
+		//return $mensagemErro;
 	}
 
 	function numRows($result) {

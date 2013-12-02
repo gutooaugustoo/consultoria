@@ -104,8 +104,8 @@ class Tipodocumentounico_m extends Database {
 		}
 	}
 
-	function selectTipodocumentounico($where = "", $campos = array("*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM tipodocumentounico ".$where;
+	function selectTipodocumentounico($where = "", $campos = array("T.*") ) {	
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM tipodocumentounico AS T ".$where;
 		return $this -> executarQuery($sql);
 	}
 		

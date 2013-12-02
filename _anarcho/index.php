@@ -97,6 +97,10 @@ $_POST["database"] = "consultoria";
 					<input type="checkbox" name="class" id="class" value="1" <?php echo isset($_POST["class"]) ? "checked" : ""?> />
           Class controller:</label>
           
+          <label for="filtro">
+					<input type="checkbox" name="filtro" id="filtro" value="1" <?php echo isset($_POST["filtro"]) ? "checked" : ""?> />
+          Filtro:</label>
+          
           <label for="lista">
 					<input type="checkbox" name="lista" id="lista" value="1" <?php echo isset($_POST["lista"]) ? "checked" : ""?> />
           Lista:</label>

@@ -484,7 +484,7 @@ class Uteis {
 		}					
 		return substr($sqlSets, 0, -2);
 	}
-
+		
 	static function pr($arr, $exit = 0) {
 		echo "<pre>";
 		print_r($arr);

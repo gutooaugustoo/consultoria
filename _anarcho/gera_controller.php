@@ -1,6 +1,4 @@
 <?php
-$tableUp = ucfirst($table);
-
 $carrega = "";
 
 //
@@ -15,7 +13,7 @@ foreach ($campos as $campo) {
 		} elseif ($campo['relac'] == "fk") {
 			$carrega2 .= "
 				\$" . $campo['relacTb'] . " = new " . $campo['relacTb'] . "( \$this -> get_" . $campo['nomeComTabela'] . "() );
-					\$colunas[] = \$". $campo['relacTb'] . " -> get_id".$campo['relacTb']."();";
+				\$colunas[] = \$". $campo['relacTb'] . " -> get_id".$campo['relacTb']."();";
 		} else {
 			$carrega2 .= "
 				\$colunas[] = \$this -> get_" . $campo['nomeComTabela'] . "();";
@@ -34,8 +32,8 @@ foreach ($campos as $campo) {
 		\$" . $campo['nome'] . " = (\$post['" . $campo['nome'] . "']);";
 
 		if (!$campo['accNulo'] && $campo['tipo'] != 'tinyint') {
-			/*$carrega4 .= "
-			 if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nomeAmigavel'] . "\");";*/
+			$carrega4 .= "
+			 if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nomeAmigavel'] . "\");";
 		}
 		$carrega4 .= "
 		";
@@ -69,21 +67,21 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 
 	//GERAR ELEMENTOS
 	function select" . $tableUp . "_html(\$nomeId, \$idAtual = \"\", \$where = \"WHERE 1 \") {
-		" . ($temExcluido ? "\$where .= \" AND excluido = 0\";" : "\$where .= \"\";") . "
+		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "
 		\$campos = array(\"id\", \"" . $primeiroCampoValido . " AS legenda\");
 		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
 		return Html::select(\$nomeId, \$idAtual, \$array);
 	}
 	
-	/*function selectMultiple" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
-		" . ($temExcluido ? "\$where .= \" AND excluido = 0\";" : "\$where .= \"\";") . "
+	function selectMultiple" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "
 		\$campos = array(\"id\", \"" . $primeiroCampoValido . " AS legenda\");
 		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
-	}*/
+	}
 	
 	/*function checkBox" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
-		" . ($temExcluido ? "\$where .= \" AND excluido = 0\";" : "\$where .= \"\";") . "
+		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "
 		\$campos = array(\"id\", \"" . $primeiroCampoValido . " AS legenda\");
 		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);

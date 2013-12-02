@@ -80,8 +80,8 @@ class Funcionario_m extends Database {
 		}
 	}
 
-	function selectFuncionario($where = "", $campos = array("*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM funcionario ".$where;
+	function selectFuncionario($where = "", $campos = array("F.*") ) {	
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM funcionario AS F ".$where;
 		return $this -> executarQuery($sql);
 	}
 		
