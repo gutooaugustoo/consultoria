@@ -1,19 +1,18 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$Funcionario = new Funcionario();
+$Telefone = new Telefone();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idFuncionario = $_REQUEST['id'];
+	$idTelefone = $_REQUEST['id'];
 	
-	$rs = $Funcionario -> deletarFuncionario($idFuncionario);
+	$rs = $Telefone -> deletarTelefone($idTelefone);
 	
 	if( $rs[0] != false ){
-					
-		$arrayRetorno['fecharNivel'] = true;			
+							
 		$arrayRetorno['tabela'] = $_REQUEST['tabela'];
 		$arrayRetorno['ordem'] = $_REQUEST['ordem'];	
 		
@@ -21,13 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idFuncionario = $_REQUEST['idFuncionario'];
+	$idTelefone = $_REQUEST['idTelefone'];
 	
-	$rs = $Funcionario -> cadastrarFuncionario($idFuncionario, $_POST);
+	$rs = $Telefone -> cadastrarTelefone($idTelefone, $_POST);
 	
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-		$arrayRetorno['pagina'] = CAM_VIEW."funcionario/abas.php?idFuncionario=".$rs[0];
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

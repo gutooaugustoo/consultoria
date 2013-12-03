@@ -1,19 +1,18 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$Pessoa = new Pessoa();
+$Endereco = new Endereco();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idPessoa = $_REQUEST['id'];
+	$idEndereco = $_REQUEST['id'];
 	
-	$rs = $Pessoa -> deletarPessoa($idPessoa);
+	$rs = $Endereco -> deletarEndereco($idEndereco);
 	
 	if( $rs[0] != false ){
-					
-		$arrayRetorno['fecharNivel'] = true;			
+							
 		$arrayRetorno['tabela'] = $_REQUEST['tabela'];
 		$arrayRetorno['ordem'] = $_REQUEST['ordem'];	
 		
@@ -21,9 +20,9 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idPessoa = $_REQUEST['idPessoa'];
+	$idEndereco = $_REQUEST['idEndereco'];
 	
-	$rs = $Pessoa -> cadastrarPessoa($idPessoa, $_POST);
+	$rs = $Endereco -> cadastrarEndereco($idEndereco, $_POST);
 
 	if( $rs[0] != false ){			
 		$arrayRetorno['fecharNivel'] = true;

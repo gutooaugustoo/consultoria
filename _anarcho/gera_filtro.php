@@ -73,4 +73,4 @@ require_once (\$_SERVER['DOCUMENT_ROOT'] . \"/consultoria/config/admin.php\");
 
 <script>ativarForm();</script>";
 
-gravarArquivo("view", $table, "filtro", $conteudoArquivo);
+gravarArquivo("view/".$table, $table, "filtro", $conteudoArquivo);

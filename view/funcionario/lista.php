@@ -5,9 +5,13 @@ $Funcionario = new Funcionario();
 
 $idTabela = "tb_funcionario";
 $campos = array("F.id", );
+
+$url = "?";
 $caminho = CAM_VIEW."funcionario/";
-$atualizar = CAM_VIEW."funcionario/lista.php";
+$atualizar = CAM_VIEW."funcionario/lista.php".$url;
 $ondeAtualizar = "tr";	
+
+Html::set_idTabela($idTabela);
 
 if( $_REQUEST["tr"] == "1" ){
 	//ATUALIZAR APENAS A LINHA
@@ -37,12 +41,11 @@ if( $status != "" ) $where .= " AND P.inativo IN(".Uteis::escapeRequest($status)
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php"?>', 'click', '#btFiltro_funcionario')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', 'click', '#btFiltro_funcionario')" /> 
   </div>
   
   <div class="lista">
-		<?php //IMPRIMIR TABELA
-		Html::set_idTabela($idTabela);
+		<?php //IMPRIMIR TABELA		
 		Html::set_colunas(array("Nome", "Documento", "Status", ""));
 		echo $Funcionario -> tabelaFuncionario_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>

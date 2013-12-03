@@ -40,9 +40,9 @@ class Funcionario_m extends Pessoa {
 	function insertFuncionario() {
 		$sql = "INSERT INTO funcionario (id) 
 		VALUES (" . $this -> idFuncionario . ")";
-		if ($this -> query($sql)) {
+		if ($rs = $this -> query($sql)) {			
 			return array(
-				mysql_insert_id($this -> connect),
+				$this -> idFuncionario,
 				MSG_CADNEW
 			);
 		} else {
@@ -69,10 +69,9 @@ class Funcionario_m extends Pessoa {
 
 	function updateFuncionario() {
 		if ($this -> idFuncionario) {
-
 			//return $this -> updateCampoFuncionario(array("id" => $this -> idFuncionario));
 			return array(
-				true,
+				$this -> idFuncionario,
 				MSG_CADUP
 			);
 

@@ -105,14 +105,14 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 				" . $carrega2 . "
 				
 				\$ordem = ( \$apenasLinha !== false ) ? \$apenasLinha : \$cont++;								
-				\$urlAux = \"?ordem=\".\$ordem.\"&tabela=\".Html::get_idTabela();				
+				\$urlAux = \"&ordem=\".\$ordem.\"&tabela=\".Html::get_idTabela();				
 				\$atualizarFinal = \$atualizar.\$urlAux.\"&tr=1&id" . $tableUp . "=\".\$this -> get_id" . $tableUp . "();
 						
 				\$editar = \"<img src=\\\"\".CAM_IMG.\"editar.png\\\" title=\\\"Editar registro\\\" 
 				onclick=\\\"abrirNivelPagina(this, '\".\$caminho.\"abas.php?id" . $tableUp . "=\".\$this -> get_id" . $tableUp . "() .\"', '\$atualizarFinal', '\$ondeAtualizar')\\\" >\";
 				
 				\$deletar = \"<img src=\\\"\".CAM_IMG.\"excluir.png\\\" title=\\\"Excluir registro\\\" 
-				onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php\".\$urlAux.\"', '\".\$this -> get_id" . $tableUp . "() .\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";							
+				onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php?\".\$urlAux.\"', '\".\$this -> get_id" . $tableUp . "() .\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";							
 					
 				if( \$apenasLinha !== false ){						
 					\$colunas[] = implode(ICON_SEPARATOR, array(

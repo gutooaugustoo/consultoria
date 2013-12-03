@@ -2,7 +2,7 @@
 class Tipodocumentounico extends Tipodocumentounico_m {
 		
 	//CONSTRUTOR
-	function __construct($idTipodocumentounico) {
+	function __construct($idTipodocumentounico = "") {
 		parent::__construct($idTipodocumentounico);	
 	}
 
@@ -13,7 +13,7 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 	//GERAR ELEMENTOS
 	function selectTipodocumentounico_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= "";
-		$campos = array("id", "nome AS legenda");
+		$campos = array("id", "class AS legenda");
 		$array = $this -> selectTipodocumentounico($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
@@ -52,14 +52,14 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 				$colunas[] = $this -> get_classTipodocumentounico();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
-				$urlAux = "?ordem=".$ordem."&tabela=".Html::get_idTabela();				
-				$atualizarFinal = $atualizar.$urlAux."&tr=1&idTipodocumentounico=".$this -> idTipodocumentounico;
+				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
+				$atualizarFinal = $atualizar.$urlAux."&tr=1&idTipodocumentounico=".$this -> get_idTipodocumentounico();
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idTipodocumentounico=".$this -> idTipodocumentounico."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idTipodocumentounico=".$this -> get_idTipodocumentounico() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idTipodocumentounico."', '$atualizarFinal', '$ondeAtualizar')\">";							
+				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idTipodocumentounico() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
 				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(

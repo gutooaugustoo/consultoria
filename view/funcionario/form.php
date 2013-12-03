@@ -1,8 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$idFuncionario = $_REQUEST["idFuncionario"];
-$Pessoa = new Funcionario($idFuncionario);
+$Pessoa = new Funcionario($_REQUEST["idFuncionario"]);
 $nomeTable = "funcionario";
 $acao = CAM_VIEW."funcionario/acao.php";
 ?>

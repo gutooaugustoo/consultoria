@@ -37,7 +37,7 @@ function separaString($string) {
 
 function gravarArquivo($path, $table, $nome, $conteudo) {
 
-	$pathname = "../" . $path . "/" . $table;
+	$pathname = "../" . $path;
 
 	if (!file_exists($pathname)) {
 		mkdir($pathname, 0700);
@@ -48,15 +48,15 @@ function gravarArquivo($path, $table, $nome, $conteudo) {
 		$novoNomeArquivo = $pathname . "/." . $nome . "_" . date('YmdHis') . ".php";
 		rename($nomeArquivo, $novoNomeArquivo);
 		$obs = " - o antigo foi renomeado";
-	}else{
+	} else {
 		$obs = "";
 	}
-	
+
 	$arquivo = fopen($nomeArquivo, 'w');
 	fwrite($arquivo, $conteudo);
 	fclose($arquivo);
-	
-	echo "<p><b>$table</b> - $nome gerado com sucesso. (".date('Y-m-d H:i:s').").$obs</p>";
+
+	echo "<p><b>$table</b> - $nome gerado com sucesso. (" . date('Y-m-d H:i:s') . ").$obs</p>";
 	//return true;
 }
 
@@ -154,13 +154,18 @@ if ($_POST["table"]) {
 			include 'gera_form.php';
 		}
 
+		if (isset($_POST["abas"])) {
+
+			include 'gera_abas.php';
+		}
+
 		if (isset($_POST["acao"])) {
 
 			include 'gera_acao.php';
 		}
 
 	}
-	
+
 	//echo "Códigos gerados com sucesso.";
 
 	foreach ($gerada as $key => $value) {

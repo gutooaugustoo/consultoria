@@ -50,11 +50,12 @@ class Database {
 				false,
 				$this -> mostraErr($sql)
 			);
+		} else {
+			return array(
+				$query,
+				$msg
+			);
 		}
-		return array(
-			$query,
-			$msg
-		);
 
 	}
 
@@ -68,13 +69,13 @@ class Database {
 			 "nome" => "Administrador"
 			 ));
 			 Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);*/
-			 
+
 		} else {
 			$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
 
 		}
 		echo $mensagemErro;
-		exit;
+		exit ;
 		//return $mensagemErro;
 	}
 
@@ -102,7 +103,7 @@ class Database {
 
 		if (is_numeric($res)) {
 			return $res;
-		} elseif (is_null($res) || $res === '') {
+		} elseif (is_null($res) || $res === '' || $res == "NULL") {
 			return "NULL";
 		} else {
 			return "'" . $res . "'";

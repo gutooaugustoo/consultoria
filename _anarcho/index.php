@@ -108,6 +108,10 @@ $_POST["database"] = "consultoria";
 					<input type="checkbox" name="formulario" id="formulario" value="1" <?php echo isset($_POST["formulario"]) ? "checked" : ""?> />
           Form:</label>
           
+           <label for="abas">
+					<input type="checkbox" name="abas" id="abas" value="1" <?php echo isset($_POST["abas"]) ? "checked" : ""?> />
+          Abas:</label>
+          
           <label for="acao">
 					<input type="checkbox" name="acao" id="acao" value="1" <?php echo isset($_POST["acao"]) ? "checked" : ""?> />
           Ação:</label>

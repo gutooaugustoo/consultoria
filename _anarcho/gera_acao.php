@@ -13,8 +13,7 @@ if( \$_REQUEST['acao'] == \"deletar\" ){
 	\$rs = \$" . $tableUp . " -> deletar" . $tableUp . "(\$id" . $tableUp . ");
 	
 	if( \$rs[0] != false ){
-					
-		\$arrayRetorno['fecharNivel'] = true;			
+							
 		\$arrayRetorno['tabela'] = \$_REQUEST['tabela'];
 		\$arrayRetorno['ordem'] = \$_REQUEST['ordem'];	
 		
@@ -38,4 +37,4 @@ echo json_encode(\$arrayRetorno);
 
 ";
 
-gravarArquivo("view", $table, "acao", $conteudoArquivo);
+gravarArquivo("view/".$table, $table, "acao", $conteudoArquivo);

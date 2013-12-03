@@ -1,19 +1,18 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$Funcionario = new Funcionario();
+$Enderecovirtual = new Enderecovirtual();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idFuncionario = $_REQUEST['id'];
+	$idEnderecovirtual = $_REQUEST['id'];
 	
-	$rs = $Funcionario -> deletarFuncionario($idFuncionario);
+	$rs = $Enderecovirtual -> deletarEnderecovirtual($idEnderecovirtual);
 	
 	if( $rs[0] != false ){
-					
-		$arrayRetorno['fecharNivel'] = true;			
+							
 		$arrayRetorno['tabela'] = $_REQUEST['tabela'];
 		$arrayRetorno['ordem'] = $_REQUEST['ordem'];	
 		
@@ -21,13 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idFuncionario = $_REQUEST['idFuncionario'];
+	$idEnderecovirtual = $_REQUEST['idEnderecovirtual'];
 	
-	$rs = $Funcionario -> cadastrarFuncionario($idFuncionario, $_POST);
-	
+	$rs = $Enderecovirtual -> cadastrarEnderecovirtual($idEnderecovirtual, $_POST);
+
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-		$arrayRetorno['pagina'] = CAM_VIEW."funcionario/abas.php?idFuncionario=".$rs[0];
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

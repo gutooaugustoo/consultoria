@@ -60,14 +60,14 @@ class Funcionario extends Funcionario_m {
 				$colunas[] = $this -> get_inativoPessoa(true);
 
 				$ordem = ($apenasLinha !== false) ? $apenasLinha : $cont++;
-				$urlAux = "?ordem=" . $ordem . "&tabela=" . Html::get_idTabela();
+				$urlAux = "&ordem=" . $ordem . "&tabela=" . Html::get_idTabela();
 				$atualizarFinal = $atualizar . $urlAux . "&tr=1&idFuncionario=" . $this -> idFuncionario;
 
 				$editar = "<img src=\"" . CAM_IMG . "editar.png\" title=\"Editar registro\" 
 				onclick=\"abrirNivelPagina(this, '" . $caminho . "abas.php?idFuncionario=" . $this -> get_idFuncionario() . "', '$atualizarFinal', '$ondeAtualizar')\" >";
 
 				$deletar = "<img src=\"" . CAM_IMG . "excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('" . $caminho . "acao.php" . $urlAux . "', '" . $this -> get_idFuncionario() . "', '$atualizarFinal', '$ondeAtualizar')\">";
+				onclick=\"deletaRegistro('" . $caminho . "acao.php?" . $urlAux . "', '" . $this -> get_idFuncionario() . "', '$atualizarFinal', '$ondeAtualizar')\">";
 
 				if ($apenasLinha !== false) {
 					$colunas[] = implode(ICON_SEPARATOR, array(

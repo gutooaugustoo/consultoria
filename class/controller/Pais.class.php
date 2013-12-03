@@ -2,7 +2,7 @@
 class Pais extends Pais_m {
 		
 	//CONSTRUTOR
-	function __construct($idPais) {
+	function __construct($idPais = "") {
 		parent::__construct($idPais);	
 	}
 
@@ -52,14 +52,14 @@ class Pais extends Pais_m {
 				$colunas[] = $this -> get_paisPais();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
-				$urlAux = "?ordem=".$ordem."&tabela=".Html::get_idTabela();				
-				$atualizarFinal = $atualizar.$urlAux."&tr=1&idPais=".$this -> idPais;
+				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
+				$atualizarFinal = $atualizar.$urlAux."&tr=1&idPais=".$this -> get_idPais();
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idPais=".$this -> idPais."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idPais=".$this -> get_idPais() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idPais."', '$atualizarFinal', '$ondeAtualizar')\">";							
+				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idPais() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
 				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(

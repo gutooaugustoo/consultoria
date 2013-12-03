@@ -68,14 +68,14 @@ class Pessoa extends Pessoa_m {
 				$colunas[] = $this -> get_obsPessoa();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
-				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
+				$urlAux = "?ordem=".$ordem."&tabela=".Html::get_idTabela();				
 				$atualizarFinal = $atualizar.$urlAux."&tr=1&idPessoa=".$this -> get_idPessoa();
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
 				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idPessoa=".$this -> get_idPessoa() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idPessoa() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
+				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> get_idPessoa() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
 				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(
@@ -139,6 +139,20 @@ class Pessoa extends Pessoa_m {
 		$inativo = ($post['inativo']);
 		
 		$obs = ($post['obs']);
+			
+		//VERIFICAR SE JA EXISTE ESSE NUM DOCUMENTO NO CADASTRO		
+		$where = "WHERE documento = ".$this->gravarBD($documento);
+		if( $idPessoa ) $where .= " AND id NOT IN (".$this->gravarBD($idPessoa).")";		
+		if( $rs_temDocumento = $this->selectPessoa($where, array("id")) ){
+			return array(false, "Esse número de documento já existe no cadastro.");
+		};
+		
+		//VERIFICAR SE JA EXISTE ESSE EMAIL NO CADASTRO		
+		$where = "WHERE emailPrincipal = ".$this->gravarBD($emailPrincipal);
+		if( $idPessoa ) $where .= " AND id NOT IN (".$this->gravarBD($idPessoa).")";		
+		if( $rs_temDocumento = $this->selectPessoa($where, array("id")) ){
+			return array(false, "Esse e-mail já existe no cadastro.");
+		};
 				
 		//SETAR
 		$this
@@ -154,7 +168,7 @@ class Pessoa extends Pessoa_m {
 			 -> set_cargoPessoa($cargo)
 			 -> set_sexoPessoa($sexo)
 			 -> set_senhaPessoa($senha)
-			 -> set_documentoPessoa($documento)
+			-> set_documentoPessoa($documento)
 			 -> set_inativoPessoa($inativo)
 			 -> set_obsPessoa($obs);
 		

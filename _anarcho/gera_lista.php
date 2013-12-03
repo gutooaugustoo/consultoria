@@ -34,9 +34,13 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
 \$idTabela = \"tb_" . $table . "\";
 \$campos = array(" . $carrega . ");
+
+\$url = \"?\";
 \$caminho = CAM_VIEW.\"" . $table . "/\";
-\$atualizar = CAM_VIEW.\"" . $table . "/lista.php\";
+\$atualizar = CAM_VIEW.\"" . $table . "/lista.php\".\$url;
 \$ondeAtualizar = \"tr\";	
+
+Html::set_idTabela(\$idTabela);
 
 if( \$_REQUEST[\"tr\"] == \"1\" ){
 	//ATUALIZAR APENAS A LINHA
@@ -63,12 +67,11 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
   
   <div class=\"menu_interno\"> 
   	<img src=\"<?php echo CAM_IMG.\"novo.png\";?>\" title=\"Novo cadastro\" 
-		onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"abas.php\"?>', " . (isset($_POST["filtro"]) ? "'click', '#btFiltro_" . $table . "'" : "'<?php echo \$atualizar?>', '#centro'") . ")\" /> 
+		onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"abas.php\".\$url?>', " . (isset($_POST["filtro"]) ? "'click', '#btFiltro_" . $table . "'" : "'<?php echo \$atualizar?>', '#centro'") . ")\" /> 
   </div>
   
   <div class=\"lista\">
-		<?php //IMPRIMIR TABELA
-		Html::set_idTabela(\$idTabela);
+		<?php //IMPRIMIR TABELA		
 		Html::set_colunas(array(" . $carrega2 . "\"\"));
 		echo \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
 		?>
@@ -81,5 +84,5 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 </fieldset>
 ";
 
-gravarArquivo("view", $table, "lista", $conteudoArquivo);
+gravarArquivo("view/".$table, $table, "lista", $conteudoArquivo);
 

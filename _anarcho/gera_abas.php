@@ -71,46 +71,24 @@ foreach ($campos as $key => $campo) {
 	$form = "";
 	
 }
-
-////////////////////////////////////// ARQUIVO FORM
-
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
 \$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
-\$" . $tableUp . " = new " . $tableUp . "(\$id" . $tableUp . ");
-\$nomeTable = \"" . ($table) . "\";
-\$acao = CAM_VIEW.\"" . ($table) . "/acao.php\";
 ?>
-<fieldset>
-	<legend>" . $tabelaNome . "</legend>
-	
-	<img src=\"<?php echo CAM_IMG.\"menos.png\"?>\" title=\"Abrir/Fechar formuário\" id=\"imgGrupoForm_<?php echo \$nomeTable ?>\" 
-	onclick=\"abrirFormulario('divGrupoForm_<?php echo \$nomeTable ?>', 'imgGrupoForm_<?php echo \$nomeTable ?>');\" />
 
-	<div class=\"agrupa\" id=\"divGrupoForm_<?php echo \$nomeTable ?>\">
-  	
-		<form id=\"formCad_<?php echo \$nomeTable ?>\" class=\"validate\" method=\"post\" onsubmit=\"return false\" >
-		  
-		  <input type=\"hidden\" id=\"acao\" name=\"acao\" value=\"cadastrar\" />
-		  
-		  <div class=\"esquerda\">		  					
-				" . $form_esquerda . "   									
-			</div>
-			
-			<div class=\"direita\">
-				" . $form_direita . "
-			</div>
-			
-			<div class=\"linha-inteira\">
-				<p><button class=\"button blue\" 
-				onclick=\"postForm('formCad_<?php echo \$nomeTable ?>', '<?php echo \$acao?>')\" >Enviar</button>
-				</p>
-			</div>
-		</form>
-	
+<div id=\"cadastro_" . $table . "\" class=\"\">
+	<div id=\"fechar_nivel\" class=\"fechar\" onclick=\"fecharNivel(nivel);\" title=\"Fechar\"></div>
+	<div id=\"abas\">
+		<div id=\"aba_" . $table . "\" divExibir=\"div_" . $table . "\" class=\"aba_interna ativa\"
+		onclick=\"carregarModulo('<?php echo CAM_VIEW.\"".$table."/form.php?id" . $tableUp."=\".\$id" . $tableUp."?>' , '#div_" . $table . "')\" >" . $tabelaNome . "</div>
 	</div>
-</fieldset>
-<script>ativarForm();</script> ";
+	<div id=\"modulos_<?php echo \$nomeTable ?>\" class=\"conteudo_nivel\">
+		<div id=\"div_" . $table . "\" class=\"div_aba_interna\">			
+			<?php include \"form.php\"; ?>						
+		</div>
+	</div>
+</div>
+";
 
-gravarArquivo("view/".$table, $table, "form", $conteudoArquivo);
+gravarArquivo("view/".$table, $table, "abas", $conteudoArquivo);

@@ -2,7 +2,7 @@
 class Estadocivil extends Estadocivil_m {
 		
 	//CONSTRUTOR
-	function __construct($idEstadocivil) {
+	function __construct($idEstadocivil = "") {
 		parent::__construct($idEstadocivil);	
 	}
 
@@ -51,14 +51,14 @@ class Estadocivil extends Estadocivil_m {
 				$colunas[] = $this -> get_nomeEstadocivil();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
-				$urlAux = "?ordem=".$ordem."&tabela=".Html::get_idTabela();				
-				$atualizarFinal = $atualizar.$urlAux."&tr=1&idEstadocivil=".$this -> idEstadocivil;
+				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
+				$atualizarFinal = $atualizar.$urlAux."&tr=1&idEstadocivil=".$this -> get_idEstadocivil();
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idEstadocivil=".$this -> idEstadocivil."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idEstadocivil=".$this -> get_idEstadocivil() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idEstadocivil."', '$atualizarFinal', '$ondeAtualizar')\">";							
+				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idEstadocivil() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
 				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(

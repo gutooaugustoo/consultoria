@@ -104,7 +104,7 @@ $insert .= "
 //DELETE
 $modelDelete = "";
 if ($temExcluido) {
-	$modelDelete .= "return \$this -> updateCampo" . $tableUp . "(array(\"" . $tableAs . ".excluido\" => \"1\"), MSG_CADDEL);";
+	$modelDelete .= "return \$this -> updateCampo" . $tableUp . "(array(\"excluido\" => \"1\"), MSG_CADDEL);";
 } else {
 	$modelDelete .= "
 	if( \$this -> id" . $tableUp . " ){
