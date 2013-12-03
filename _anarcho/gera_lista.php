@@ -81,18 +81,5 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 </fieldset>
 ";
 
-$pathname = "../view/" . $table;
-if (!file_exists($pathname))
-	mkdir($pathname, 0700);
+gravarArquivo("view", $table, "lista", $conteudoArquivo);
 
-$nomeArquivo = $pathname . "/lista.php";
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo);
-	fclose($arquivo);
-	$gerada['lista'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}

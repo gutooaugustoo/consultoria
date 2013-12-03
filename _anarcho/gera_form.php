@@ -133,30 +133,5 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 </fieldset>
 <script>ativarForm();</script> ";
 
-$pathname = "../view/" . $table;
-if (!file_exists($pathname))
-	mkdir($pathname, 0700);
-$nomeArquivo = $pathname . "/abas.php";
-
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo);
-	fclose($arquivo);
-	$gerada['abas'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}
-
-$nomeArquivo = $pathname . "/form.php";
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo_form);
-	fclose($arquivo);
-	$gerada['form'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}
+gravarArquivo("view", $table, "abas", $conteudoArquivo);
+gravarArquivo("view", $table, "form", $conteudoArquivo_form);

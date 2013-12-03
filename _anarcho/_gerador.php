@@ -35,8 +35,29 @@ function separaString($string) {
 
 }
 
-function gravarArquivo(){
+function gravarArquivo($path, $table, $nome, $conteudo) {
+
+	$pathname = "../" . $path . "/" . $table;
+
+	if (!file_exists($pathname)) {
+		mkdir($pathname, 0700);
+	}
+
+	$nomeArquivo = $pathname . "/" . $nome . ".php";
+	if (file_exists($nomeArquivo)) {
+		$novoNomeArquivo = $pathname . "/." . $nome . "_" . date('YmdHis') . ".php";
+		rename($nomeArquivo, $novoNomeArquivo);
+		$obs = " - o antigo foi renomeado";
+	}else{
+		$obs = "";
+	}
 	
+	$arquivo = fopen($nomeArquivo, 'w');
+	fwrite($arquivo, $conteudo);
+	fclose($arquivo);
+	
+	echo "<p><b>$table</b> - $nome gerado com sucesso. (".date('Y-m-d H:i:s').").$obs</p>";
+	//return true;
 }
 
 if ($_POST["table"]) {
@@ -51,23 +72,23 @@ if ($_POST["table"]) {
 		$tableAs = strtoupper(substr($table, 0, 1));
 		$tableUp = ucfirst($table);
 		$tabelaNome = separaString($table);
-		
+
 		while ($row = mysql_fetch_array($colunas)) {
 
 			//print_r($row); //exit;
-			
+
 			if ($row['Field'] == "excluido")
 				$temExcluido = true;
-			
+
 			if ($row['Field'] == "inativo")
 				$temInativo = true;
-						
+
 			if ($row['Field'] != 'dataCadastro' && $row['Field'] != 'excluido') {
 
-				$campos[$j]['nome'] = trim($row['Field']);				
+				$campos[$j]['nome'] = trim($row['Field']);
 				$campos[$j]['nomeAmigavel'] = separaString($row['Field']);
-				$campos[$j]['nomeComTabela'] = $row['Field'] . ucfirst($table);			
-				$campos[$j]['default'] = $row['Default'];	
+				$campos[$j]['nomeComTabela'] = $row['Field'] . ucfirst($table);
+				$campos[$j]['default'] = $row['Default'];
 				$campos[$j]['accNulo'] = ($row['Null'] == 'NO') ? 0 : 1;
 				$tipo = str_replace(array(
 					"(",
@@ -82,10 +103,10 @@ if ($_POST["table"]) {
 					"7",
 					"8",
 					"9"
-				), "", (string)$row['Type']);				
-				$campos[$j]['tipo'] = $tipo; 
-					
-				if ( $tipo == "varchar" )
+				), "", (string)$row['Type']);
+				$campos[$j]['tipo'] = $tipo;
+
+				if ($tipo == "varchar")
 					$primeiroCampoValido = $row['Field'];
 
 				if ($row['Key'] == 'PRI') {
@@ -100,7 +121,7 @@ if ($_POST["table"]) {
 
 				} else {
 					$campos[$j]['relac'] = '';
-				}		
+				}
 
 				$j++;
 			}
@@ -122,7 +143,7 @@ if ($_POST["table"]) {
 
 			include 'gera_filtro.php';
 		}
-		
+
 		if (isset($_POST["lista"])) {
 
 			include 'gera_lista.php';
@@ -139,7 +160,8 @@ if ($_POST["table"]) {
 		}
 
 	}
-	echo "<b>Códigos gerados com sucesso - " . date('d/m/Y H:i:s') . "</b>";
+	
+	//echo "Códigos gerados com sucesso.";
 
 	foreach ($gerada as $key => $value) {
 		echo "<li>" . $key . " - " . implode(", ", $value) . "</li>";

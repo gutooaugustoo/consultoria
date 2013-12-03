@@ -38,18 +38,4 @@ echo json_encode(\$arrayRetorno);
 
 ";
 
-$pathname = "../view/" . $table;
-if (!file_exists($pathname))
-	mkdir($pathname, 0700);
-$nomeArquivo = $pathname . "/acao.php";
-
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo);
-	fclose($arquivo);
-	$gerada['acao'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}
+gravarArquivo("view", $table, "acao", $conteudoArquivo);

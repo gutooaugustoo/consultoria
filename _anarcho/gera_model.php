@@ -203,15 +203,5 @@ class " . $tableUp . "_m extends Database {
 }
 ";
 
-$nomeArquivo = "../class/model/" . $tableUp . "_m.class.php";
-
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo);
-	fclose($arquivo);
-	$gerada['model'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}
+$nomeFile = $tableUp . "_m.class";
+gravarArquivo("class/model", $table, $nomeFile, $conteudoArquivo);

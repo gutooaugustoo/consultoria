@@ -158,15 +158,5 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 
 ";
 
-$nomeArquivo = "../class/controller/" . $tableUp . ".class.php";
-
-if (!file_exists($nomeArquivo) || $sobrescrever) {
-
-	$arquivo = fopen($nomeArquivo, 'w');
-	fwrite($arquivo, $conteudoArquivo);
-	fclose($arquivo);
-	$gerada['controller'][] = $table;
-} else {
-	echo "Arquivo já esxiste ($nomeArquivo).<br />";
-	//exit;
-}
+$nomeFile = $tableUp . ".class";
+gravarArquivo("class/controller", $table, $nomeFile, $conteudoArquivo);
