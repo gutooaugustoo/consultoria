@@ -13,7 +13,7 @@ class Tipodocumentounico_m extends Database {
 		
 		if( is_numeric($idTipodocumentounico) ){
 		
-			$array = $this -> selectTipodocumentounico(" WHERE id = ".$this -> gravarBD($idTipodocumentounico) );			
+			$array = $this -> selectTipodocumentounico(" WHERE T.id = ".$this -> gravarBD($idTipodocumentounico) );			
 			
 			$this -> idTipodocumentounico = $array[0]['id'];
 			$this -> nomeTipodocumentounico = $array[0]['nome'];

@@ -1,26 +1,20 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$idFuncionario = $_REQUEST["idFuncionario"];
-
 $Funcionario = new Funcionario();
 
+$idTabela = "tb_funcionario";
+$campos = array("F.id", );
 $caminho = CAM_VIEW."funcionario/";
 $atualizar = CAM_VIEW."funcionario/lista.php";
 $ondeAtualizar = "tr";	
 
-$idTabela = "tb_funcionario";
-$campos = array("F.id", );
-
-Html::set_idTabela($idTabela);
-
 if( $_REQUEST["tr"] == "1" ){
-	
-	$arrayRetorno = array();
-	
+	//ATUALIZAR APENAS A LINHA
+	$idFuncionario = Uteis::escapeRequest($_REQUEST["idFuncionario"]);	
 	$ordem = $_REQUEST["ordem"];
 		
-	$arrayRetorno["updateTr"] = $Funcionario -> tabelaFuncionario_html(" WHERE id = $idFuncionario", $caminho, $atualizar, $ondeAtualizar, $campos, $ordem);
+	$arrayRetorno["updateTr"] = $Funcionario -> tabelaFuncionario_html(" WHERE F.id = $idFuncionario", $caminho, $atualizar, $ondeAtualizar, $campos, $ordem);
 	$arrayRetorno["tabela"] = $idTabela;
 	$arrayRetorno["ordem"] = $ordem;
 	
@@ -29,13 +23,13 @@ if( $_REQUEST["tr"] == "1" ){
 	
 }
 
+//FILTROS
 $where .= " WHERE 1 ";
 
-$colunas = array("");
+$status = implode(",", $_POST['status']);
+if( $status != "" ) $where .= " AND P.inativo IN(".Uteis::escapeRequest($status).")";
 
-Html::set_colunas($colunas);
-$corpoTabela = $Funcionario -> tabelaFuncionario_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
-
+//echo $where;
 ?>
 
 <fieldset>
@@ -43,11 +37,15 @@ $corpoTabela = $Funcionario -> tabelaFuncionario_html($where, $caminho, $atualiz
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."form.php"?>', 'click', '#btFiltro_funcionario')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php"?>', 'click', '#btFiltro_funcionario')" /> 
   </div>
   
   <div class="lista">
-		<?php echo $corpoTabela;?>
+		<?php //IMPRIMIR TABELA
+		Html::set_idTabela($idTabela);
+		Html::set_colunas(array("Nome", "Documento", "Status", ""));
+		echo $Funcionario -> tabelaFuncionario_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
+		?>
 	</div>
 	
 	<script>

@@ -15,36 +15,35 @@ if (isset($_POST["filtro"])) {
 	foreach ($campos as $campo) {
 		if ($campo['relac'] == 'fk') {
 			$carrega3 .= "
-	\$" . $campo['nome'] . " = implode(\",\", \$_POST['" . $campo['nome'] . "']);
-	if( \$" . $campo['nome'] . " ) \$where .= \" AND " . $tableAs . "." . $campo['nome'] . " IN(\".\$" . $campo['nome'] . ".\")\";
-	";
+\$" . $campo['nome'] . " = implode(\",\", \$_POST['" . $campo['nome'] . "']);
+if( \$" . $campo['nome'] . " ) \$where .= \" AND " . $tableAs . "." . $campo['nome'] . " IN(\".Uteis::escapeRequest(\$" . $campo['nome'] . ").\")\";
+";
+		}elseif( $campo['nome'] == 'inativo' ){
+			$carrega3 .= "
+\$status = implode(\",\", \$_POST['status']);
+if( \$status != \"\" ) \$where .= \" AND " . $tableAs . ".inativo IN(\".Uteis::escapeRequest(\$status).\")\";";
 		}
+		
 	}
 }
 
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 
-\$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
-
 \$" . $tableUp . " = new " . $tableUp . "();
 
+\$idTabela = \"tb_" . $table . "\";
+\$campos = array(" . $carrega . ");
 \$caminho = CAM_VIEW.\"" . $table . "/\";
 \$atualizar = CAM_VIEW.\"" . $table . "/lista.php\";
 \$ondeAtualizar = \"tr\";	
 
-\$idTabela = \"tb_" . $table . "\";
-\$campos = array(" . $carrega . ");
-
-Html::set_idTabela(\$idTabela);
-
 if( \$_REQUEST[\"tr\"] == \"1\" ){
-	
-	\$arrayRetorno = array();
-	
+	//ATUALIZAR APENAS A LINHA
+	\$id" . $tableUp . " = Uteis::escapeRequest(\$_REQUEST[\"id" . $tableUp . "\"]);	
 	\$ordem = \$_REQUEST[\"ordem\"];
 		
-	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\" WHERE id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
+	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\" WHERE " . $tableAs . ".id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
 	\$arrayRetorno[\"tabela\"] = \$idTabela;
 	\$arrayRetorno[\"ordem\"] = \$ordem;
 	
@@ -53,13 +52,10 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	
 }
 
+//FILTROS
 " . ($temExcluido ? "\$where = \" WHERE " . $tableAs . ".excluido = 0\";" : "\$where .= \" WHERE 1 \";") . "
 " . $carrega3 . "
-\$colunas = array(" . $carrega2 . "\"\");
-
-Html::set_colunas(\$colunas);
-\$corpoTabela = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
-
+//echo \$where;
 ?>
 
 <fieldset>
@@ -67,11 +63,15 @@ Html::set_colunas(\$colunas);
   
   <div class=\"menu_interno\"> 
   	<img src=\"<?php echo CAM_IMG.\"novo.png\";?>\" title=\"Novo cadastro\" 
-		onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"form.php\"?>', " . (isset($_POST["filtro"]) ? "'click', '#btFiltro_" . $table . "'" : "'<?php echo \$atualizar?>', '#centro'") . ")\" /> 
+		onclick=\"abrirNivelPagina(this, '<?php echo \$caminho.\"abas.php\"?>', " . (isset($_POST["filtro"]) ? "'click', '#btFiltro_" . $table . "'" : "'<?php echo \$atualizar?>', '#centro'") . ")\" /> 
   </div>
   
   <div class=\"lista\">
-		<?php echo \$corpoTabela;?>
+		<?php //IMPRIMIR TABELA
+		Html::set_idTabela(\$idTabela);
+		Html::set_colunas(array(" . $carrega2 . "\"\"));
+		echo \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
+		?>
 	</div>
 	
 	<script>

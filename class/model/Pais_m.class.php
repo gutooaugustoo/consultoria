@@ -13,7 +13,7 @@ class Pais_m extends Database {
 		
 		if( is_numeric($idPais) ){
 		
-			$array = $this -> selectPais(" WHERE id = ".$this -> gravarBD($idPais) );			
+			$array = $this -> selectPais(" WHERE P.id = ".$this -> gravarBD($idPais) );			
 			
 			$this -> idPais = $array[0]['id'];
 			$this -> nacionalidadePais = $array[0]['nacionalidade'];

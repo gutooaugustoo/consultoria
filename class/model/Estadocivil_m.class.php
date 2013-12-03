@@ -12,7 +12,7 @@ class Estadocivil_m extends Database {
 		
 		if( is_numeric($idEstadocivil) ){
 		
-			$array = $this -> selectEstadocivil(" WHERE id = ".$this -> gravarBD($idEstadocivil) );			
+			$array = $this -> selectEstadocivil(" WHERE E.id = ".$this -> gravarBD($idEstadocivil) );			
 			
 			$this -> idEstadocivil = $array[0]['id'];
 			$this -> nomeEstadocivil = $array[0]['nome'];

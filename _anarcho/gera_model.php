@@ -81,7 +81,8 @@ foreach ($campos as $campo) {
 }
 
 //INSERT
-$insert = "\$sql = \"INSERT INTO " . $table . " (";
+$insert = "\$sql = \"INSERT INTO " . $table . " 
+		(";
 $x = "";
 foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
@@ -93,10 +94,12 @@ $insert .= ")
 $x = "";
 foreach ($campos as $campo) {
 	if ($campo['relac'] != 'pk')
-		$x .= "\$this -> " . $campo['nomeComTabela'] . ", ";
+		$x .= "	
+			\" . \$this -> " . $campo['nomeComTabela'] . " . \", ";
 }
 $insert .= substr($x, 0, -2);
-$insert .= ")\";";
+$insert .= "
+		)\";";
 
 //DELETE
 $modelDelete = "";
@@ -142,7 +145,7 @@ class " . $tableUp . "_m extends Database {
 		
 		if( is_numeric(\$id" . $tableUp . ") ){
 		
-			\$array = \$this -> select" . $tableUp . "(\" WHERE id = \".\$this -> gravarBD(\$id" . $tableUp . ") );			
+			\$array = \$this -> select" . $tableUp . "(\" WHERE " . $tableAs . ".id = \".\$this -> gravarBD(\$id" . $tableUp . ") );			
 			" . $contruct . "
 			
 		}
@@ -161,7 +164,7 @@ class " . $tableUp . "_m extends Database {
 	function insert" . $tableUp . "() {
 		" . $insert . "
 		if( \$this -> query(\$sql) ){
-			return mysql_insert_id(\$this -> connect, MSG_CADNEW);
+			return array(mysql_insert_id(\$this -> connect), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		
@@ -183,7 +186,7 @@ class " . $tableUp . "_m extends Database {
 		}
 	}
 	
-	function updateCampo" . $tableUp . "(\$sets = array(), \$msg) {		
+	function updateCampo" . $tableUp . "(\$sets = array(), \$msg = MSG_CADUP) {		
 		if( \$this -> id" . $tableUp . " && is_array(\$sets) ){
 			\$sql = \"UPDATE " . $table . " SET \".Uteis::montarUpdate(\$sets).\" WHERE id = \".\$this -> id" . $tableUp . ";							
 			return \$this -> query(\$sql, \$msg);

@@ -57,7 +57,7 @@ $conteudoArquivo = "<?php
 class " . $tableUp . " extends " . $tableUp . "_m {
 		
 	//CONSTRUTOR
-	function __construct(\$id" . $tableUp . ") {
+	function __construct(\$id" . $tableUp . " = \"\") {
 		parent::__construct(\$id" . $tableUp . ");	
 	}
 
@@ -106,30 +106,24 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 				
 				\$ordem = ( \$apenasLinha !== false ) ? \$apenasLinha : \$cont++;								
 				\$urlAux = \"?ordem=\".\$ordem.\"&tabela=\".Html::get_idTabela();				
-				\$atualizarFinal = \$atualizar.\$urlAux.\"&tr=1&id" . $tableUp . "=\".\$this -> id" . $tableUp . ";
+				\$atualizarFinal = \$atualizar.\$urlAux.\"&tr=1&id" . $tableUp . "=\".\$this -> get_id" . $tableUp . "();
 						
 				\$editar = \"<img src=\\\"\".CAM_IMG.\"editar.png\\\" title=\\\"Editar registro\\\" 
-				onclick=\\\"abrirNivelPagina(this, '\".\$caminho.\"form.php?id" . $tableUp . "=\".\$this -> id" . $tableUp . ".\"', '\$atualizarFinal', '\$ondeAtualizar')\\\" >\";
+				onclick=\\\"abrirNivelPagina(this, '\".\$caminho.\"abas.php?id" . $tableUp . "=\".\$this -> get_id" . $tableUp . "() .\"', '\$atualizarFinal', '\$ondeAtualizar')\\\" >\";
 				
 				\$deletar = \"<img src=\\\"\".CAM_IMG.\"excluir.png\\\" title=\\\"Excluir registro\\\" 
-				onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php\".\$urlAux.\"', '\".\$this -> id" . $tableUp . ".\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";							
+				onclick=\\\"deletaRegistro('\".\$caminho.\"acao.php\".\$urlAux.\"', '\".\$this -> get_id" . $tableUp . "() .\"', '\$atualizarFinal', '\$ondeAtualizar')\\\">\";							
 					
-				if( \$apenasLinha !== false ){
-						
+				if( \$apenasLinha !== false ){						
 					\$colunas[] = implode(ICON_SEPARATOR, array(
-						\$editar,
-						\$deletar
+						\$editar,	\$deletar
 					));									
-					break;
-					
-				}else{
-						
+					break;					
+				}else{						
 					\$colunas[] = array(
-						\$editar,
-						\$deletar
+						\$editar,	\$deletar
 					);
-					\$linhas[] = \$colunas;
-					
+					\$linhas[] = \$colunas;					
 				}
 								
 			}

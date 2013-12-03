@@ -7,6 +7,8 @@ class Pessoa_m extends Database {
 	protected $tipoDocumentoUnico_idPessoa;
 	protected $estadoCivil_idPessoa;
 	protected $nomePessoa;
+	protected $emailPrincipalPessoa;
+	protected $dataNascimentoPessoa;
 	protected $rgPessoa;
 	protected $fotoPessoa;
 	protected $curriculumPessoa;
@@ -15,6 +17,7 @@ class Pessoa_m extends Database {
 	protected $senhaPessoa;
 	protected $documentoPessoa;
 	protected $inativoPessoa = 0;
+	protected $obsPessoa;
 	
 	//CONSTRUTOR
 	function __construct( $idPessoa = "" ) {
@@ -23,13 +26,15 @@ class Pessoa_m extends Database {
 		
 		if( is_numeric($idPessoa) ){
 		
-			$array = $this -> selectPessoa(" WHERE id = ".$this -> gravarBD($idPessoa) );			
+			$array = $this -> selectPessoa(" WHERE P.id = ".$this -> gravarBD($idPessoa) );			
 			
 			$this -> idPessoa = $array[0]['id'];
 			$this -> pais_idPessoa = $array[0]['pais_id'];
 			$this -> tipoDocumentoUnico_idPessoa = $array[0]['tipoDocumentoUnico_id'];
 			$this -> estadoCivil_idPessoa = $array[0]['estadoCivil_id'];
 			$this -> nomePessoa = $array[0]['nome'];
+			$this -> emailPrincipalPessoa = $array[0]['emailPrincipal'];
+			$this -> dataNascimentoPessoa = $array[0]['dataNascimento'];
 			$this -> rgPessoa = $array[0]['rg'];
 			$this -> fotoPessoa = $array[0]['foto'];
 			$this -> curriculumPessoa = $array[0]['curriculum'];
@@ -38,6 +43,7 @@ class Pessoa_m extends Database {
 			$this -> senhaPessoa = $array[0]['senha'];
 			$this -> documentoPessoa = $array[0]['documento'];
 			$this -> inativoPessoa = $array[0]['inativo'];
+			$this -> obsPessoa = $array[0]['obs'];
 			
 		}
 	}
@@ -70,6 +76,16 @@ class Pessoa_m extends Database {
 	
 	function set_nomePessoa($valor) {
 		$this -> nomePessoa = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
+	function set_emailPrincipalPessoa($valor) {
+		$this -> emailPrincipalPessoa = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
+	function set_dataNascimentoPessoa($valor) {
+		$this -> dataNascimentoPessoa = ($valor) ? $this -> gravarBD(Uteis::gravarData($valor)) : "NULL";
 		return $this;
 	}
 	
@@ -112,6 +128,11 @@ class Pessoa_m extends Database {
 		$this -> inativoPessoa = ($valor) ? $this -> gravarBD($valor) : "0";
 		return $this;
 	}
+	
+	function set_obsPessoa($valor) {
+		$this -> obsPessoa = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
 		
 	//GETS
 	
@@ -133,6 +154,14 @@ class Pessoa_m extends Database {
 	
 	function get_nomePessoa() {
 		return ($this -> nomePessoa);
+	}
+	
+	function get_emailPrincipalPessoa() {
+		return ($this -> emailPrincipalPessoa);
+	}
+	
+	function get_dataNascimentoPessoa() {
+		if( $this -> dataNascimentoPessoa ) return Uteis::exibirData($this -> dataNascimentoPessoa);
 	}
 	
 	function get_rgPessoa() {
@@ -164,16 +193,37 @@ class Pessoa_m extends Database {
 	}
 	
 	function get_inativoPessoa($mostrarImagem = false) {
-		return !$mostrarImagem ? $this -> inativoPessoa : Uteis::exibirStatus($this -> inativoPessoa);
+		return !$mostrarImagem ? $this -> inativoPessoa : Uteis::exibirStatus(!$this -> inativoPessoa);
+	}
+	
+	function get_obsPessoa() {
+		return ($this -> obsPessoa);
 	}
 				
 	//MANUSEANDO O BANCO
 		
 	function insertPessoa() {
-		$sql = "INSERT INTO pessoa (pais_id, tipoDocumentoUnico_id, estadoCivil_id, nome, rg, foto, curriculum, cargo, sexo, senha, documento, inativo) 
-		VALUES ($this -> pais_idPessoa, $this -> tipoDocumentoUnico_idPessoa, $this -> estadoCivil_idPessoa, $this -> nomePessoa, $this -> rgPessoa, $this -> fotoPessoa, $this -> curriculumPessoa, $this -> cargoPessoa, $this -> sexoPessoa, $this -> senhaPessoa, $this -> documentoPessoa, $this -> inativoPessoa)";
+		$sql = "INSERT INTO pessoa 
+		(pais_id, tipoDocumentoUnico_id, estadoCivil_id, nome, emailPrincipal, dataNascimento, rg, foto, curriculum, cargo, sexo, senha, documento, inativo, obs) 
+		VALUES (	
+			" . $this -> pais_idPessoa . ", 	
+			" . $this -> tipoDocumentoUnico_idPessoa . ", 	
+			" . $this -> estadoCivil_idPessoa . ", 	
+			" . $this -> nomePessoa . ", 	
+			" . $this -> emailPrincipalPessoa . ", 	
+			" . $this -> dataNascimentoPessoa . ", 	
+			" . $this -> rgPessoa . ", 	
+			" . $this -> fotoPessoa . ", 	
+			" . $this -> curriculumPessoa . ", 	
+			" . $this -> cargoPessoa . ", 	
+			" . $this -> sexoPessoa . ", 	
+			" . $this -> senhaPessoa . ", 	
+			" . $this -> documentoPessoa . ", 	
+			" . $this -> inativoPessoa . ", 	
+			" . $this -> obsPessoa . "
+		)";
 		if( $this -> query($sql) ){
-			return mysql_insert_id($this -> connect, MSG_CADNEW);
+			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		
@@ -192,6 +242,8 @@ class Pessoa_m extends Database {
 					"tipoDocumentoUnico_id" => $this -> tipoDocumentoUnico_idPessoa, 		
 					"estadoCivil_id" => $this -> estadoCivil_idPessoa, 		
 					"nome" => $this -> nomePessoa, 		
+					"emailPrincipal" => $this -> emailPrincipalPessoa, 		
+					"dataNascimento" => $this -> dataNascimentoPessoa, 		
 					"rg" => $this -> rgPessoa, 		
 					"foto" => $this -> fotoPessoa, 		
 					"curriculum" => $this -> curriculumPessoa, 		
@@ -199,7 +251,8 @@ class Pessoa_m extends Database {
 					"sexo" => $this -> sexoPessoa, 		
 					"senha" => $this -> senhaPessoa, 		
 					"documento" => $this -> documentoPessoa, 		
-					"inativo" => $this -> inativoPessoa				
+					"inativo" => $this -> inativoPessoa, 		
+					"obs" => $this -> obsPessoa				
 				), MSG_CADUP	
 			);
 			
@@ -208,7 +261,7 @@ class Pessoa_m extends Database {
 		}
 	}
 	
-	function updateCampoPessoa($sets = array(), $msg) {		
+	function updateCampoPessoa($sets = array(), $msg = MSG_CADUP) {		
 		if( $this -> idPessoa && is_array($sets) ){
 			$sql = "UPDATE pessoa SET ".Uteis::montarUpdate($sets)." WHERE id = ".$this -> idPessoa;							
 			return $this -> query($sql, $msg);

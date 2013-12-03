@@ -82,15 +82,14 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 	<div id=\"fechar_nivel\" class=\"fechar\" onclick=\"fecharNivel(nivel);\" title=\"Fechar\"></div>
 	<div id=\"abas\">
 		<div id=\"aba_<?php echo \$nomeTable ?>\" divExibir=\"div_<?php echo \$nomeTable ?>\" class=\"aba_interna ativa\"
-		onclick=\"carregarModulo('<?php echo CAM_VIEW.\"".$table."/_form.php?id" . $tableUp."=\".\$id" . $tableUp."?>' , '#div_<?php echo \$nomeTable ?>')\" >" . $tabelaNome . "</div>
+		onclick=\"carregarModulo('<?php echo CAM_VIEW.\"".$table."/form.php?id" . $tableUp."=\".\$id" . $tableUp."?>' , '#div_<?php echo \$nomeTable ?>')\" >" . $tabelaNome . "</div>
 	</div>
 	<div id=\"modulos_<?php echo \$nomeTable ?>\" class=\"conteudo_nivel\">
 		<div id=\"div_<?php echo \$nomeTable ?>\" class=\"div_aba_interna\">			
-			<?php include \"_form.php\"; ?>						
+			<?php include \"form.php\"; ?>						
 		</div>
 	</div>
 </div>
-<script>ativarForm();</script> 
 ";
 
 ////////////////////////////////////// ARQUIVO FORM
@@ -131,12 +130,13 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
 		</form>
 	
 	</div>
-</fieldset>";
+</fieldset>
+<script>ativarForm();</script> ";
 
 $pathname = "../view/" . $table;
 if (!file_exists($pathname))
 	mkdir($pathname, 0700);
-$nomeArquivo = $pathname . "/form.php";
+$nomeArquivo = $pathname . "/abas.php";
 
 if (!file_exists($nomeArquivo) || $sobrescrever) {
 
@@ -149,7 +149,7 @@ if (!file_exists($nomeArquivo) || $sobrescrever) {
 	//exit;
 }
 
-$nomeArquivo = $pathname . "/_form.php";
+$nomeArquivo = $pathname . "/form.php";
 if (!file_exists($nomeArquivo) || $sobrescrever) {
 
 	$arquivo = fopen($nomeArquivo, 'w');

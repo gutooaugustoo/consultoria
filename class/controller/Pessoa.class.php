@@ -2,7 +2,7 @@
 class Pessoa extends Pessoa_m {
 		
 	//CONSTRUTOR
-	function __construct($idPessoa) {
+	function __construct($idPessoa = "") {
 		parent::__construct($idPessoa);	
 	}
 
@@ -55,6 +55,8 @@ class Pessoa extends Pessoa_m {
 				$Estadocivil = new Estadocivil( $this -> get_estadoCivil_idPessoa() );
 				$colunas[] = $Estadocivil -> get_idEstadocivil();
 				$colunas[] = $this -> get_nomePessoa();
+				$colunas[] = $this -> get_emailPrincipalPessoa();
+				$colunas[] = $this -> get_dataNascimentoPessoa();
 				$colunas[] = $this -> get_rgPessoa();
 				$colunas[] = $this -> get_fotoPessoa();
 				$colunas[] = $this -> get_curriculumPessoa();
@@ -63,33 +65,28 @@ class Pessoa extends Pessoa_m {
 				$colunas[] = $this -> get_senhaPessoa();
 				$colunas[] = $this -> get_documentoPessoa();
 				$colunas[] = $this -> get_inativoPessoa(true);
+				$colunas[] = $this -> get_obsPessoa();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "?ordem=".$ordem."&tabela=".Html::get_idTabela();				
-				$atualizarFinal = $atualizar.$urlAux."&tr=1&idPessoa=".$this -> idPessoa;
+				$atualizarFinal = $atualizar.$urlAux."&tr=1&idPessoa=".$this -> get_idPessoa();
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."form.php?idPessoa=".$this -> idPessoa."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idPessoa=".$this -> get_idPessoa() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idPessoa."', '$atualizarFinal', '$ondeAtualizar')\">";							
+				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> get_idPessoa() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
-				if( $apenasLinha !== false ){
-						
+				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					));									
-					break;
-					
-				}else{
-						
+					break;					
+				}else{						
 					$colunas[] = array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					);
-					$linhas[] = $colunas;
-					
+					$linhas[] = $colunas;					
 				}
 								
 			}
@@ -116,6 +113,12 @@ class Pessoa extends Pessoa_m {
 		$nome = ($post['nome']);
 			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 		
+		$emailPrincipal = ($post['emailPrincipal']);
+			 if( $emailPrincipal == '' ) return array(false, MSG_OBRIGAT." Email Principal");
+		
+		$dataNascimento = ($post['dataNascimento']);
+			 if( $dataNascimento == '' ) return array(false, MSG_OBRIGAT." Data Nascimento");
+		
 		$rg = ($post['rg']);
 		
 		$foto = ($post['foto']);
@@ -134,6 +137,8 @@ class Pessoa extends Pessoa_m {
 			 if( $documento == '' ) return array(false, MSG_OBRIGAT." Documento");
 		
 		$inativo = ($post['inativo']);
+		
+		$obs = ($post['obs']);
 				
 		//SETAR
 		$this
@@ -141,6 +146,8 @@ class Pessoa extends Pessoa_m {
 			 -> set_tipoDocumentoUnico_idPessoa($tipoDocumentoUnico_id)
 			 -> set_estadoCivil_idPessoa($estadoCivil_id)
 			 -> set_nomePessoa($nome)
+			 -> set_emailPrincipalPessoa($emailPrincipal)
+			 -> set_dataNascimentoPessoa($dataNascimento)
 			 -> set_rgPessoa($rg)
 			 -> set_fotoPessoa($foto)
 			 -> set_curriculumPessoa($curriculum)
@@ -148,7 +155,8 @@ class Pessoa extends Pessoa_m {
 			 -> set_sexoPessoa($sexo)
 			 -> set_senhaPessoa($senha)
 			 -> set_documentoPessoa($documento)
-			 -> set_inativoPessoa($inativo);
+			 -> set_inativoPessoa($inativo)
+			 -> set_obsPessoa($obs);
 		
 		if( $idPessoa ){			
 			$this -> set_idPessoa($idPessoa);			

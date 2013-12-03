@@ -13,7 +13,7 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 	//GERAR ELEMENTOS
 	function selectTipodocumentounico_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= "";
-		$campos = array("id", "class AS legenda");
+		$campos = array("id", "nome AS legenda");
 		$array = $this -> selectTipodocumentounico($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
@@ -56,27 +56,21 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 				$atualizarFinal = $atualizar.$urlAux."&tr=1&idTipodocumentounico=".$this -> idTipodocumentounico;
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."form.php?idTipodocumentounico=".$this -> idTipodocumentounico."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idTipodocumentounico=".$this -> idTipodocumentounico."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
 				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idTipodocumentounico."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
-				if( $apenasLinha !== false ){
-						
+				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					));									
-					break;
-					
-				}else{
-						
+					break;					
+				}else{						
 					$colunas[] = array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					);
-					$linhas[] = $colunas;
-					
+					$linhas[] = $colunas;					
 				}
 								
 			}

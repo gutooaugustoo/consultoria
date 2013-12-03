@@ -164,5 +164,11 @@ class Html {
 		return self::selectMultiple($nome, $idAtual, $array);		 
 	}
 	
+	static function selectSexo_html($nome = "sexo", $idAtual = ""){
+		$array[] = array("id" => "M", "legenda" => "Masculino");
+		$array[] = array("id" => "F", "legenda" => "Feminino");		
+		return self::select($nome, $idAtual, $array);		 
+	}
+	
 }
 ?>

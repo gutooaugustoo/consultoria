@@ -484,6 +484,10 @@ class Uteis {
 		}					
 		return substr($sqlSets, 0, -2);
 	}
+	
+	static function escapeRequest($texto){
+		return mysql_real_escape_string(trim($texto));
+	}	
 		
 	static function pr($arr, $exit = 0) {
 		echo "<pre>";

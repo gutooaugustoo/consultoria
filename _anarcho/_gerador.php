@@ -35,6 +35,10 @@ function separaString($string) {
 
 }
 
+function gravarArquivo(){
+	
+}
+
 if ($_POST["table"]) {
 	foreach ($_POST["table"] as $table) {
 

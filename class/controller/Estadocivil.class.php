@@ -55,27 +55,21 @@ class Estadocivil extends Estadocivil_m {
 				$atualizarFinal = $atualizar.$urlAux."&tr=1&idEstadocivil=".$this -> idEstadocivil;
 						
 				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."form.php?idEstadocivil=".$this -> idEstadocivil."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idEstadocivil=".$this -> idEstadocivil."', '$atualizarFinal', '$ondeAtualizar')\" >";
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
 				onclick=\"deletaRegistro('".$caminho."acao.php".$urlAux."', '".$this -> idEstadocivil."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
-				if( $apenasLinha !== false ){
-						
+				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					));									
-					break;
-					
-				}else{
-						
+					break;					
+				}else{						
 					$colunas[] = array(
-						$editar,
-						$deletar
+						$editar,	$deletar
 					);
-					$linhas[] = $colunas;
-					
+					$linhas[] = $colunas;					
 				}
 								
 			}
