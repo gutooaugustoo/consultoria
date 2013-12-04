@@ -109,6 +109,7 @@ class Funcionario extends Funcionario_m {
 		} else {
 			return $rs;
 		}
+		
 	}
 
 	function deletarFuncionario($idFuncionario) {

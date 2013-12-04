@@ -48,17 +48,6 @@ class Candidato_m extends Pessoa {
 			return array(false, MSG_ERR);
 		}		
 	}
-	
-	function deleteCandidato() {
-		
-	if( $this -> idCandidato ){
-		$sql = "DELETE FROM candidato WHERE id = ".$this -> idCandidato;			
-		return $this -> query($sql, MSG_CADDEL);
-	}else{
-		return array(false, MSG_ERR);
-	}
-	
-	}
 
 	function updateCandidato() {
 		if( $this -> idCandidato ){

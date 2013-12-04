@@ -52,20 +52,6 @@ class Avaliador_m extends Pessoa {
 		}
 	}
 
-	function deleteAvaliador() {
-
-		if ($this -> idAvaliador) {
-			$sql = "DELETE FROM avaliador WHERE id = " . $this -> idAvaliador;
-			return $this -> query($sql, MSG_CADDEL);
-		} else {
-			return array(
-				false,
-				MSG_ERR
-			);
-		}
-
-	}
-
 	function updateAvaliador() {
 		if ($this -> idAvaliador) {
 			//return $this -> updateCampoAvaliador(array("id" => $this -> idAvaliador));

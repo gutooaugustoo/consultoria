@@ -18,12 +18,12 @@ class Empresa extends Empresa_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	function selectMultipleEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	/*function selectMultipleEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND E.excluido = 0";
 		$campos = array("id", "ie AS legenda");
 		$array = $this -> selectEmpresa($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}
+	}*/
 	
 	/*function checkBoxEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND E.excluido = 0";
@@ -50,9 +50,7 @@ class Empresa extends Empresa_m {
 				
 				$colunas[] = $this -> get_razaoSocialEmpresa();
 				$colunas[] = $this -> get_nomeFantasiaEmpresa();
-				$colunas[] = $this -> get_cnpjEmpresa();
-				$colunas[] = $this -> get_logoEmpresa();
-				$colunas[] = $this -> get_ieEmpresa();
+				$colunas[] = $this -> get_cnpjEmpresa();				
 				$colunas[] = $this -> get_inativoEmpresa(true);
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
@@ -99,8 +97,7 @@ class Empresa extends Empresa_m {
 		if( $cnpj == '' ) return array(false, MSG_OBRIGAT." Cnpj");
 		
 		$logo = ($post['logo']);
-		if( $logo == '' ) return array(false, MSG_OBRIGAT." Logo");
-		
+				
 		$ie = ($post['ie']);
 		
 		$inativo = ($post['inativo']);

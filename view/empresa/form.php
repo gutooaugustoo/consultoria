@@ -23,7 +23,7 @@ $acao = CAM_VIEW."empresa/acao.php";
 				<input type="hidden" id="idEmpresa" name="idEmpresa" value="<?php echo $Empresa -> get_idEmpresa() ?>" />
 		
 				<p>
-				<label>Razao Social:</label>
+				<label>Razão Social:</label>
 				<input type="text" name="razaoSocial" id="razaoSocial" value="<?php echo $Empresa -> get_razaoSocialEmpresa()?>" class="required" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
@@ -33,7 +33,7 @@ $acao = CAM_VIEW."empresa/acao.php";
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Cnpj:</label>
+				<label>CNPJ:</label>
 				<input type="text" name="cnpj" id="cnpj" value="<?php echo $Empresa -> get_cnpjEmpresa()?>" class="required" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		   									
@@ -42,12 +42,12 @@ $acao = CAM_VIEW."empresa/acao.php";
 			<div class="direita">
 				
 				<p>
-				<label>Logo:</label>
-				<input type="text" name="logo" id="logo" value="<?php echo $Empresa -> get_logoEmpresa()?>" class="required" />
-				<span class="placeholder" >Campo obrigatório</span></p>
+				<label>Logotipo:</label>
+				<!--<input type="text" name="logo" id="logo" value="<?php echo $Empresa -> get_logoEmpresa()?>" class="" />
+				<span class="placeholder" >Campo obrigatório</span></p>-->
 		
 				<p>
-				<label>Ie:</label>
+				<label>Inscrição estadual:</label>
 				<input type="text" name="ie" id="ie" value="<?php echo $Empresa -> get_ieEmpresa()?>" class="" />
 				<span class="placeholder" ></span></p>
 		

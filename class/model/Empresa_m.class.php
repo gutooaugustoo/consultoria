@@ -98,7 +98,7 @@ class Empresa_m extends Database {
 	}
 	
 	function get_inativoEmpresa($mostrarImagem = false) {
-		return !$mostrarImagem ? $this -> inativoEmpresa : Uteis::exibirStatus($this -> inativoEmpresa);
+		return !$mostrarImagem ? $this -> inativoEmpresa : Uteis::exibirStatus(!$this -> inativoEmpresa);
 	}
 				
 	//MANUSEANDO O BANCO

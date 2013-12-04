@@ -45,7 +45,7 @@ if( $status != "" ) $where .= " AND E.inativo IN(".Uteis::escapeRequest($status)
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Razao Social", "Nome Fantasia", "Cnpj", "Logo", "Ie", "Inativo", ""));
+		Html::set_colunas(array("Razao Social", "Nome Fantasia", "CNPJ", "Status", ""));
 		echo $Empresa -> tabelaEmpresa_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>
 	</div>

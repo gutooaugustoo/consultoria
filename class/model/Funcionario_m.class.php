@@ -52,20 +52,6 @@ class Funcionario_m extends Pessoa {
 		}
 	}
 
-	function deleteFuncionario() {
-
-		if ($this -> idFuncionario) {
-			$sql = "DELETE FROM funcionario WHERE id = " . $this -> idFuncionario;
-			return $this -> query($sql, MSG_CADDEL);
-		} else {
-			return array(
-				false,
-				MSG_ERR
-			);
-		}
-
-	}
-
 	function updateFuncionario() {
 		if ($this -> idFuncionario) {
 			//return $this -> updateCampoFuncionario(array("id" => $this -> idFuncionario));

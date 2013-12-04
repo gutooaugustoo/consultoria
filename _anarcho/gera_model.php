@@ -107,12 +107,12 @@ if ($temExcluido) {
 	$modelDelete .= "return \$this -> updateCampo" . $tableUp . "(array(\"excluido\" => \"1\"), MSG_CADDEL);";
 } else {
 	$modelDelete .= "
-	if( \$this -> id" . $tableUp . " ){
-		\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this -> id" . $tableUp . ";			
-		return \$this -> query(\$sql, MSG_CADDEL);
-	}else{
-		return array(false, MSG_ERR);
-	}
+		if( \$this -> id" . $tableUp . " ){
+			\$sql = \"DELETE FROM " . $table . " WHERE id = \".\$this -> id" . $tableUp . ";			
+			return \$this -> query(\$sql, MSG_CADDEL);
+		}else{
+			return array(false, MSG_ERR);
+		}
 	";
 }
 
@@ -128,7 +128,7 @@ foreach ($campos as $campo) {
 
 }
 $update .= substr($update2, 0, -2) . "				
-				), MSG_CADUP";
+				)";
 
 //\$sql =  WHERE id = \$this -> id" . $tableUp . "\";
 

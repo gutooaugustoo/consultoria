@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$Empresa = new Empresa();
+$Gestor = new Gestor();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idEmpresa = $_REQUEST['id'];
+	$idGestor = $_REQUEST['id'];
 	
-	$rs = $Empresa -> deletarEmpresa($idEmpresa);
+	$rs = $Gestor -> deletarGestor($idGestor);
 	
 	if( $rs[0] != false ){
 							
@@ -20,14 +20,14 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idEmpresa = $_REQUEST['idEmpresa'];
+	$idGestor = $_REQUEST['idGestor'];
 	
-	$rs = $Empresa -> cadastrarEmpresa($idEmpresa, $_POST);
+	$rs = $Gestor -> cadastrarGestor($idGestor, $_POST);
 
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-		if( !$idEmpresa ) $idEmpresa = $rs[0];
-		$arrayRetorno['pagina'] = CAM_VIEW."empresa/abas.php?idEmpresa=".$idEmpresa;
+		//$arrayRetorno['atualizarNivelAtual'] = true;
+		//$arrayRetorno['pagina'] = CAM_VIEW."gestor/abas.php?idGestor=".$rs[0];
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }
