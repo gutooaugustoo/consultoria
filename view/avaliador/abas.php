@@ -2,7 +2,7 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php");
 
 $idAvaliador = $_REQUEST["idAvaliador"];
-$url = "?pessoa_id=".$idAvaliador
+$url = "?pessoa_id=".$idAvaliador;
 ?>
 
 <div id="cadastro_avaliador" class="">

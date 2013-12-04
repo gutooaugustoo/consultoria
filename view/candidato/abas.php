@@ -1,18 +1,18 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php");
 
-$idFuncionario = $_REQUEST["idFuncionario"];
-$url = "?pessoa_id=".$idFuncionario;
+$idCandidato = $_REQUEST["idCandidato"];
+$url = "?pessoa_id=".$idCandidato;
 ?>
 
-<div id="cadastro_funcionario" class="">
+<div id="cadastro_candidato" class="">
 	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
 	<div id="abas">
-		<div id="abaLista_funcionario" divExibir="divLista_res" class="aba_interna ativa"
-		onclick="carregarModulo('<?php echo CAM_VIEW."funcionario/form.php?idFuncionario=".$idFuncionario?>' , '#divLista_res')" >
-			Funcionario
+		<div id="aba_candidato" divExibir="divLista_res" class="aba_interna ativa"
+		onclick="carregarModulo('<?php echo CAM_VIEW."candidato/form.php?idCandidato=".$idCandidato?>' , '#divLista_res')" >
+			Candidato
 		</div>
-		<?php if( $idFuncionario ) {
+		<?php if( $idCandidato ) {
 		?>
 		<div id="abaLista_telefone" divExibir="divLista_res" class="aba_interna"
 		onclick="carregarModulo('<?php echo CAM_VIEW."telefone/lista.php".$url?>' , '#divLista_res')" >

@@ -1,14 +1,14 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php");
 
-$idFuncionario = $_REQUEST["idFuncionario"];
-$Pessoa = new Funcionario($idFuncionario);
-$nomeTable = "funcionario";
-$acao = CAM_VIEW . "funcionario/acao.php";
+$idCandidato = $_REQUEST["idCandidato"];
+$Pessoa = new Candidato($idCandidato);
+$nomeTable = "candidato";
+$acao = CAM_VIEW . "candidato/acao.php";
 ?>
 <fieldset>
 	<legend>
-		Funcionario
+		Candidato
 	</legend>
 
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>"
@@ -18,7 +18,7 @@ $acao = CAM_VIEW . "funcionario/acao.php";
 
 		<form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
 
-			<input type="hidden" id="idFuncionario" name="idFuncionario" value="<?php echo $Pessoa -> get_idFuncionario() ?>" />
+			<input type="hidden" id="idCandidato" name="idCandidato" value="<?php echo $Pessoa -> get_idCandidato() ?>" />
 
 			<?php
 			include "../pessoa/form.php";

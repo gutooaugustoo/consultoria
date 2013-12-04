@@ -21,7 +21,7 @@ class Avaliador extends Avaliador_m {
 		return Html::select($nomeId, $idAtual, $array);
 	}
 
-	function selectMultipleAvaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	/*function selectMultipleAvaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
 		$campos = array(
 			"id",
@@ -29,7 +29,7 @@ class Avaliador extends Avaliador_m {
 		);
 		$array = $this -> selectAvaliador($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}
+	}*/
 
 	/*function checkBoxAvaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 	 $where .= "";
