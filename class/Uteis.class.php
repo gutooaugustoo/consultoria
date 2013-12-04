@@ -486,7 +486,15 @@ class Uteis {
 	}
 	
 	static function escapeRequest($texto){
-		return mysql_real_escape_string(trim($texto));
+			
+		$res = mysql_real_escape_string(trim($texto));
+		
+		if ( is_numeric($res)) {
+			return $res;
+		}else{
+			return "'" . $res . "'";
+		}
+		
 	}	
 		
 	static function pr($arr, $exit = 0) {

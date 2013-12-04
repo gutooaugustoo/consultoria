@@ -15,15 +15,17 @@ setlocale(LC_ALL, LOCALE);
 define("VERSAO", "1.0 (EM DESENVOLVIMENTO)");
 
 //PASTAS PADR�O
-define("CAM_UP", "/consultoria/upload/");
-define("CAM_UP_ROOT", $_SERVER['DOCUMENT_ROOT']."/consultoria/upload/");
+define("CAM_ROOT", "/consultoria");
 
-define("CAM_IMG", "/consultoria/images/");
-define("CAM_IMG2", "http://".$_SERVER['SERVER_NAME']."/consultoria/images/");
-	define("ICON_SEPARATOR", "<img src=\"" . CAM_IMG . "separator.png\" />");
-define("CAM_CFG", "/consultoria/config/");
-define("CAM_CLASS", "/consultoria/class/");	
-define("CAM_VIEW", "/consultoria/view/");
+	define("CAM_UP", CAM_ROOT."/upload/");
+	define("CAM_UP_ROOT", $_SERVER['DOCUMENT_ROOT'].CAM_ROOT."/upload/");
+	
+	define("CAM_IMG", CAM_ROOT."/images/");
+	define("CAM_IMG2", "http://".$_SERVER['SERVER_NAME'].CAM_ROOT."/images/");
+		define("ICON_SEPARATOR", "<img src=\"" . CAM_IMG . "separator.png\" />");
+	define("CAM_CFG", CAM_ROOT."/config/");
+	define("CAM_CLASS", CAM_ROOT."/class/");	
+	define("CAM_VIEW", CAM_ROOT."/view/");
 
 define("MSG_CADNEW", "Cadastro efetuado com sucesso.");
 define("MSG_CADUP", "Cadastro atualizado com sucesso.");

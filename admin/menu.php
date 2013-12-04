@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php";
 
 $Modulo = new Modulo();
-//$Funcionario = new Funcionario($_SESSION["idFuncionario"]);
+$Funcionario = new Funcionario($_SESSION["idFuncionario"]);
 ?>
 
 <ul>
@@ -97,7 +97,7 @@ $Modulo = new Modulo();
 </ul>
 
 <div class="logoff" >
-	<small><?php //echo $Funcionario->	?>
+	<small><?php echo $Funcionario->get_nomePessoa();?>
 		&nbsp;&nbsp;</small>
 	<img src="<?php echo CAM_IMG."sair.png"?>" title="Sair do sistema" onclick="$('#logoff').click()"/>
 </div>
