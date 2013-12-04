@@ -65,26 +65,35 @@ $acao = CAM_VIEW . "endereco/acao.php";
 				<p>
 					<label>Pais:</label>
 					<?php $Pais = new Pais();
-						Html::set_cssClass(array("required"));
-						echo $Pais -> selectPais_html('pais_id', $Endereco -> get_pais_idEndereco());
- 					?>
+					Html::set_cssClass(array("required"));
+					Html::set_eventos(array("onchange" => "verificaPais()"));
+					echo $Pais -> selectPais_html('pais_id', $Endereco -> get_pais_idEndereco());
+					?>
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>
-
-				<p>
-					<label>Cidade:</label>
-					<?php $Cidade = new Cidade();
-						echo $Cidade -> selectCidade_html('cidade_id', $Endereco -> get_cidade_idEndereco());
- 					?>
-					<span class="placeholder" ></span>
-				</p>
 				
-				<p>
-					<label>Cidade Estrangeira:</label>
+				<div id="divEnderecoEstadoCidade" class="off" >
+					<p>
+						<label>Estado:</label>
+						<?php 
+						$Cidade = new Cidade( $Endereco -> get_cidade_idEndereco() );						
+						$Uf = new Uf();						
+						Html::set_eventos(array("onchange" => "verificaEstado()"));
+						echo $Uf -> selectUf_html('uf_id', $Cidade->get_uf_idCidade() );
+						?>
+						<span class="placeholder" ></span>
+					</p>
+					<p id="divEnderecoCidade" >						
+					</p>
+					
+				</div>
+				
+				<p id="divEnderecoCidadeEstrangeira" class="off">
+					<label>Cidade de outro país:</label>
 					<input type="text" name="cidadeEstrangeira" id="cidadeEstrangeira" value="<?php echo $Endereco -> get_cidadeEstrangeiraEndereco()?>" class="" />
 					<span class="placeholder" ></span>
 				</p>
-				
+
 				<p>
 					<label>Complemento:</label>
 					<input type="text" name="complemento" id="complemento" value="<?php echo $Endereco -> get_complementoEndereco()?>" class="" />
@@ -105,4 +114,28 @@ $acao = CAM_VIEW . "endereco/acao.php";
 
 	</div>
 </fieldset>
-<script>ativarForm();</script>
+<script>
+ativarForm();
+	
+function verificaPais(){	
+	var o = $('#formCad_<?php echo $nomeTable ?> #pais_id');
+	//alert(o.val()); 
+	if( o.val() == '<?php echo ID_PAIS?>'){
+		$('#divEnderecoEstadoCidade').removeClass('off');
+		$('#divEnderecoCidadeEstrangeira').addClass('off');
+		verificaEstado();		
+	}else{
+		$('#divEnderecoCidadeEstrangeira').removeClass('off');
+		$('#divEnderecoEstadoCidade').addClass('off');		
+		
+	}
+}
+
+function verificaEstado(){
+	var o = $('#formCad_<?php echo $nomeTable ?> #uf_id');	
+	var param = '&acao=carregarCidade&idCidade=<?php echo $Endereco->get_cidade_idEndereco()?>&uf_id='+o.val();
+	postForm('', '<?php echo CAM_VIEW."endereco/acao.php"?>', param, '#divEnderecoCidade');
+}
+
+verificaPais();
+</script>

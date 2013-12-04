@@ -87,9 +87,10 @@ class Telefone extends Telefone_m {
 	function cadastrarTelefone($idTelefone, $post = array()){
 		
 		//CARREGAR DO POST
-		$pessoa_id = ($post['pessoa_id']);
-		
+		$pessoa_id = ($post['pessoa_id']);		
 		$empresa_id = ($post['empresa_id']);
+		
+		if( $pessoa_id == '' && $empresa_id == '' ) return array(false, MSG_ERR);
 		
 		$descricaoTelefone_id = ($post['descricaoTelefone_id']);
 			 if( $descricaoTelefone_id == '' ) return array(false, MSG_OBRIGAT." Descricao Telefone");

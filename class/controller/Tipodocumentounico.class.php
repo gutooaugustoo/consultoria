@@ -13,17 +13,17 @@ class Tipodocumentounico extends Tipodocumentounico_m {
 	//GERAR ELEMENTOS
 	function selectTipodocumentounico_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= "";
-		$campos = array("id", "class AS legenda");
+		$campos = array("id", "nome AS legenda");
 		$array = $this -> selectTipodocumentounico($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	function selectMultipleTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	/*function selectMultipleTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
-		$campos = array("id", "class AS legenda");
+		$campos = array("id", "nome AS legenda");
 		$array = $this -> selectTipodocumentounico($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}
+	}*/
 	
 	/*function checkBoxTipodocumentounico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";

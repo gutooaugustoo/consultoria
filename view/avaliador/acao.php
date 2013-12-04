@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
-$Funcionario = new Funcionario();
+$Avaliador = new Avaliador();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idFuncionario = $_REQUEST['id'];
+	$idAvaliador = $_REQUEST['id'];
 	
-	$rs = $Funcionario -> deletarFuncionario($idFuncionario);
+	$rs = $Avaliador -> deletarAvaliador($idAvaliador);
 	
 	if( $rs[0] != false ){
 							
@@ -20,13 +20,13 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idFuncionario = $_REQUEST['idFuncionario'];
+	$idAvaliador = $_REQUEST['idAvaliador'];
 	
-	$rs = $Funcionario -> cadastrarFuncionario($idFuncionario, $_POST);
-	
+	$rs = $Avaliador -> cadastrarAvaliador($idAvaliador, $_POST);
+
 	if( $rs[0] != false ){			
 		$arrayRetorno['atualizarNivelAtual'] = true;
-		$arrayRetorno['pagina'] = CAM_VIEW."funcionario/abas.php?idFuncionario=".$rs[0];
+		$arrayRetorno['pagina'] = CAM_VIEW."avaliador/abas.php?idAvaliador=".$rs[0];
 	}
 	
 }

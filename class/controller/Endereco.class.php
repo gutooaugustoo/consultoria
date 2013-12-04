@@ -84,31 +84,36 @@ class Endereco extends Endereco_m {
 	function cadastrarEndereco($idEndereco, $post = array()){
 		
 		//CARREGAR DO POST
-		$pessoa_id = ($post['pessoa_id']);
-		
+		$pessoa_id = ($post['pessoa_id']);		
 		$empresa_id = ($post['empresa_id']);
 		
-		$pais_id = ($post['pais_id']);
-			 if( $pais_id == '' ) return array(false, MSG_OBRIGAT." Pais");
+		if( $pessoa_id == '' && $empresa_id == '' ) return array(false, MSG_ERR);
 		
-		$cidade_id = ($post['cidade_id']);
+		$pais_id = ($post['pais_id']);
+		if( $pais_id == '' ) return array(false, MSG_OBRIGAT." Pais");
+				
+		if( $pais_id == ID_PAIS ){
+			$cidade_id = ($post['cidade_id']);
+			if( $cidade_id == '' ) return array(false, MSG_OBRIGAT."Estado e Cidade");
+		}else{
+			$cidadeEstrangeira = ($post['cidadeEstrangeira']);
+			if( $cidadeEstrangeira == '' ) return array(false, MSG_OBRIGAT." Cidade de outro país");
+		}
 		
 		$rua = ($post['rua']);
-			 if( $rua == '' ) return array(false, MSG_OBRIGAT." Rua");
+		if( $rua == '' ) return array(false, MSG_OBRIGAT." Rua");
 		
 		$bairro = ($post['bairro']);
-			 if( $bairro == '' ) return array(false, MSG_OBRIGAT." Bairro");
+		if( $bairro == '' ) return array(false, MSG_OBRIGAT." Bairro");
 		
 		$numero = ($post['numero']);
-			 if( $numero == '' ) return array(false, MSG_OBRIGAT." Numero");
+		if( $numero == '' ) return array(false, MSG_OBRIGAT." Numero");
 		
 		$cep = ($post['cep']);
-			 if( $cep == '' ) return array(false, MSG_OBRIGAT." Cep");
+		if( $cep == '' ) return array(false, MSG_OBRIGAT." Cep");
 		
 		$complemento = ($post['complemento']);
-		
-		$cidadeEstrangeira = ($post['cidadeEstrangeira']);
-				
+						
 		//SETAR
 		$this
 			 -> set_pessoa_idEndereco($pessoa_id)
@@ -140,7 +145,7 @@ class Endereco extends Endereco_m {
 		//RUA
 		$res = $this -> get_ruaEndereco();
 		//NÚMERO		
-		$res .= ", nº ".$this -> get_numeroEndereco();
+		$res .= ", ".$this -> get_numeroEndereco();
 		//BAIRRO
 		$res .= ", ". $this -> get_bairroEndereco();		
 		//CEP

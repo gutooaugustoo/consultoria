@@ -28,6 +28,16 @@ if( $_REQUEST['acao'] == "deletar" ){
 		$arrayRetorno['fecharNivel'] = true;
 	}
 	
+}elseif( $_REQUEST['acao'] == "carregarCidade" ){
+	
+	if( $_REQUEST['uf_id'] ){
+		echo "<label>Cidade:</label>";
+		$Cidade = new Cidade();
+		echo $Cidade -> selectCidade_html('cidade_id', $_REQUEST['idCidade'], " WHERE uf_id = ".Uteis::escapeRequest($_REQUEST['uf_id']));	
+		echo "<span class=\"placeholder\" ></span>";
+	}
+	exit;
+	
 }
 
 $arrayRetorno['mensagem'] = $rs[1];

@@ -95,6 +95,7 @@ class Funcionario extends Funcionario_m {
 	function cadastrarFuncionario($idFuncionario, $post = array()) {
 
 		$rs = $this -> cadastrarPessoa($idFuncionario, $post);
+		
 		if ($rs[0] != false) {
 
 			if ($idFuncionario) {

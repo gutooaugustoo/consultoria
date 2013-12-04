@@ -32,7 +32,7 @@ class Pessoa extends Pessoa_m {
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	function tabelaPessoa_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $campos = array("*"), $apenasLinha = false){
+	/*function tabelaPessoa_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $campos = array("*"), $apenasLinha = false){
 			
 		$array = $this -> selectPessoa($where, $campos);
 		
@@ -95,29 +95,46 @@ class Pessoa extends Pessoa_m {
 	
 		return ( $apenasLinha !== false ) ? $colunas : Html::montarColunas($linhas);
 		
-	}
+	}*/
 	
 	//AÇÕES
 	function cadastrarPessoa($idPessoa, $post = array()){
 		
 		//CARREGAR DO POST
+		$emailPrincipal = ($post['emailPrincipal']);
+		if( $emailPrincipal == '' ) return array(false, MSG_OBRIGAT." Email Principal");
+		
+		//VERIFICAR SE JA EXISTE ESSE EMAIL NO CADASTRO		
+		$where = "WHERE emailPrincipal = ".$this->gravarBD($emailPrincipal);
+		if( $idPessoa ) $where .= " AND id NOT IN (".$this->gravarBD($idPessoa).")";		
+		if( $rs_temDocumento = $this->selectPessoa($where, array("id")) ){
+			return array(false, "Esse e-mail já existe no cadastro.");
+		};
+		
+		$documento = ($post['documento']);
+		if( $documento == '' ) return array(false, MSG_OBRIGAT." Documento");
+		
+		//VERIFICAR SE JA EXISTE ESSE NUM DOCUMENTO NO CADASTRO		
+		$where = "WHERE documento = ".$this->gravarBD($documento);
+		if( $idPessoa ) $where .= " AND id NOT IN (".$this->gravarBD($idPessoa).")";		
+		if( $rs_temDocumento = $this->selectPessoa($where, array("id")) ){
+			return array(false, "Esse número de documento já existe no cadastro.");
+		};
+		
 		$pais_id = ($post['pais_id']);
-			 if( $pais_id == '' ) return array(false, MSG_OBRIGAT." Pais");
+		if( $pais_id == '' ) return array(false, MSG_OBRIGAT." Pais");
 		
 		$tipoDocumentoUnico_id = ($post['tipoDocumentoUnico_id']);
-			 if( $tipoDocumentoUnico_id == '' ) return array(false, MSG_OBRIGAT." Tipo Documento Unico");
+		if( $tipoDocumentoUnico_id == '' ) return array(false, MSG_OBRIGAT." Tipo Documento Unico");
 		
 		$estadoCivil_id = ($post['estadoCivil_id']);
-			 if( $estadoCivil_id == '' ) return array(false, MSG_OBRIGAT." Estado Civil");
+		if( $estadoCivil_id == '' ) return array(false, MSG_OBRIGAT." Estado Civil");
 		
 		$nome = ($post['nome']);
-			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
-		
-		$emailPrincipal = ($post['emailPrincipal']);
-			 if( $emailPrincipal == '' ) return array(false, MSG_OBRIGAT." Email Principal");
+		if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 		
 		$dataNascimento = ($post['dataNascimento']);
-			 if( $dataNascimento == '' ) return array(false, MSG_OBRIGAT." Data Nascimento");
+		if( $dataNascimento == '' ) return array(false, MSG_OBRIGAT." Data Nascimento");
 		
 		$rg = ($post['rg']);
 		
@@ -128,18 +145,15 @@ class Pessoa extends Pessoa_m {
 		$cargo = ($post['cargo']);
 		
 		$sexo = ($post['sexo']);
-			 if( $sexo == '' ) return array(false, MSG_OBRIGAT." Sexo");
+		if( $sexo == '' ) return array(false, MSG_OBRIGAT." Sexo");
 		
 		$senha = ($post['senha']);
-			 if( $senha == '' ) return array(false, MSG_OBRIGAT." Senha");
-		
-		$documento = ($post['documento']);
-			 if( $documento == '' ) return array(false, MSG_OBRIGAT." Documento");
+		if( $senha == '' ) return array(false, MSG_OBRIGAT." Senha");			
 		
 		$inativo = ($post['inativo']);
 		
 		$obs = ($post['obs']);
-				
+			
 		//SETAR
 		$this
 			 -> set_pais_idPessoa($pais_id)

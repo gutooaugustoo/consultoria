@@ -86,9 +86,10 @@ class Enderecovirtual extends Enderecovirtual_m {
 	function cadastrarEnderecovirtual($idEnderecovirtual, $post = array()){
 		
 		//CARREGAR DO POST
-		$empresa_id = ($post['empresa_id']);
-		
+		$empresa_id = ($post['empresa_id']);		
 		$pessoa_id = ($post['pessoa_id']);
+		
+		if( $pessoa_id == '' && $empresa_id == '' ) return array(false, MSG_ERR);
 		
 		$tipoEnderecoVirtual_id = ($post['tipoEnderecoVirtual_id']);
 			 if( $tipoEnderecoVirtual_id == '' ) return array(false, MSG_OBRIGAT." Tipo Endereco Virtual");

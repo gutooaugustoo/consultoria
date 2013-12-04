@@ -41,7 +41,6 @@ body
     color:#333;
     margin-bottom:5px;
 		height:20px;
-		padding-right: 20px
 }
 .validate select{
     border:1px solid #7A9CBC; /* BORDA */
@@ -73,10 +72,12 @@ body
     -moz-border-radius:4px;
     background: url('/sistema/images/error.png') no-repeat right;
     position: relative;
+    padding-right: 20px !important;
 }
 
 .validate .valid{
-    background: url('/sistema/images/success.png') no-repeat right;  
+    background: url('/sistema/images/success.png') no-repeat right;
+    padding-right: 20px !important;  
 }
 
 .validate p span{

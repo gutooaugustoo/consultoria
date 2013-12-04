@@ -38,9 +38,8 @@ class Funcionario_m extends Pessoa {
 	//MANUSEANDO O BANCO
 
 	function insertFuncionario() {
-		$sql = "INSERT INTO funcionario (id) 
-		VALUES (" . $this -> idFuncionario . ")";
-		if ($rs = $this -> query($sql)) {			
+		$sql = "INSERT INTO funcionario (id) VALUES (" . $this -> idFuncionario . ")";
+		if ( $rs = $this -> query($sql) ) {			
 			return array(
 				$this -> idFuncionario,
 				MSG_CADNEW

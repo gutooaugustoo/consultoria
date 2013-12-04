@@ -48,8 +48,8 @@ class Html {
 		$html = "";
 
 		if (count(self::$eventos) > 0) {
-			foreach (self::$eventos as $evento)
-				$html .= " " . $evento[0] . "=\"" . $evento[1] . "\"";
+			foreach (self::$eventos as $key => $evento)
+				$html .= " " . $key . "=\"" . $evento . "\"";
 		}
 
 		return $html;

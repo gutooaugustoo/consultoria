@@ -33,7 +33,7 @@ foreach ($campos as $campo) {
 
 		if (!$campo['accNulo'] && $campo['tipo'] != 'tinyint') {
 			$carrega4 .= "
-			 if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nomeAmigavel'] . "\");";
+		if( \$" . $campo['nome'] . " == '' ) return array(false, MSG_OBRIGAT.\" " . $campo['nomeAmigavel'] . "\");";
 		}
 		$carrega4 .= "
 		";
