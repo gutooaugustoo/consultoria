@@ -6,7 +6,10 @@ $Enderecovirtual = new Enderecovirtual();
 $idTabela = "tb_enderecovirtual";
 $campos = array("E.id", "E.empresa_id", "E.pessoa_id", "E.tipoEnderecoVirtual_id", "E.nome", );
 
-$url = "?";
+$pessoa_id = $_REQUEST["pessoa_id"];
+$empresa_id = $_REQUEST["empresa_id"];
+
+$url = "?&pessoa_id=".$pessoa_id."&empresa_id=".$empresa_id;
 $caminho = CAM_VIEW."enderecovirtual/";
 $atualizar = CAM_VIEW."enderecovirtual/lista.php".$url;
 $ondeAtualizar = "tr";	
@@ -30,6 +33,8 @@ if( $_REQUEST["tr"] == "1" ){
 //FILTROS
 $where = " WHERE E.excluido = 0";
 
+if( $pessoa_id ) $where .= " AND E.pessoa_id = ".$pessoa_id;
+if( $empresa_id ) $where .= " AND E.empresa_id = ".$empresa_id; 
 //echo $where;
 ?>
 

@@ -47,9 +47,9 @@ class Endereco extends Endereco_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-										
-				$colunas[] = $this -> get_enderecoCompleto();
 				
+				$colunas[] = $this->get_enderecoCompleto();
+												
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
 				$atualizarFinal = $atualizar.$urlAux."&tr=1&idEndereco=".$this -> get_idEndereco();
@@ -93,9 +93,6 @@ class Endereco extends Endereco_m {
 		
 		$cidade_id = ($post['cidade_id']);
 		
-		$rua = ($post['rua']);
-			 if( $rua == '' ) return array(false, MSG_OBRIGAT." Rua");
-		
 		$bairro = ($post['bairro']);
 			 if( $bairro == '' ) return array(false, MSG_OBRIGAT." Bairro");
 		
@@ -115,7 +112,6 @@ class Endereco extends Endereco_m {
 			 -> set_empresa_idEndereco($empresa_id)
 			 -> set_pais_idEndereco($pais_id)
 			 -> set_cidade_idEndereco($cidade_id)
-			 -> set_ruaEndereco($rua)
 			 -> set_bairroEndereco($bairro)
 			 -> set_numeroEndereco($numero)
 			 -> set_cepEndereco($cep)
@@ -137,32 +133,15 @@ class Endereco extends Endereco_m {
 	}
 	
 	function get_enderecoCompleto(){
-		//RUA
-		$res = $this -> get_ruaEndereco();
-		//NÚMERO		
-		$res .= ", nº ".$this -> get_numeroEndereco();
-		//BAIRRO
-		$res .= ", ". $this -> get_bairroEndereco();		
-		//CEP
-		$res .= " - ".$this -> get_cepEndereco();
-				
-		if( $this -> get_pais_idEndereco() != ID_PAIS ) {
-			//PAIS E CIDADE ESTRANGEIROS
-			$res .= " / ".$this -> get_cidadeEstrangeiraEndereco();
-			$Pais = new Pais( $this -> get_pais_idEndereco() );
-			$res .= "-".$Pais -> get_paisPais();			
-		}else{
-			//CIDADE PAIS ORIGEM
-			$Cidade = new Cidade( $this -> get_cidade_idEndereco() );
-			$res .= " / ".$Cidade -> get_nomeCidade();
-			//ESTADO PAIS ORIGEM
-			$Uf = new Uf( $Cidade -> get_uf_idCidade() );
-			$res .= "-".$Uf -> get_siglaUf();
-		}
+		$Pais = new Pais( $this -> get_pais_idEndereco() );
+		$Pais -> get_paisPais();
+		$Cidade = new Cidade( $this -> get_cidade_idEndereco() );
+		$Cidade -> get_nomeCidade();
 		
-		if( $this -> get_complementoEndereco() ) $res .= " (".$this -> get_complementoEndereco().")";
-				
-		return $res; 
+		$colunas[] = $this -> get_bairroEndereco();
+		$colunas[] = $this -> get_numeroEndereco();
+		$colunas[] = $this -> get_cepEndereco();
+		$colunas[] = $this -> get_complementoEndereco();
 	}	
 }
 

@@ -5,9 +5,8 @@ class Endereco_m extends Database {
 	protected $idEndereco;
 	protected $pessoa_idEndereco;
 	protected $empresa_idEndereco;
-	protected $pais_idEndereco = ID_PAIS;
-	protected $cidade_idEndereco = ID_CIDADE;
-	protected $ruaEndereco;
+	protected $pais_idEndereco;
+	protected $cidade_idEndereco;
 	protected $bairroEndereco;
 	protected $numeroEndereco;
 	protected $cepEndereco;
@@ -28,7 +27,6 @@ class Endereco_m extends Database {
 			$this -> empresa_idEndereco = $array[0]['empresa_id'];
 			$this -> pais_idEndereco = $array[0]['pais_id'];
 			$this -> cidade_idEndereco = $array[0]['cidade_id'];
-			$this -> ruaEndereco = $array[0]['rua'];
 			$this -> bairroEndereco = $array[0]['bairro'];
 			$this -> numeroEndereco = $array[0]['numero'];
 			$this -> cepEndereco = $array[0]['cep'];
@@ -66,11 +64,6 @@ class Endereco_m extends Database {
 	
 	function set_cidade_idEndereco($valor) {
 		$this -> cidade_idEndereco = ($valor) ? $this -> gravarBD($valor) : "NULL";
-		return $this;
-	}
-	
-	function set_ruaEndereco($valor) {
-		$this -> ruaEndereco = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 	
@@ -121,10 +114,6 @@ class Endereco_m extends Database {
 		return ($this -> cidade_idEndereco);
 	}
 	
-	function get_ruaEndereco() {
-		return ($this -> ruaEndereco);
-	}
-	
 	function get_bairroEndereco() {
 		return ($this -> bairroEndereco);
 	}
@@ -149,13 +138,12 @@ class Endereco_m extends Database {
 		
 	function insertEndereco() {
 		$sql = "INSERT INTO endereco 
-		(pessoa_id, empresa_id, pais_id, cidade_id, rua, bairro, numero, cep, complemento, cidadeEstrangeira) 
+		(pessoa_id, empresa_id, pais_id, cidade_id, bairro, numero, cep, complemento, cidadeEstrangeira) 
 		VALUES (	
 			" . $this -> pessoa_idEndereco . ", 	
 			" . $this -> empresa_idEndereco . ", 	
 			" . $this -> pais_idEndereco . ", 	
 			" . $this -> cidade_idEndereco . ", 	
-			" . $this -> ruaEndereco . ", 	
 			" . $this -> bairroEndereco . ", 	
 			" . $this -> numeroEndereco . ", 	
 			" . $this -> cepEndereco . ", 	
@@ -182,7 +170,6 @@ class Endereco_m extends Database {
 					"empresa_id" => $this -> empresa_idEndereco, 		
 					"pais_id" => $this -> pais_idEndereco, 		
 					"cidade_id" => $this -> cidade_idEndereco, 		
-					"rua" => $this -> ruaEndereco, 		
 					"bairro" => $this -> bairroEndereco, 		
 					"numero" => $this -> numeroEndereco, 		
 					"cep" => $this -> cepEndereco, 		

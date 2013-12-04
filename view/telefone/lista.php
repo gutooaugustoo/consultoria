@@ -6,7 +6,10 @@ $Telefone = new Telefone();
 $idTabela = "tb_telefone";
 $campos = array("T.id", "T.descricaoTelefone_id", "T.ddd", "T.numero", );
 
-$url = "?&pessoa_id=".$_REQUEST["pessoa_id"];
+$pessoa_id = $_REQUEST["pessoa_id"];
+$empresa_id = $_REQUEST["empresa_id"];
+
+$url = "?&pessoa_id=".$pessoa_id."&empresa_id=".$empresa_id;
 $caminho = CAM_VIEW."telefone/";
 $atualizar = CAM_VIEW."telefone/lista.php".$url;
 $ondeAtualizar = "tr";	
@@ -28,8 +31,10 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE T.excluido = 0";
+$where = " WHERE T.excluido = 0 ";
 
+if( $pessoa_id ) $where .= " AND T.pessoa_id = ".$pessoa_id;
+if( $empresa_id ) $where .= " AND T.empresa_id = ".$empresa_id; 
 //echo $where;
 ?>
 

@@ -1,8 +1,15 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/admin.php");
 
-$idEnderecovirtual = $_REQUEST["idEnderecovirtual"];
-$Enderecovirtual = new Enderecovirtual($idEnderecovirtual);
+$Enderecovirtual = new Enderecovirtual();
+
+if( $idEnderecovirtual = $_REQUEST["idEnderecovirtual"] ){
+	$Enderecovirtual->__construct($idEnderecovirtual);	
+}else{
+	$Enderecovirtual->set_pessoa_idEnderecovirtual($_REQUEST["pessoa_id"]);
+	$Enderecovirtual->set_empresa_idEnderecovirtual($_REQUEST["empresa_id"]);
+}
+
 $nomeTable = "enderecovirtual";
 $acao = CAM_VIEW . "enderecovirtual/acao.php";
 ?>
@@ -23,9 +30,12 @@ $acao = CAM_VIEW . "enderecovirtual/acao.php";
 			<div class="esquerda">
 
 				<input type="hidden" id="idEnderecovirtual" name="idEnderecovirtual" value="<?php echo $Enderecovirtual -> get_idEnderecovirtual() ?>" />
-
+				
+				<input type="hidden" id="pessoa_id" name="pessoa_id" value="<?php echo $Enderecovirtual -> get_pessoa_idEnderecovirtual() ?>" />
+				<input type="hidden" id="empresa_id" name="empresa_id" value="<?php echo $Enderecovirtual ->get_empresa_idEnderecovirtual() ?>" />
+				
 				<p>
-					<label>Tipo Endereco Virtual:</label>
+					<label>Tipo:</label>
 					<?php $Tipoenderecovirtual = new Tipoenderecovirtual();
 						Html::set_cssClass(array("required"));
 						echo $Tipoenderecovirtual -> selectTipoenderecovirtual_html('tipoEnderecoVirtual_id', $Enderecovirtual -> get_tipoEnderecoVirtual_idEnderecovirtual());
@@ -34,7 +44,7 @@ $acao = CAM_VIEW . "enderecovirtual/acao.php";
 				</p>
 
 				<p>
-					<label>Nome:</label>
+					<label>Endereço Virtual:</label>
 					<input type="text" name="nome" id="nome" value="<?php echo $Enderecovirtual -> get_nomeEnderecovirtual()?>" class="required" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>

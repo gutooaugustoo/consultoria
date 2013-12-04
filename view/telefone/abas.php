@@ -2,7 +2,10 @@
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/admin.php");
 
 $idTelefone = $_REQUEST["idTelefone"];
-$url = "&pessoa_id=".$_REQUEST["pessoa_id"];
+
+$pessoa_id = $_REQUEST["pessoa_id"];
+$empresa_id = $_REQUEST["empresa_id"];
+$url = "&pessoa_id=".$pessoa_id."&empresa_id=".$empresa_id;
 ?>
 
 <div id="cadastro_telefone" class="">
