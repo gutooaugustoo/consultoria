@@ -25,8 +25,7 @@ define("CAM_ROOT", "/consultoria");
 		define("ICON_SEPARATOR", "<img src=\"" . CAM_IMG . "separator.png\" />");
 	define("CAM_CFG", CAM_ROOT."/config/");
 	define("CAM_CLASS", CAM_ROOT."/class/");	
-	define("CAM_VIEW", CAM_ROOT."/view/");
-
+	
 define("MSG_CADNEW", "Cadastro efetuado com sucesso.");
 define("MSG_CADUP", "Cadastro atualizado com sucesso.");
 define("MSG_CADDEL", "Cadastro deletado com sucesso.");

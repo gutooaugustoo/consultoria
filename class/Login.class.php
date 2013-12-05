@@ -10,22 +10,52 @@ class Login extends Database {
 		parent::__destruct();
 	}
 	
-	function efetuarLogin($documentoUnico, $senhaAcesso) {
-			
+	function efetuarLogin_adm($documentoUnico, $senhaAcesso){
 		$Funcionario = new Funcionario();
 		$where = "WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = ".Uteis::escapeRequest($documentoUnico)." AND P.senha = ".Uteis::escapeRequest($senhaAcesso);
-		$rs = $Funcionario->selectFuncionario($where, array("F.id"));		
+		$rs = $Funcionario->selectFuncionario($where, array("F.id"));
 		//Uteis::pr($rs, 1);
-		if( $rs = $rs[0] ){																
-			$this->efetuarLogoff(false);				
-			$_SESSION['logado'] = true;
-			$_SESSION['idFuncionario'] = $rs['id'];																			
-			header("Location:".CAM_ROOT."/admin/");			
-			return true;
-		}
-		
+		if( $rs ) $this->efetuarLogin($rs[0]['id'], "funcionario"); 
 		return false;
-				       
+	}
+	
+	function efetuarLogin_candidato($documentoUnico, $senhaAcesso){
+		$Candidato = new Candidato();
+		$where = "WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = ".Uteis::escapeRequest($documentoUnico)." AND P.senha = ".Uteis::escapeRequest($senhaAcesso);
+		$rs = $Candidato->selectCandidato($where, array("C.id"));
+		//Uteis::pr($rs, 1);
+		if( $rs ) $this->efetuarLogin($rs[0]['id'], "candidato"); 
+		return false;
+	}
+	
+	function efetuarLogin_gestor($documentoUnico, $senhaAcesso){
+		$Gestor = new Gestor();
+		$where = "WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = ".Uteis::escapeRequest($documentoUnico)." AND P.senha = ".Uteis::escapeRequest($senhaAcesso);
+		$rs = $Gestor->selectGestor($where, array("G.id"));
+		//Uteis::pr($rs, 1);
+		if( $rs ) $this->efetuarLogin($rs[0]['id'], "gestor"); 
+		return false;
+	}
+	
+	function efetuarLogin_avaliador($documentoUnico, $senhaAcesso){
+		$Avaliador = new Avaliador();
+		$where = "WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = ".Uteis::escapeRequest($documentoUnico)." AND P.senha = ".Uteis::escapeRequest($senhaAcesso);
+		$rs = $Avaliador->selectAvaliador($where, array("A.id"));
+		//Uteis::pr($rs, 1);
+		if( $rs ) $this->efetuarLogin($rs[0]['id'], "avaliador"); 
+		return false;
+	}
+	
+	function efetuarLogin($id, $session) {
+																		
+		$this->efetuarLogoff(false);				
+		
+		$_SESSION['logado'] = $session;
+		$_SESSION['id'.ucfirst($session)] = $id;
+																	
+		header("Location:".CAM_ROOT."/");			
+		return true;
+						       
 	}
 	
 	function efetuarLogoff($redireciona = true) {
@@ -36,17 +66,21 @@ class Login extends Database {
 		//ADMIN
 		$_SESSION['idFuncionario'] = "";
 		//CANDIDATO
+		$_SESSION['idCandidato'] = "";
 		//GESTOR
-		//AVALIADOR		
+		$_SESSION['idGestor'] = "";
+		//AVALIADOR
+		$_SESSION['idAvaliador'] = "";
+				
 		if( $redireciona == true ){
 			session_destroy();
-			header("Location:".CAM_ROOT."/admin/");
+			header("Location:".CAM_ROOT."/");
 		}
 		
 	}
 	
 	function verificarLogin() {
-		if( $_SESSION['logado'] && $_SESSION['idFuncionario'] ){
+		if( $_SESSION['logado'] && $_SESSION['id'.ucfirst($_SESSION['logado'])] ){
 			return true;
 		}else{			
 			return false;

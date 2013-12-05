@@ -87,7 +87,8 @@ class Gestor_m extends Pessoa {
 	}
 
 	function selectGestor($where = "", $campos = array("G.*") ) {	
-		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM gestor AS G ".$where;
+		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM gestor AS G 
+		INNER JOIN pessoa AS P ON P.id = G.id ".$where;
 		return $this -> executarQuery($sql);
 	}
 		

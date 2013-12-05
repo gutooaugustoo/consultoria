@@ -39,7 +39,7 @@ foreach ($campos as $campo) {
 
 $conteudoArquivo = "";
 $conteudoArquivo = "<?php
-require_once (\$_SERVER['DOCUMENT_ROOT'] . \"/consultoria/config/admin.php\");
+require_once (\$_SERVER['DOCUMENT_ROOT'] . \"/consultoria/config/verificar.php\");
 
 \$nomeTable = \"" . $table . "\";
 ?>

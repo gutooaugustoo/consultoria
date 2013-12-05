@@ -72,7 +72,7 @@ foreach ($campos as $key => $campo) {
 	
 }
 $conteudoArquivo = "<?php
-require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/admin.php\");
+require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 
 \$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
 ?>
