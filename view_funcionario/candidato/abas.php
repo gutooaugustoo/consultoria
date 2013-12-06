@@ -28,6 +28,11 @@ $url = "?pessoa_id=".$idCandidato;
 		onclick="carregarModulo('<?php echo CAM_VIEW."endereco/lista.php".$url?>' , '#divLista_res')" >
 			Endereço
 		</div>
+		
+		<div id="aba_endereco" divExibir="divLista_res" class="aba_interna"
+		onclick="carregarModulo('<?php echo CAM_VIEW."backgroundidioma/lista.php".$url?>' , '#divLista_res')" >
+			Background no idioma
+		</div>
 
 		<?php } ?>
 	</div>

@@ -41,7 +41,7 @@ $where = " WHERE E.excluido = 0";
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Tipo Endereco Virtual", "Nome", ""));
+		Html::set_colunas(array("Tipo Endereço Virtual", "Nome", ""));
 		echo $Enderecovirtual -> tabelaEnderecovirtual_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>
 	</div>

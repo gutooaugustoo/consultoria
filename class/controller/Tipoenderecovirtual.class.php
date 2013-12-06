@@ -60,15 +60,27 @@ class Tipoenderecovirtual extends Tipoenderecovirtual_m {
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
 				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idTipoenderecovirtual() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
-				if( $apenasLinha !== false ){						
-					$colunas[] = implode(ICON_SEPARATOR, array(
-						$editar,	$deletar
-					));									
+				if( $apenasLinha !== false ){
+						
+					if( $iten['id'] == "1" ){
+						$colunas[] = "";
+					}else{
+						$colunas[] = implode(ICON_SEPARATOR, array(
+							$editar,	$deletar
+						));	
+					}						
+														
 					break;					
-				}else{						
-					$colunas[] = array(
-						$editar,	$deletar
-					);
+					
+				}else{
+					if( $iten['id'] == "1" ){
+						$colunas[] = array();
+					}else{
+						$colunas[] = array(
+							$editar,	$deletar
+						);	
+					}						
+					
 					$linhas[] = $colunas;					
 				}
 								
@@ -85,7 +97,7 @@ class Tipoenderecovirtual extends Tipoenderecovirtual_m {
 		
 		//CARREGAR DO POST
 		$nome = ($post['nome']);
-			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
+		if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 				
 		//SETAR
 		$this

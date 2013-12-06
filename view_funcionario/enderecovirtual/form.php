@@ -3,11 +3,11 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
 
 $Enderecovirtual = new Enderecovirtual();
 
-if( $idEnderecovirtual = $_REQUEST["idEnderecovirtual"] ){
-	$Enderecovirtual->__construct($idEnderecovirtual);	
-}else{
-	$Enderecovirtual->set_pessoa_idEnderecovirtual($_REQUEST["pessoa_id"]);
-	$Enderecovirtual->set_empresa_idEnderecovirtual($_REQUEST["empresa_id"]);
+if ($idEnderecovirtual = $_REQUEST["idEnderecovirtual"]) {
+	$Enderecovirtual -> __construct($idEnderecovirtual);
+} else {
+	$Enderecovirtual -> set_pessoa_idEnderecovirtual($_REQUEST["pessoa_id"]);
+	$Enderecovirtual -> set_empresa_idEnderecovirtual($_REQUEST["empresa_id"]);
 }
 
 $nomeTable = "enderecovirtual";
@@ -30,14 +30,15 @@ $acao = CAM_VIEW . "enderecovirtual/acao.php";
 			<div class="esquerda">
 
 				<input type="hidden" id="idEnderecovirtual" name="idEnderecovirtual" value="<?php echo $Enderecovirtual -> get_idEnderecovirtual() ?>" />
-				
+
 				<input type="hidden" id="pessoa_id" name="pessoa_id" value="<?php echo $Enderecovirtual -> get_pessoa_idEnderecovirtual() ?>" />
 				<input type="hidden" id="empresa_id" name="empresa_id" value="<?php echo $Enderecovirtual ->get_empresa_idEnderecovirtual() ?>" />
-				
+
 				<p>
 					<label>Tipo:</label>
 					<?php $Tipoenderecovirtual = new Tipoenderecovirtual();
 						Html::set_cssClass(array("required"));
+						Html::set_eventos(array("onchange" => "carregarMascara();"));
 						echo $Tipoenderecovirtual -> selectTipoenderecovirtual_html('tipoEnderecoVirtual_id', $Enderecovirtual -> get_tipoEnderecoVirtual_idEnderecovirtual());
 					?>
 					<span class="placeholder" >Campo obrigatório</span>
@@ -63,4 +64,16 @@ $acao = CAM_VIEW . "enderecovirtual/acao.php";
 
 	</div>
 </fieldset>
-<script>ativarForm();</script>
+<script>ativarForm();
+	
+function carregarMascara(){
+	var o = $('#formCad_<?php echo $nomeTable ?> #tipoEnderecoVirtual_id');
+	var nome = $('#formCad_<?php echo $nomeTable ?> #nome');
+	if( o.val() == 1 ){
+		nome.addClass("email");
+	}else{
+		nome.removeClass("email");
+	}
+}
+carregarMascara();
+</script>

@@ -1,7 +1,7 @@
 <input type="hidden" id="acao" name="acao" value="cadastrar" />
 <!-- <input type="hidden" id="idPessoa" name="idPessoa" value="<?php echo $Pessoa -> get_idPessoa() ?>" /> -->
 
-<div class="esquerda">
+<div class="esquerda" >
 
 	<p>
 		<label>Nome:</label>
@@ -16,7 +16,7 @@
 	<p>
 		<label>Tipo Documento:</label>
 		<?php $Tipodocumentounico = new Tipodocumentounico();
-			Html::set_cssClass(array("required"));
+			Html::set_cssClass(array("required"));						
 			echo $Tipodocumentounico -> selectTipodocumentounico_html('tipoDocumentoUnico_id', $Pessoa -> get_tipoDocumentoUnico_idPessoa());
 		?>
 		<span class="placeholder" >Campo obrigatório</span>
@@ -35,7 +35,7 @@
 
 	<p>
 		<label>Rg:</label>
-		<input type="text" name="rg" id="rg" value="<?php echo $Pessoa -> get_rgPessoa()?>" class="" />
+		<input type="text" name="rg" id="rg" value="<?php echo $Pessoa -> get_rgPessoa()?>" class="rg" />
 		<span class="placeholder" ></span>
 	</p>
 	<p>
@@ -113,4 +113,8 @@
 	</p>
 
 </div>
+
+<script>
+
+</script>
 

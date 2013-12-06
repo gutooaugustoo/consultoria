@@ -39,7 +39,7 @@ if( $empresa_id ) $where .= " AND E.empresa_id = ".$empresa_id;
 ?>
 
 <fieldset>
-  <legend>Enderecovirtual</legend>
+  <legend>Endereço virtual</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
@@ -48,7 +48,7 @@ if( $empresa_id ) $where .= " AND E.empresa_id = ".$empresa_id;
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Tipo Endereco Virtual", "Nome", ""));
+		Html::set_colunas(array("Tipo Endereço Virtual", "Nome", ""));
 		echo $Enderecovirtual -> tabelaEnderecovirtual_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>
 	</div>

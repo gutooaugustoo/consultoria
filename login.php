@@ -68,7 +68,7 @@ if (!EMPRESA) {
 							<option value="candidato" >Candidato</option>
 							<option value="avaliador" >Avaliador</option>
 							<option value="gestor" >Gestor de empresa</option>
-							<option value="funcionario" <?php echo $quemSelec ?> >Colaborador</option>
+							<option value="funcionario" <?php echo $quemSelec ?> >Funcionário</option>
 
 						</select>
 						<span class="placeholder">Campo Obrigatório</span>
@@ -88,9 +88,9 @@ if (!EMPRESA) {
 							Efetuar Login
 						</button>
 					</p>
-					<p onClick="enviarSenha('#documento', 'admin')" class="onlink" >
+					<!--<p onClick="enviarSenha('#documento', 'admin')" class="onlink" >
 						Não lembra a sua senha?
-					</p>
+					</p>-->
 				</form>
 				<script>
 					$('#documento').focus();

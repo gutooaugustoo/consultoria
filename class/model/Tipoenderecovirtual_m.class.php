@@ -71,7 +71,7 @@ class Tipoenderecovirtual_m extends Database {
 			return $this -> updateCampoTipoenderecovirtual(
 				array(		
 					"nome" => $this -> nomeTipoenderecovirtual				
-				), MSG_CADUP	
+				)	
 			);
 			
 		}else{

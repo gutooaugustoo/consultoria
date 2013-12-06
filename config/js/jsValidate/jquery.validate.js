@@ -81,7 +81,7 @@ function ativarForm(){
 			/* mascara horas do dia */
 			$('.hora').mask('99:99');
 			/* mascara horas do dia */
-			$('.hora2').mask('999:99');
+			//$('.hora2').mask('999:99');
 			/* mascara cpf */
 			$('.cpf').mask('999.999.999-99');			
 			/* mascara cnpj */

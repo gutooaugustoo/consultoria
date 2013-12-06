@@ -85,7 +85,7 @@ class Descricaotelefone extends Descricaotelefone_m {
 		
 		//CARREGAR DO POST
 		$nome = ($post['nome']);
-			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
+		if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 				
 		//SETAR
 		$this

@@ -84,5 +84,5 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 </fieldset>
 ";
 
-gravarArquivo("view/".$table, $table, "lista", $conteudoArquivo);
+gravarArquivo("view_funcionario/".$table, $table, "lista", $conteudoArquivo);
 

@@ -12,9 +12,7 @@ if (strpos($_SERVER["SERVER_SOFTWARE"], "Win32")) {
 }
 setlocale(LC_ALL, LOCALE);
 
-define("VERSAO", "1.0 (EM DESENVOLVIMENTO)");
-
-//PASTAS PADR�O
+//PASTAS PADRAO
 define("CAM_ROOT", "/consultoria");
 
 	define("CAM_UP", CAM_ROOT."/upload/");
@@ -23,8 +21,15 @@ define("CAM_ROOT", "/consultoria");
 	define("CAM_IMG", CAM_ROOT."/images/");
 	define("CAM_IMG2", "http://".$_SERVER['SERVER_NAME'].CAM_ROOT."/images/");
 		define("ICON_SEPARATOR", "<img src=\"" . CAM_IMG . "separator.png\" />");
+		
 	define("CAM_CFG", CAM_ROOT."/config/");
 	define("CAM_CLASS", CAM_ROOT."/class/");	
+	
+	//VIEWS ESTATICAS
+	define("CAM_VIEW_A", CAM_ROOT."/view_avaliador/");	
+	define("CAM_VIEW_C", CAM_ROOT."/view_candidato/");	
+	define("CAM_VIEW_F", CAM_ROOT."/view_funcionario/");	
+	define("CAM_VIEW_G", CAM_ROOT."/view_gestor/");	
 	
 define("MSG_CADNEW", "Cadastro efetuado com sucesso.");
 define("MSG_CADUP", "Cadastro atualizado com sucesso.");

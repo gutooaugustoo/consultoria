@@ -481,22 +481,33 @@ class Uteis {
 		$sqlSets = "";
 		foreach ($array as $key => $value) {
 			$sqlSets .= "$key = $value, ";
-		}					
+		}
 		return substr($sqlSets, 0, -2);
 	}
-	
-	static function escapeRequest($texto){
-			
+
+	static function validarEmail($email) {
+		$regex = '/^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/';
+		if (preg_match($regex, $email)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/////////////////////////
+
+	static function escapeRequest($texto) {
+
 		$res = mysql_real_escape_string(trim($texto));
-		
-		if ( is_numeric($res)) {
+
+		if (is_numeric($res)) {
 			return $res;
-		}else{
+		} else {
 			return "'" . $res . "'";
 		}
-		
-	}	
-		
+
+	}
+
 	static function pr($arr, $exit = 0) {
 		echo "<pre>";
 		print_r($arr);

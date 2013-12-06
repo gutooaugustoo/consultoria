@@ -90,6 +90,7 @@ class Database {
 	function executarQuery($sql) {
 		$result = $this -> query($sql);
 		$result = $result[0];
+		$array = array();
 		for ($i = 0; $i < $this -> numRows($result); $i++) {
 			$array[$i] = $this -> fetchArray($result);
 		}

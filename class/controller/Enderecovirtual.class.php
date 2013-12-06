@@ -73,6 +73,7 @@ class Enderecovirtual extends Enderecovirtual_m {
 					);
 					$linhas[] = $colunas;					
 				}
+				
 								
 			}
 	
@@ -92,11 +93,13 @@ class Enderecovirtual extends Enderecovirtual_m {
 		if( $pessoa_id == '' && $empresa_id == '' ) return array(false, MSG_ERR);
 		
 		$tipoEnderecoVirtual_id = ($post['tipoEnderecoVirtual_id']);
-			 if( $tipoEnderecoVirtual_id == '' ) return array(false, MSG_OBRIGAT." Tipo Endereco Virtual");
+			 if( $tipoEnderecoVirtual_id == '' ) return array(false, MSG_OBRIGAT." Tipo Endereço Virtual");
 		
 		$nome = ($post['nome']);
-			 if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
+		if( $nome == '' ) return array(false, MSG_OBRIGAT." Nome");
 				
+		if( $tipoEnderecoVirtual_id == "1" && !Uteis::validarEmail($nome) ) return array(false, "E-mail inválido");
+							
 		//SETAR
 		$this
 			 -> set_empresa_idEnderecovirtual($empresa_id)

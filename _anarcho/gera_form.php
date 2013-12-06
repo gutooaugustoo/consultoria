@@ -113,4 +113,4 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 </fieldset>
 <script>ativarForm();</script> ";
 
-gravarArquivo("view/".$table, $table, "form", $conteudoArquivo);
+gravarArquivo("view_funcionario/".$table, $table, "form", $conteudoArquivo);

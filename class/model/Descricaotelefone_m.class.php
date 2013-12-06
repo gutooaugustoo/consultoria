@@ -62,7 +62,7 @@ class Descricaotelefone_m extends Database {
 	}
 	
 	function deleteDescricaotelefone() {
-		return $this -> updateCampoDescricaotelefone(array("D.excluido" => "1"), MSG_CADDEL);
+		return $this -> updateCampoDescricaotelefone(array("excluido" => "1"), MSG_CADDEL);
 	}
 
 	function updateDescricaotelefone() {
@@ -71,7 +71,7 @@ class Descricaotelefone_m extends Database {
 			return $this -> updateCampoDescricaotelefone(
 				array(		
 					"nome" => $this -> nomeDescricaotelefone				
-				), MSG_CADUP	
+				)	
 			);
 			
 		}else{

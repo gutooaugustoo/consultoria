@@ -37,4 +37,4 @@ echo json_encode(\$arrayRetorno);
 
 ";
 
-gravarArquivo("view/".$table, $table, "acao", $conteudoArquivo);
+gravarArquivo("view_funcionario/".$table, $table, "acao", $conteudoArquivo);
