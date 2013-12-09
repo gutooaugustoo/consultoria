@@ -66,7 +66,7 @@ foreach ($campos as $campo) {
 	} elseif ($campo['tipo'] == 'double') {
 		$gets .= "return !\$formatarMoeda ? Uteis::exibirMoeda(\$this -> " . $campo['nomeComTabela'] . ") : \"R\$ \".Uteis::formatarMoeda(\$this -> " . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'tinyint') {
-		$gets .= "return !\$mostrarImagem ? \$this -> " . $campo['nomeComTabela'] . " : Uteis::exibirStatus(\$this -> " . $campo['nomeComTabela'] . ");";
+		$gets .= "return !\$mostrarImagem ? \$this -> " . $campo['nomeComTabela'] . " : Uteis::exibirStatus(".( $campo['nome'] == "inativo" ? "!" : "" )."\$this -> " . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'date') {
 		$gets .= "if( \$this -> " . $campo['nomeComTabela'] . " ) return Uteis::exibirData(\$this -> " . $campo['nomeComTabela'] . ");";
 	} elseif ($campo['tipo'] == 'datetime') {
