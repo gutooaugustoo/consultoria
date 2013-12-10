@@ -88,10 +88,10 @@ class Areaatencao extends Areaatencao_m {
 		
 		//CARREGAR DO POST
 		$idioma_id = ($post['idioma_id']);
-		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." ioma");
+		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." Idioma");
 		
 		$descricao = ($post['descricao']);
-		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descricao");
+		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descrição");
 		
 		$inativo = ($post['inativo']);
 				

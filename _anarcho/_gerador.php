@@ -15,7 +15,7 @@ function separaString($string) {
 		}
 
 		if ($value == "_" || $value == "-") {
-			$value = " ";
+			$value = "";
 			$proximoMaiuscula = TRUE;
 		}
 

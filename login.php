@@ -43,8 +43,7 @@ if (!EMPRESA) {
 		<link rel="shortcut icon" href="logoico.ico" />
 
 		<?php
-		require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/css.php");
-		require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/js.php");
+		require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include.php");		
 		?>
 	</head>
 

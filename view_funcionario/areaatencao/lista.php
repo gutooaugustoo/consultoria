@@ -30,11 +30,12 @@ if( $_REQUEST["tr"] == "1" ){
 //FILTROS
 $where = " WHERE A.excluido = 0";
 
-$idioma_id = implode(",", $_POST['idioma_id']);
-if( $idioma_id ) $where .= " AND A.idioma_id IN(".Uteis::escapeRequest($idioma_id).")";
+$idioma_id = implode(",", Uteis::escapeRequest($_POST['idioma_id']));
+if( $idioma_id ) $where .= " AND A.idioma_id IN(".$idioma_id.")";
 
-$status = implode(",", $_POST['status']);
-if( $status != "" ) $where .= " AND A.inativo IN(".Uteis::escapeRequest($status).")";
+$status = implode(",", Uteis::escapeRequest($_POST['status']));
+if( $status != "" ) $where .= " AND A.inativo IN(".$status.")";
+
 //echo $where;
 ?>
 

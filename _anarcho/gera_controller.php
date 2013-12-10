@@ -87,9 +87,9 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
 	}*/
 			
-	function tabela" . $tableUp . "_html(\$where = \"\", \$caminho = \"\", \$atualizar = \"\", \$ondeAtualizar = \"\", \$campos = array(\"*\"), \$apenasLinha = false){
+	function tabela" . $tableUp . "_html(\$where = \"\", \$caminho = \"\", \$atualizar = \"\", \$ondeAtualizar = \"\", \$apenasLinha = false){
 			
-		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
+		\$array = \$this -> select" . $tableUp . "(\$where, array(\"".$tableAs.".id\"));
 		
 		if( \$array ){
 				

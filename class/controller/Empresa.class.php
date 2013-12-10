@@ -13,17 +13,17 @@ class Empresa extends Empresa_m {
 	//GERAR ELEMENTOS
 	function selectEmpresa_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND E.excluido = 0";
-		$campos = array("id", "ie AS legenda");
+		$campos = array("id", "nomeFantasia AS legenda");
 		$array = $this -> selectEmpresa($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND E.excluido = 0";
-		$campos = array("id", "ie AS legenda");
+		$campos = array("id", "nomeFantasia AS legenda");
 		$array = $this -> selectEmpresa($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxEmpresa_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND E.excluido = 0";

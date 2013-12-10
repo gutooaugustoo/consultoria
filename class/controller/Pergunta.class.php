@@ -13,28 +13,28 @@ class Pergunta extends Pergunta_m {
 	//GERAR ELEMENTOS
 	function selectPergunta_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND P.excluido = 0";
-		$campos = array("id", " AS legenda");
+		$campos = array("id", "titulo AS legenda");
 		$array = $this -> selectPergunta($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
 	function selectMultiplePergunta_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND P.excluido = 0";
-		$campos = array("id", " AS legenda");
+		$campos = array("id", "titulo AS legenda");
 		$array = $this -> selectPergunta($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}
 	
 	/*function checkBoxPergunta_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND P.excluido = 0";
-		$campos = array("id", " AS legenda");
+		$campos = array("id", "titulo AS legenda");
 		$array = $this -> selectPergunta($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	function tabelaPergunta_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $campos = array("*"), $apenasLinha = false){
+	function tabelaPergunta_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
 			
-		$array = $this -> selectPergunta($where, $campos);
+		$array = $this -> selectPergunta($where, array("P.id"));
 		
 		if( $array ){
 				
@@ -47,19 +47,20 @@ class Pergunta extends Pergunta_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-				
-				$Pergunta = new Pergunta( $this -> get_pergunta_idPergunta() );
-				$colunas[] = $Pergunta -> get_idPergunta();
-				$Empresa = new Empresa( $this -> get_empresa_idPergunta() );
-				$colunas[] = $Empresa -> get_idEmpresa();
+												
+				$colunas[] = $this -> get_tituloPergunta();
 				$Idioma = new Idioma( $this -> get_idioma_idPergunta() );
-				$colunas[] = $Idioma -> get_idIdioma();
+					$colunas[] = $Idioma -> get_nomeIdioma();
 				$Nivelpergunta = new Nivelpergunta( $this -> get_nivelPergunta_idPergunta() );
-				$colunas[] = $Nivelpergunta -> get_idNivelpergunta();
+					$colunas[] = $Nivelpergunta -> get_nomeNivelpergunta();
 				$Categoriapergunta = new Categoriapergunta( $this -> get_categoriaPergunta_idPergunta() );
-				$colunas[] = $Categoriapergunta -> get_idCategoriapergunta();
-				$colunas[] = $this -> get_enunciadoPergunta();
-				$colunas[] = $this -> get_tempoRespostaPergunta();
+					$colunas[] = $Categoriapergunta -> get_nomeCategoriapergunta();								
+				if( $this -> get_empresa_idPergunta() ){
+					$Empresa = new Empresa( $this -> get_empresa_idPergunta() );
+					$colunas[] = $Empresa -> get_nomeFantasiaEmpresa();	
+				}else{					
+					$colunas[] = "Todas";
+				}			
 				$colunas[] = $this -> get_inativoPergunta(true);
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
@@ -96,12 +97,15 @@ class Pergunta extends Pergunta_m {
 	function cadastrarPergunta($idPergunta, $post = array()){
 		
 		//CARREGAR DO POST
+		$tipoPergunta_id = ($post['tipoPergunta_id']);
+		if( $tipoPergunta_id == '' ) return array(false, MSG_OBRIGAT." Tipo Pergunta");
+		
 		$pergunta_id = ($post['pergunta_id']);
 		
 		$empresa_id = ($post['empresa_id']);
 		
 		$idioma_id = ($post['idioma_id']);
-		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." ioma");
+		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." Idioma");
 		
 		$nivelPergunta_id = ($post['nivelPergunta_id']);
 		if( $nivelPergunta_id == '' ) return array(false, MSG_OBRIGAT." Nivel Pergunta");
@@ -109,8 +113,11 @@ class Pergunta extends Pergunta_m {
 		$categoriaPergunta_id = ($post['categoriaPergunta_id']);
 		if( $categoriaPergunta_id == '' ) return array(false, MSG_OBRIGAT." Categoria Pergunta");
 		
+		$titulo = ($post['titulo']);
+		if( $titulo == '' ) return array(false, MSG_OBRIGAT." Titulo");
+		
 		$enunciado = ($post['enunciado']);
-		if( $enunciado == '' ) return array(false, MSG_OBRIGAT." Enunciado");
+		if( $tipoPergunta_id == '4' && $enunciado == '' ) return array(false, MSG_OBRIGAT." Complemento da questão");
 		
 		$tempoResposta = ($post['tempoResposta']);
 		if( $tempoResposta == '' ) return array(false, MSG_OBRIGAT." Tempo Resposta");
@@ -119,11 +126,13 @@ class Pergunta extends Pergunta_m {
 				
 		//SETAR
 		$this
+			 -> set_tipoPergunta_idPergunta($tipoPergunta_id)
 			 -> set_pergunta_idPergunta($pergunta_id)
 			 -> set_empresa_idPergunta($empresa_id)
 			 -> set_idioma_idPergunta($idioma_id)
 			 -> set_nivelPergunta_idPergunta($nivelPergunta_id)
 			 -> set_categoriaPergunta_idPergunta($categoriaPergunta_id)
+			 -> set_tituloPergunta($titulo)
 			 -> set_enunciadoPergunta($enunciado)
 			 -> set_tempoRespostaPergunta($tempoResposta)
 			 -> set_inativoPergunta($inativo);

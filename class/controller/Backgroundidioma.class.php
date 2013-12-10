@@ -94,7 +94,7 @@ class Backgroundidioma extends Backgroundidioma_m {
 		if( $escola_id == '' ) return array(false, MSG_OBRIGAT." Escola");
 		
 		$idioma_id = ($post['idioma_id']);
-		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." ioma");
+		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." Idioma");
 		
 		$haQuantoTempo = ($post['haQuantoTempo']);
 		if( $haQuantoTempo == '' ) return array(false, MSG_OBRIGAT." Ha Quanto Tempo");

@@ -356,3 +356,7 @@ legend {
 .hora{
 	min-width: 75px !important;
 }
+
+.textoGrande{
+	width: 500px !important;
+}

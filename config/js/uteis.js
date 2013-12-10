@@ -168,8 +168,34 @@ function viraEditor(id) {
 
 }
 
+function viraEditor_lacuna(id) {
+	
+	tinymce.init({
+		selector : '#' + id + '_base',
+		language : "pt_BR",
+		plugins : ["advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "table contextmenu directionality template textcolor paste textcolor"],
+		toolbar1 : "botaoLacuna | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | bullist numlist | undo redo | link unlink | forecolor backcolor | subscript superscript | table | hr removeformat | cut copy paste | print fullscreen code preview",
+		menubar : false,
+		toolbar_items_size : 'small',
+		setup: function(editor) {
+	    editor.addButton('botaoLacuna', {
+	        text: 'Definir lacuna',
+	        icon: false,
+	        onclick: function() {
+	        	if( $.trim(editor.selection.getContent({format : 'text'})) != ''){
+	          	//editor.insertContent('#_'+$.trim(editor.selection.getContent({format : 'text'}))+'_#');
+	          	editor.insertContent('#__#');
+						}
+	        }
+	    });
+		}
+	});
+	$('#' + id).hide();	
+}
+
 function postForm_editor(editor, idForm, pagina, param, onde) {
-	$('#' + editor).val(tinymce.get(editor + '_base').getContent());
+	//alert( tinymce.get(editor + '_base').getContent() );
+	$('#' + editor).val( tinymce.get(editor + '_base').getContent() );	
 	postForm(idForm, pagina, param, onde);
 }
 

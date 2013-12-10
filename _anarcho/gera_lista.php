@@ -15,13 +15,13 @@ if (isset($_POST["filtro"])) {
 	foreach ($campos as $campo) {
 		if ($campo['relac'] == 'fk') {
 			$carrega3 .= "
-\$" . $campo['nome'] . " = implode(\",\", \$_POST['" . $campo['nome'] . "']);
-if( \$" . $campo['nome'] . " ) \$where .= \" AND " . $tableAs . "." . $campo['nome'] . " IN(\".Uteis::escapeRequest(\$" . $campo['nome'] . ").\")\";
+\$" . $campo['nome'] . " = implode(\",\", Uteis::escapeRequest(\$_POST['" . $campo['nome'] . "']));
+if( \$" . $campo['nome'] . " ) \$where .= \" AND " . $tableAs . "." . $campo['nome'] . " IN(\".(\$" . $campo['nome'] . ").\")\";
 ";
 		}elseif( $campo['nome'] == 'inativo' ){
 			$carrega3 .= "
-\$status = implode(\",\", \$_POST['status']);
-if( \$status != \"\" ) \$where .= \" AND " . $tableAs . ".inativo IN(\".Uteis::escapeRequest(\$status).\")\";";
+\$status = implode(\",\", Uteis::escapeRequest(\$_POST['status']));
+if( \$status != \"\" ) \$where .= \" AND " . $tableAs . ".inativo IN(\".(\$status).\")\";";
 		}
 		
 	}
@@ -33,7 +33,7 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 \$" . $tableUp . " = new " . $tableUp . "();
 
 \$idTabela = \"tb_" . $table . "\";
-\$campos = array(" . $carrega . ");
+//\$campos = array(" . $carrega . ");
 
 \$url = \"?\";
 \$caminho = CAM_VIEW.\"" . $table . "/\";
@@ -47,7 +47,7 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
 	\$id" . $tableUp . " = Uteis::escapeRequest(\$_REQUEST[\"id" . $tableUp . "\"]);	
 	\$ordem = \$_REQUEST[\"ordem\"];
 		
-	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\" WHERE " . $tableAs . ".id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$campos, \$ordem);
+	\$arrayRetorno[\"updateTr\"] = \$" . $tableUp . " -> tabela" . $tableUp . "_html(\" WHERE " . $tableAs . ".id = \$id" . $tableUp . "\", \$caminho, \$atualizar, \$ondeAtualizar, \$ordem);
 	\$arrayRetorno[\"tabela\"] = \$idTabela;
 	\$arrayRetorno[\"ordem\"] = \$ordem;
 	
@@ -73,7 +73,7 @@ if( \$_REQUEST[\"tr\"] == \"1\" ){
   <div class=\"lista\">
 		<?php //IMPRIMIR TABELA		
 		Html::set_colunas(array(" . $carrega2 . "\"\"));
-		echo \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar, \$campos);
+		echo \$" . $tableUp . " -> tabela" . $tableUp . "_html(\$where, \$caminho, \$atualizar, \$ondeAtualizar);
 		?>
 	</div>
 	

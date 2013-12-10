@@ -16,7 +16,7 @@ $nomeTable = "areaatencao";
         <div class="esquerda">
         	 
 					<p>
-					<label>ioma:</label>
+					<label>Idioma:</label>
 					<?php $Idioma = new Idioma();
 					echo $Idioma -> selectMultipleIdioma_html('idioma_id'); ?>
 					</p>

@@ -496,14 +496,20 @@ class Uteis {
 
 	/////////////////////////
 
-	static function escapeRequest($texto) {
+	static function escapeRequest($request, $preparaParaQuery = true) {
 
-		$res = mysql_real_escape_string(trim($texto));
-
-		if (is_numeric($res)) {
-			return $res;
+		if (is_array($request)) {
+			return array_map(array(self, "escapeRequest"), $request);			
 		} else {
-			return "'" . $res . "'";
+			
+			$request = mysql_real_escape_string(trim($request));
+
+			if (is_numeric($request)) {
+				return $request;
+			} else {
+				return ($preparaParaQuery) ? "'" . $request . "'" : $request;
+			}
+
 		}
 
 	}

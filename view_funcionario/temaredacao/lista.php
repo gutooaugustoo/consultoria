@@ -30,8 +30,8 @@ if( $_REQUEST["tr"] == "1" ){
 //FILTROS
 $where = " WHERE T.excluido = 0";
 
-$status = implode(",", $_POST['status']);
-if( $status != "" ) $where .= " AND T.inativo IN(".Uteis::escapeRequest($status).")";
+$status = implode(",", Uteis::escapeRequest($_POST['status']));
+if( $status != "" ) $where .= " AND T.inativo IN(".($status).")";
 //echo $where;
 ?>
 

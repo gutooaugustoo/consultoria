@@ -3,11 +3,13 @@ class Pergunta_m extends Database {
 	
 	// ATRIBUTOS
 	protected $idPergunta;
+	protected $tipoPergunta_idPergunta;
 	protected $pergunta_idPergunta;
 	protected $empresa_idPergunta;
 	protected $idioma_idPergunta;
 	protected $nivelPergunta_idPergunta;
 	protected $categoriaPergunta_idPergunta;
+	protected $tituloPergunta;
 	protected $enunciadoPergunta;
 	protected $tempoRespostaPergunta;
 	protected $inativoPergunta = 0;
@@ -22,11 +24,13 @@ class Pergunta_m extends Database {
 			$array = $this -> selectPergunta(" WHERE P.id = ".$this -> gravarBD($idPergunta) );			
 			
 			$this -> idPergunta = $array[0]['id'];
+			$this -> tipoPergunta_idPergunta = $array[0]['tipoPergunta_id'];
 			$this -> pergunta_idPergunta = $array[0]['pergunta_id'];
 			$this -> empresa_idPergunta = $array[0]['empresa_id'];
 			$this -> idioma_idPergunta = $array[0]['idioma_id'];
 			$this -> nivelPergunta_idPergunta = $array[0]['nivelPergunta_id'];
 			$this -> categoriaPergunta_idPergunta = $array[0]['categoriaPergunta_id'];
+			$this -> tituloPergunta = $array[0]['titulo'];
 			$this -> enunciadoPergunta = $array[0]['enunciado'];
 			$this -> tempoRespostaPergunta = $array[0]['tempoResposta'];
 			$this -> inativoPergunta = $array[0]['inativo'];
@@ -42,6 +46,11 @@ class Pergunta_m extends Database {
 	
 	function set_idPergunta($valor) {
 		$this -> idPergunta = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
+	function set_tipoPergunta_idPergunta($valor) {
+		$this -> tipoPergunta_idPergunta = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 	
@@ -70,6 +79,11 @@ class Pergunta_m extends Database {
 		return $this;
 	}
 	
+	function set_tituloPergunta($valor) {
+		$this -> tituloPergunta = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
 	function set_enunciadoPergunta($valor) {
 		$this -> enunciadoPergunta = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
@@ -89,6 +103,10 @@ class Pergunta_m extends Database {
 	
 	function get_idPergunta() {
 		return ($this -> idPergunta);
+	}
+	
+	function get_tipoPergunta_idPergunta() {
+		return ($this -> tipoPergunta_idPergunta);
 	}
 	
 	function get_pergunta_idPergunta() {
@@ -111,6 +129,10 @@ class Pergunta_m extends Database {
 		return ($this -> categoriaPergunta_idPergunta);
 	}
 	
+	function get_tituloPergunta() {
+		return ($this -> tituloPergunta);
+	}
+	
 	function get_enunciadoPergunta() {
 		return ($this -> enunciadoPergunta);
 	}
@@ -127,13 +149,15 @@ class Pergunta_m extends Database {
 		
 	function insertPergunta() {
 		$sql = "INSERT INTO pergunta 
-		(pergunta_id, empresa_id, idioma_id, nivelPergunta_id, categoriaPergunta_id, enunciado, tempoResposta, inativo) 
+		(tipoPergunta_id, pergunta_id, empresa_id, idioma_id, nivelPergunta_id, categoriaPergunta_id, titulo, enunciado, tempoResposta, inativo) 
 		VALUES (	
+			" . $this -> tipoPergunta_idPergunta . ", 	
 			" . $this -> pergunta_idPergunta . ", 	
 			" . $this -> empresa_idPergunta . ", 	
 			" . $this -> idioma_idPergunta . ", 	
 			" . $this -> nivelPergunta_idPergunta . ", 	
 			" . $this -> categoriaPergunta_idPergunta . ", 	
+			" . $this -> tituloPergunta . ", 	
 			" . $this -> enunciadoPergunta . ", 	
 			" . $this -> tempoRespostaPergunta . ", 	
 			" . $this -> inativoPergunta . "
@@ -154,11 +178,13 @@ class Pergunta_m extends Database {
 				
 			return $this -> updateCampoPergunta(
 				array(		
+					"tipoPergunta_id" => $this -> tipoPergunta_idPergunta, 		
 					"pergunta_id" => $this -> pergunta_idPergunta, 		
 					"empresa_id" => $this -> empresa_idPergunta, 		
 					"idioma_id" => $this -> idioma_idPergunta, 		
 					"nivelPergunta_id" => $this -> nivelPergunta_idPergunta, 		
 					"categoriaPergunta_id" => $this -> categoriaPergunta_idPergunta, 		
+					"titulo" => $this -> tituloPergunta, 		
 					"enunciado" => $this -> enunciadoPergunta, 		
 					"tempoResposta" => $this -> tempoRespostaPergunta, 		
 					"inativo" => $this -> inativoPergunta				

@@ -7,11 +7,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo NOME_APP?></title>
-<?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/css.php");
-require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/js.php");
-?>
-<script></script>
+
+	<?php
+	require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include.php");
+		?>
 
 </head>
 
@@ -19,11 +18,11 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include/js.php");
 <div id="divs_jquery"> </div>
 <div id="cssmenu">      
   <?php
-	require_once "menu.php";	
+	require_once "menu.php";
   ?>  
-  <!-- <font onclick="carregarModulo('<?php echo CAM_VIEW."pessoa/filtro.php" ?>', '#centro')">pessoa filtro</font> -->
+  <!--<font onclick="carregarModulo('<?php echo CAM_VIEW."pergunta/filtro.php?tipoPergunta_id=1" ?>', '#centro')">TEMP</font>-->
 </div>
 <div id="alertas"></div>
-<div id="centro"><?php //echo CAM_VIEW;?></div>
+<div id="centro"><?php //echo CAM_VIEW; ?></div>
 </body>
 </html>
