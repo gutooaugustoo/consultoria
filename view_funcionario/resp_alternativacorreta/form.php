@@ -28,6 +28,9 @@ $acao = CAM_VIEW."resp_alternativacorreta/acao.php";
 				<input type="hidden" id="idResp_alternativacorreta" name="idResp_alternativacorreta" value="<?php echo $Resp_alternativacorreta -> get_idResp_alternativacorreta() ?>" />
 				<input type="hidden" id="pergunta_id" name="pergunta_id" value="<?php echo $Resp_alternativacorreta -> get_pergunta_idResp_alternativacorreta() ?>" />
 				
+				<?php $idPergunta = $Resp_alternativacorreta -> get_pergunta_idResp_alternativacorreta();
+        include_once "../pergunta/_respostas.php";
+        ?>
 				<p>
 				<label>Resposta:</label>
 				<input type="text" name="resposta" id="resposta" value="<?php echo $Resp_alternativacorreta -> get_respostaResp_alternativacorreta()?>" class="required" />

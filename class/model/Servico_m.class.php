@@ -108,7 +108,8 @@ class Servico_m extends Database {
 		return $this;
 	}
 	
-	function set_hashServico($valor) {
+	function set_hashServico() {
+		$valor = sha1($this->idServico.date('YmdHis'));
 		$this -> hashServico = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
@@ -213,7 +214,7 @@ class Servico_m extends Database {
 					"temRedacao" => $this -> temRedacaoServico, 		
 					"temResultadoFinal" => $this -> temResultadoFinalServico, 		
 					"obs" => $this -> obsServico, 		
-					"hash" => $this -> hashServico				
+					//"hash" => $this -> hashServico				
 				)	
 			);
 			

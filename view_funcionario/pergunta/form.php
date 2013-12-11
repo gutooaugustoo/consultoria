@@ -28,20 +28,16 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 		  
 		  <input type="hidden" id="acao" name="acao" value="cadastrar" />
 		  <input type="hidden" id="tipoPergunta_id" name="tipoPergunta_id" value="<?php echo $tipoPergunta_id?>" />
-		  
-		  <?php if( $tipoPergunta_id == "4" ){?>		
-		  	
-		  <?php }?>
-		  		
+		  		  		
 		  <div class="linha-inteira">
 		  	
 		  	<p>					  	
-					<label>Enunciado:</label>
-					<input type="text" name="titulo" id="titulo" value="<?php echo $Pergunta -> get_tituloPergunta()?>" class="required" />
-					<span class="placeholder" >Campo obrigatório</span>
+					<label>Enunciado (não numere o enunciado):</label>
+					<input type="text" name="titulo" id="titulo" value="<?php echo $Pergunta -> get_tituloPergunta()?>" class="required textoGrande" />
+					<span class="placeholder" >Campo obrigatório (não numere o enunciado)</span>
 				</p>
 						
-				<p><label>Complemento da questão:</label>	
+				<p><label>Complemento:</label>	
 					<textarea name="enunciado_base" id="enunciado_base" cols="100" rows="8" ><?php echo $Pergunta -> get_enunciadoPergunta()?></textarea>
 					<textarea name="enunciado" id="enunciado" class="<?php echo ( $tipoPergunta_id == "4" ) ? "required" : ""?>" ></textarea>
 					<span class="placeholder" >Campo obrigatório</span>								
@@ -51,41 +47,51 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 			<div class="esquerda">
 
 				<input type="hidden" id="idPergunta" name="idPergunta" value="<?php echo $Pergunta -> get_idPergunta() ?>" />
-				<p>
-					<label>Idioma (em que está escrita a pergunta):</label>
-					<?php $Idioma = new Idioma();
-						Html::set_cssClass(array("required"));
-						echo $Idioma -> selectIdioma_html('idioma_id', $Pergunta -> get_idioma_idPergunta());
-					?>
-					<span class="placeholder" >Campo obrigatório</span>
-				</p>
-
-				<p>
-					<label>Nível Pergunta:</label>
-					<?php $Nivelpergunta = new Nivelpergunta();
-						Html::set_cssClass(array("required"));
-						echo $Nivelpergunta -> selectNivelpergunta_html('nivelPergunta_id', $Pergunta -> get_nivelPergunta_idPergunta());
-					?>
-					<span class="placeholder" >Campo obrigatório</span>
-				</p>
-				<p>
-					<label>Categoria Pergunta:</label>
-					<?php $Categoriapergunta = new Categoriapergunta();
-						Html::set_cssClass(array("required"));
-						echo $Categoriapergunta -> selectCategoriapergunta_html('categoriaPergunta_id', $Pergunta -> get_categoriaPergunta_idPergunta());
-					?>
-					<span class="placeholder" >Campo obrigatório</span>
-				</p>
+				
+				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI 
+				if( !$Pergunta->get_pergunta_idPergunta() ){?>
+					<p>
+						<label>Idioma (em que está escrita a pergunta):</label>
+						<?php $Idioma = new Idioma();
+							Html::set_cssClass(array("required"));
+							echo $Idioma -> selectIdioma_html('idioma_id', $Pergunta -> get_idioma_idPergunta());
+						?>
+						<span class="placeholder" >Campo obrigatório</span>
+					</p>
+	
+					<p>
+						<label>Nível Pergunta:</label>
+						<?php $Nivelpergunta = new Nivelpergunta();
+							Html::set_cssClass(array("required"));
+							echo $Nivelpergunta -> selectNivelpergunta_html('nivelPergunta_id', $Pergunta -> get_nivelPergunta_idPergunta());
+						?>
+						<span class="placeholder" >Campo obrigatório</span>
+					</p>
+					<p>
+						<label>Categoria Pergunta:</label>
+						<?php $Categoriapergunta = new Categoriapergunta();
+							Html::set_cssClass(array("required"));
+							echo $Categoriapergunta -> selectCategoriapergunta_html('categoriaPergunta_id', $Pergunta -> get_categoriaPergunta_idPergunta());
+						?>
+						<span class="placeholder" >Campo obrigatório</span>
+					</p>
+				<?php }?>
 			</div>
 
 			<div class="direita">
 
+				<?php 
+				//AGRUPAMENTO NAO PRECISA DE TEMPO
+				if( $tipoPergunta_id != "5" ){?>		
 				<p>
 					<label>Tempo para responder (em segundos):</label>
 					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required numeric" maxlength="3" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>
-
+				<?php }?>
+				
+				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI 
+				if( !$Pergunta->get_pergunta_idPergunta() ){?>								
 				<p>
 					<label>Exclusiva para a empresa (deixe em branco caso não seja exclusiva):</label>
 					<?php $Empresa = new Empresa();
@@ -93,7 +99,7 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 					?>
 					<span class="placeholder" ></span>
 				</p>
-
+				<?php }?>	
 				<p>
 					<label for="inativo" >
 						<input type="checkbox" name="inativo" id="inativo" value="1" class=""
@@ -117,9 +123,5 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 
 <script>
 	ativarForm();
-	<?php if( $tipoPergunta_id == "4" ){?>		
-		viraEditor_lacuna('enunciado');
-	<?php }else{?>		
-		viraEditor('enunciado');
-	<?php }?>		
+	viraEditor('enunciado');		
 </script> 

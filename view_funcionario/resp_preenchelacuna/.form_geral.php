@@ -10,8 +10,6 @@ $acao = CAM_VIEW."resp_preenchelacuna/acao.php";
 <fieldset>
 	<legend>Montar lacunas</legend>
 	
-	
-	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />
 

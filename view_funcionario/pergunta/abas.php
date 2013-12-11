@@ -38,7 +38,7 @@ $url = "&tipoPergunta_id=" . $tipoPergunta_id;
 			?>
 		
 			<div id="aba_pergunta" divExibir="div_pergunta" class="aba_interna"
-			onclick="carregarModulo('<?php echo CAM_VIEW.$tipoPergunta_pasta."/lista.php?pergunta_id=".$idPergunta.$url?>' , '#div_pergunta')" >Respostas</div>
+			onclick="carregarModulo('<?php echo CAM_VIEW.$tipoPergunta_pasta."/lista.php?pergunta_id=".$idPergunta.$url?>' , '#div_pergunta')" ><?php echo $tipoPergunta_id != "5" ? "Respostas" : "Perguntas"?></div>
 		
 		<?php } ?>
 	</div>

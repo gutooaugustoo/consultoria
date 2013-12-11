@@ -4,7 +4,6 @@ require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 $Servico = new Servico();
 
 $idTabela = "tb_servico";
-//$campos = array("S.id", "S.empresa_id", "S.idioma_id", "S.servico_id", "S.descricao", "S.dataInicio", "S.dataValidade", "S.temOral", "S.temEscrito", "S.temRedacao", "S.temResultadoFinal", "S.obs", "S.hash", );
 
 $url = "?";
 $caminho = CAM_VIEW."servico/";
@@ -36,14 +35,14 @@ if( $empresa_id ) $where .= " AND S.empresa_id IN(".($empresa_id).")";
 $idioma_id = implode(",", Uteis::escapeRequest($_POST['idioma_id']));
 if( $idioma_id ) $where .= " AND S.idioma_id IN(".($idioma_id).")";
 
-$servico_id = implode(",", Uteis::escapeRequest($_POST['servico_id']));
-if( $servico_id ) $where .= " AND S.servico_id IN(".($servico_id).")";
+/*$servico_id = implode(",", Uteis::escapeRequest($_POST['servico_id']));
+if( $servico_id ) $where .= " AND S.servico_id IN(".($servico_id).")";*/
 
 //echo $where;
 ?>
 
 <fieldset>
-  <legend>Servico</legend>
+  <legend>Serviços</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
@@ -52,7 +51,7 @@ if( $servico_id ) $where .= " AND S.servico_id IN(".($servico_id).")";
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Empresa", "ioma", "Servico", "Descricao", "Data Inicio", "Data Valade", "Tem Oral", "Tem Escrito", "Tem Redacao", "Tem Resultado Final", "Obs", "Hash", ""));
+		Html::set_colunas(array("Descrição", "Empresa", "Idioma", "Período", "Oral", "Escrito", "Redacao", "Resultado Final", ""));
 		echo $Servico -> tabelaServico_html($where, $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>

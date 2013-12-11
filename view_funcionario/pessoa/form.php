@@ -15,15 +15,17 @@
 	</p>
 	<p>
 		<label>Tipo Documento:</label>
-		<?php $Tipodocumentounico = new Tipodocumentounico();
-			Html::set_cssClass(array("required"));						
+		<?php $Tipodocumentounico = new Tipodocumentounico($Pessoa -> get_tipoDocumentoUnico_idPessoa());
+			Html::set_selectOptionProp(array("mascara" => "class"));
+			Html::set_eventos(array("onchange" => "verificarTipoDocumento()"));
+			Html::set_cssClass(array("required"));
 			echo $Tipodocumentounico -> selectTipodocumentounico_html('tipoDocumentoUnico_id', $Pessoa -> get_tipoDocumentoUnico_idPessoa());
 		?>
 		<span class="placeholder" >Campo obrigatório</span>
 	</p>
 	<p>
 		<label>Número Documento:</label>
-		<input type="text" name="documento" id="documento" value="<?php echo $Pessoa -> get_documentoPessoa()?>" class="required" />
+		<input type="text" name="documento" id="documento" value="<?php echo $Pessoa -> get_documentoPessoa()?>" class="required <?php echo $Tipodocumentounico->get_classTipodocumentounico()?>" />
 		<span class="placeholder" >Campo obrigatório</span>
 	</p>
 
@@ -41,7 +43,7 @@
 	<p>
 		<label>Sexo:</label>
 		<?php Html::set_cssClass(array("required"));
-		echo Html::selectSexo_html("sexo", $Pessoa -> get_sexoPessoa());
+			echo Html::selectSexo_html("sexo", $Pessoa -> get_sexoPessoa());
 		?>
 		<span class="placeholder" >Campo obrigatório</span>
 	</p>
@@ -57,7 +59,7 @@
 		<input type="password" name="rsenha" id="rsenha" value="<?php echo $Pessoa -> get_senhaPessoa()?>" class="required password" />
 		<span class="placeholder" >Campo obrigatório</span>
 	</p>
-	
+
 </div>
 
 <div class="direita">
@@ -115,6 +117,14 @@
 </div>
 
 <script>
-
+function verificarTipoDocumento(){
+	var $o = $('#formCad_<?php echo $nomeTable ?> #tipoDocumentoUnico_id');
+	var $doc = $('#formCad_<?php echo $nomeTable ?> #documento');	
+	$o.find('option:not(:selected)').each(function(){		
+		$doc.removeClass( $(this).attr('mascara') );
+	});	
+	$doc.addClass( $o.find('option:selected').attr('mascara') );
+	ativarForm();
+}
 </script>
 

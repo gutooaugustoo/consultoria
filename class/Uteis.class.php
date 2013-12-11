@@ -473,7 +473,7 @@ class Uteis {
 		return $bool;
 	}
 
-	static function verificaChecked($bool) {
+	static function verificaChecked($bool) {		
 		return ($bool) ? "checked" : "";
 	}
 

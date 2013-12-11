@@ -118,8 +118,12 @@ class Pergunta extends Pergunta_m {
 		
 		$enunciado = ($post['enunciado']);
 		if( $tipoPergunta_id == '4' && $enunciado == '' ) return array(false, MSG_OBRIGAT." Complemento da questão");
-		
-		$tempoResposta = ($post['tempoResposta']);
+				
+		if( $tipoPergunta_id == "5"){
+			$tempoResposta = "-1";
+		}else{
+			$tempoResposta = ($post['tempoResposta']);	
+		}
 		if( $tempoResposta == '' ) return array(false, MSG_OBRIGAT." Tempo Resposta");
 		
 		$inativo = ($post['inativo']);

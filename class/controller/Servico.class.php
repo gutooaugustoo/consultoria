@@ -13,14 +13,14 @@ class Servico extends Servico_m {
 	//GERAR ELEMENTOS
 	function selectServico_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("id", "hash AS legenda");
+		$campos = array("id", "descricao AS legenda");
 		$array = $this -> selectServico($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
 	function selectMultipleServico_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("id", "hash AS legenda");
+		$campos = array("id", "descricao AS legenda");
 		$array = $this -> selectServico($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}
@@ -47,22 +47,19 @@ class Servico extends Servico_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-				
+				/*$Servico = new Servico( $this -> get_servico_idServico() );
+					$colunas[] = $Servico -> get_idServico();*/
+				$colunas[] = $this -> get_descricaoServico();				
 				$Empresa = new Empresa( $this -> get_empresa_idServico() );
-				$colunas[] = $Empresa -> get_idEmpresa();
+					$colunas[] = $Empresa -> get_nomeFantasiaEmpresa();
 				$Idioma = new Idioma( $this -> get_idioma_idServico() );
-				$colunas[] = $Idioma -> get_idIdioma();
-				$Servico = new Servico( $this -> get_servico_idServico() );
-				$colunas[] = $Servico -> get_idServico();
-				$colunas[] = $this -> get_descricaoServico();
-				$colunas[] = $this -> get_dataInicioServico();
-				$colunas[] = $this -> get_dataValidadeServico();
+					$colunas[] = $Idioma -> get_nomeIdioma();				
+				$colunas[] = $this -> get_dataInicioServico()." - ".$this -> get_dataValidadeServico();				
 				$colunas[] = $this -> get_temOralServico(true);
 				$colunas[] = $this -> get_temEscritoServico(true);
 				$colunas[] = $this -> get_temRedacaoServico(true);
 				$colunas[] = $this -> get_temResultadoFinalServico(true);
-				$colunas[] = $this -> get_obsServico();
-				$colunas[] = $this -> get_hashServico();
+				
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
@@ -126,7 +123,7 @@ class Servico extends Servico_m {
 		$obs = ($post['obs']);
 		
 		$hash = ($post['hash']);
-		if( $hash == '' ) return array(false, MSG_OBRIGAT." Hash");
+		//if( $hash == '' ) return array(false, MSG_OBRIGAT." Hash");
 				
 		//SETAR
 		$this
@@ -141,7 +138,7 @@ class Servico extends Servico_m {
 			 -> set_temRedacaoServico($temRedacao)
 			 -> set_temResultadoFinalServico($temResultadoFinal)
 			 -> set_obsServico($obs)
-			 -> set_hashServico($hash);
+			 -> set_hashServico();
 		
 		if( $idServico ){			
 			$this -> set_idServico($idServico);			

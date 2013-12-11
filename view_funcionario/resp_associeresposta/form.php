@@ -29,11 +29,18 @@ $acao = CAM_VIEW."resp_associeresposta/acao.php";
 				<input type="hidden" id="idResp_associeresposta" name="idResp_associeresposta" value="<?php echo $Resp_associeresposta -> get_idResp_associeresposta() ?>" />
 				<input type="hidden" id="pergunta_id" name="pergunta_id" value="<?php echo $Resp_associeresposta -> get_pergunta_idResp_associeresposta() ?>" />
 				
+				<?php $idPergunta = $Resp_associeresposta -> get_pergunta_idResp_associeresposta();
+        include_once "../pergunta/_respostas.php";
+        ?>
+        
 				<!--<p>
 				<label>Ordem:</label>
 				<input type="text" name="ordem" id="ordem" value="<?php echo $Resp_associeresposta -> get_ordemResp_associeresposta()?>" class="numeric" />
 				<span class="placeholder" ></span></p>-->
-		   				
+        
+        <?php $idPergunta = $Resp_associeresposta -> get_pergunta_idResp_associeresposta();
+        include_once "../pergunta/_respostas.php";?>
+        	   				
 				<p>
 				<label>Opção original:</label>
 				<input type="text" name="descPergunta" id="descPergunta" value="<?php echo $Resp_associeresposta -> get_descPerguntaResp_associeresposta()?>" class="required textoGrande" />

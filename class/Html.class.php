@@ -3,8 +3,9 @@ class Html {
 
 	private static $idTabela;
 	private static $colunas;
-	private static $eventos;
-	private static $cssClass;
+	private static $eventos = array();
+	private static $selectOptionProp = array();
+	private static $cssClass = array();
 
 	function __construct() {
 	}
@@ -32,6 +33,10 @@ class Html {
 		self::$cssClass = $array;
 	}
 
+	static function set_selectOptionProp($array = array()) {
+		self::$selectOptionProp = $array;
+	}
+
 	private function montaClass() {
 
 		$html = "";
@@ -55,6 +60,18 @@ class Html {
 		return $html;
 	}
 
+	private function montaSelectOptionProp($iten) {
+
+		$html = "";
+
+		if (count(self::$selectOptionProp) > 0) {
+			foreach (self::$selectOptionProp as $key => $value)
+				$html .= " " . $key . "=\"" . $iten[$value] . "\"";
+		}
+
+		return $html;
+	}
+
 	static function select($nomeId, $idAtual, $array) {
 
 		$html = "<select name=\"$nomeId\" id=\"$nomeId\" " . self::montaClass() . " " . self::montaEventos() . " >
@@ -62,13 +79,14 @@ class Html {
 
 		foreach ($array as $iten) {
 			$selecionado = ($idAtual == $iten['id']) ? "selected" : "";
-			$html .= "<option value=\"" . $iten['id'] . "\" $selecionado >" . $iten['legenda'] . "</option>";
+			$html .= "<option value=\"" . $iten['id'] . "\" " . self::montaSelectOptionProp($iten) . " $selecionado >" . $iten['legenda'] . "</option>";
 		}
 
 		$html .= "</select>";
 
 		self::set_cssClass();
 		self::set_eventos();
+		self::set_selectOptionProp();
 
 		return $html;
 	}
@@ -80,13 +98,14 @@ class Html {
 
 		foreach ($array as $iten) {
 			$selecionado = (in_array($iten['id'], $idsAtuais)) ? "selected" : "";
-			$html .= "<option value=\"" . $iten['id'] . "\" $selecionado >" . $iten['legenda'] . "</option>";
+			$html .= "<option value=\"" . $iten['id'] . "\" " . self::montaSelectOptionProp($iten) . " $selecionado >" . $iten['legenda'] . "</option>";
 		}
 
 		$html .= "</select>";
 
 		self::set_cssClass();
 		self::set_eventos();
+		self::set_selectOptionProp();
 
 		return $html;
 	}
@@ -113,62 +132,71 @@ class Html {
 	static function montarColunas($linhas = array()) {
 
 		$colunasHeadFoot = self::$colunas;
-		
+
 		$html = "<table id=\"" . self::get_idTabela() . "\" class=\"registros\" >";
-	
+
 		$html_linhas = "";
 		if (count($linhas) > 0) {
 			$html_linhas .= "<tbody>";
-			foreach ($linhas as $key => $colunas) {				
+			foreach ($linhas as $key => $colunas) {
 				$html_linhas .= "<tr>";
-				foreach ($colunas as $coluna){
-					if( is_array($coluna) ) {
-						$html_linhas .= "<td align=\"center\" >" . implode(ICON_SEPARATOR, $coluna) . "</td>";						
-					}else{
-						$html_linhas .= "<td>" . $coluna . "</td>";						
+				foreach ($colunas as $coluna) {
+					if (is_array($coluna)) {
+						$html_linhas .= "<td align=\"center\" >" . implode(ICON_SEPARATOR, $coluna) . "</td>";
+					} else {
+						$html_linhas .= "<td>" . $coluna . "</td>";
 					}
 				}
 				$html_linhas .= "</tr>";
 			}
 			$html_linhas .= "</tbody>";
 		}
-		
+
 		if (count($colunasHeadFoot) > 0) {
 
 			$html .= "<thead>";
+
 			foreach ($colunasHeadFoot as $colunaHeadFoot)
 				$html .= "<th>" . $colunaHeadFoot . "</th>";
-			$html .= "</thead>";
-			
-			$html .= $html_linhas;
-			
-			$html .= "<tfoot>";
+
+			$html .= "</thead>" . $html_linhas . "<tfoot>";
+
 			foreach ($colunasHeadFoot as $colunaHeadFoot)
 				$html .= "<th>" . $colunaHeadFoot . "</th>";
 			$html .= "</tfoot>";
 
 		}
 
-		
-		
 		$html .= "</table>";
 
 		self::set_colunas();
 		return $html;
 
 	}
-	
-	static function selectMultipleStatus_html($nome = "status", $idAtual = array("0")){
-		$array[] = array("id" => "0", "legenda" => "Ativo");
-		$array[] = array("id" => "1", "legenda" => "Inativo");		
-		return self::selectMultiple($nome, $idAtual, $array);		 
+
+	static function selectMultipleStatus_html($nome = "status", $idAtual = array("0")) {
+		$array[] = array(
+			"id" => "0",
+			"legenda" => "Ativo"
+		);
+		$array[] = array(
+			"id" => "1",
+			"legenda" => "Inativo"
+		);
+		return self::selectMultiple($nome, $idAtual, $array);
 	}
-	
-	static function selectSexo_html($nome = "sexo", $idAtual = ""){
-		$array[] = array("id" => "M", "legenda" => "Masculino");
-		$array[] = array("id" => "F", "legenda" => "Feminino");		
-		return self::select($nome, $idAtual, $array);		 
+
+	static function selectSexo_html($nome = "sexo", $idAtual = "") {
+		$array[] = array(
+			"id" => "M",
+			"legenda" => "Masculino"
+		);
+		$array[] = array(
+			"id" => "F",
+			"legenda" => "Feminino"
+		);
+		return self::select($nome, $idAtual, $array);
 	}
-	
+
 }
 ?>

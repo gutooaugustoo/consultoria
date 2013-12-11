@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Servico = new Servico();
+$Servico_avaliador = new Servico_avaliador();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idServico = $_REQUEST['id'];
+	$idServico_avaliador = $_REQUEST['id'];
 	
-	$rs = $Servico -> deletarServico($idServico);
+	$rs = $Servico_avaliador -> deletarServico_avaliador($idServico_avaliador);
 	
 	if( $rs[0] != false ){
 							
@@ -20,15 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idServico = $_REQUEST['idServico'];
+	$idServico_avaliador = $_REQUEST['idServico_avaliador'];
 	
-	$rs = $Servico -> cadastrarServico($idServico, $_POST);
+	$rs = $Servico_avaliador -> cadastrarServico_avaliador($idServico_avaliador, $_POST);
 
 	if( $rs[0] != false ){			
-		//$arrayRetorno['fecharNivel'] = true;
-		$arrayRetorno['atualizarNivelAtual'] = true;
-		if( !$idServico ) $idServico = $rs[0];
-		$arrayRetorno['pagina'] = CAM_VIEW."servico/abas.php?idServico=".$idServico;
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

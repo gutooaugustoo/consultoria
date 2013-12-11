@@ -5,7 +5,7 @@ $nomeTable = "servico";
 ?>
 
 <fieldset>
-  <legend>Filtrar Servico</legend>
+  <legend>Filtrar Serviços</legend>
   
   <img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar filtros" id="imgGrupoFiltro_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoFiltro_<?php echo $nomeTable ?>', 'imgGrupoFiltro_<?php echo $nomeTable ?>');" />
@@ -21,11 +21,11 @@ $nomeTable = "servico";
 					echo $Empresa -> selectMultipleEmpresa_html('empresa_id'); ?>
 					</p>
 					
-					<p>
+					<!--<p>
 					<label>Servico:</label>
 					<?php $Servico = new Servico();
 					echo $Servico -> selectMultipleServico_html('servico_id'); ?>
-					</p>
+					</p>-->
 					     
         </div>
         <div class="direita">

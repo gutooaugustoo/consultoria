@@ -172,9 +172,8 @@ function viraEditor_lacuna(id) {
 	
 	tinymce.init({
 		selector : '#' + id + '_base',
-		language : "pt_BR",
-		plugins : ["advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "table contextmenu directionality template textcolor paste textcolor"],
-		toolbar1 : "botaoLacuna | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | bullist numlist | undo redo | link unlink | forecolor backcolor | subscript superscript | table | hr removeformat | cut copy paste | print fullscreen code preview",
+		language : "pt_BR",		
+		toolbar1 : "botaoLacuna",
 		menubar : false,
 		toolbar_items_size : 'small',
 		setup: function(editor) {
@@ -184,7 +183,8 @@ function viraEditor_lacuna(id) {
 	        onclick: function() {
 	        	if( $.trim(editor.selection.getContent({format : 'text'})) != ''){
 	          	//editor.insertContent('#_'+$.trim(editor.selection.getContent({format : 'text'}))+'_#');
-	          	editor.insertContent('#__#');
+	          	$('#lacuna_respLacuna:first').val( $.trim(editor.selection.getContent({format : 'text'})) );
+	          	editor.insertContent('#_'+$('#ordem_respLacuna:first').val()+'_#');
 						}
 	        }
 	    });
