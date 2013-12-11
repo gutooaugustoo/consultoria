@@ -39,7 +39,7 @@ $where = " WHERE R.excluido = 0 AND R.pergunta_id = ".$pergunta_id;
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_pergunta')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '<?php echo $ondeAtualizar?>')" /> 
   </div>
   
   <div class="lista">

@@ -64,7 +64,7 @@ function abrirNivelPagina(e, pagina, atualizaPg, localAtu) {
 	}).attr('nivel', nivel).appendTo('#divs_jquery');
 	//.fadeIn('fast');
 
-	carregarModulo(pagina, '.camada[nivel=' + nivel + ']', '{"nivelInteiro":true}');
+	carregarModulo(pagina, '', '{"nivelInteiro":true}');
 
 	eventRolarParaTopo();
 
@@ -82,15 +82,17 @@ function showLoad() {
 }
 
 function fecharNivel_load() {
-	$('.camada_load').fadeOut('fast', function() {
+	$('div.camada_load').fadeOut('fast', function() {
 		$(this).remove();
 	});
 }
 
 function fecharNivel() {
 
-	var liNivel = $('.camada[nivel=' + nivel + ']');
-	var liNivelFundo = $('.camada_fundo[nivel=' + nivel + ']');
+	if( nivel == 0 ) return;
+	
+	var liNivel = $('div.camada[nivel=' + nivel + ']');
+	var liNivelFundo = $('div.camada_fundo[nivel=' + nivel + ']');
 
 	//ATRIBUTOS VINDOS DO NIVEL ACIMA P MANTER FILTRAGEM DO DATATABLES
 	dtb_Pagina = liNivel.data('pagina');
@@ -99,24 +101,26 @@ function fecharNivel() {
 	//QUANTIDADE POR PAGINA
 	dtb_Buscar = liNivel.data('buscar');
 	//TEXTO BUSCADO
-
-	var nivelAtu = liNivel.data('atualizaPg');
-	var localAtu = liNivel.data('localAtu');
-
-	if (nivelAtu != '' && nivelAtu != undefined) {
-
-		//ATUALIZA DE ACORDO COM OS PARAMETRO PASSADOS
-		retornoPadrao(localAtu, nivelAtu);
-
-	}
-
-	//ROLAR A PAGINA ATÉ O ELEMENTO QUE ABROU O NIVEL
-	if (nivel >= 1) {
+	
+	//ROLAR A PAGINA ATÉ O ELEMENTO QUE ABRIU O NIVEL
+	if (nivel > 0) {
 		$('body,html').animate({
 			scrollTop : $(trNivel[nivel]).offset().top - 15
 		});
 	}
+	
+	trNivel.splice(nivel, 1);
+			
+	contaNivel(-1);
+	
+	var nivelAtu = liNivel.data('atualizaPg');
+	var localAtu = liNivel.data('localAtu');
 
+	if (nivelAtu != '' && nivelAtu != undefined) {
+		//ATUALIZA DE ACORDO COM OS PARAMETRO PASSADOS
+		retornoPadrao(localAtu, nivelAtu);
+	}
+		
 	liNivel.fadeOut('fast', function() {
 		$(this).remove();
 	});
@@ -125,23 +129,22 @@ function fecharNivel() {
 		$(this).remove();
 	});
 
-	trNivel.splice(nivel, 1);
-
-	contaNivel(-1);
-
 }
 
 function carregarModulo(arquivo, destino, depoisDeCarregar) {
 
 	showLoad();
 
-	if (destino == undefined || destino == '')
-		destino = '.camada[nivel=' + nivel + ']';
-
-	$(destino).load(arquivo, function() {
+	if (destino == undefined || destino == ''){
+		var $o = $('div.camada[nivel=' + nivel + ']');
+	}else{
+		var $o = $('div.camada[nivel=' + nivel + ']').find(destino);
+	}
+	
+	$o.load(arquivo, function() {
 
 		//JOGAR NIVEL NA FRENTE DAS ABAS
-		var conteudo = $('.camada[nivel=' + nivel + ']').find('.conteudo_nivel');
+		var conteudo = $('div.camada[nivel=' + nivel + ']').find('.conteudo_nivel');
 		if (conteudo.length > 0)
 			conteudo.zIndex(parseInt(conteudo.zIndex()) + 1);
 
@@ -323,9 +326,9 @@ function tabelaDataTable(idTable, tipo, optAdd) {
 		var dtb_Buscar = oSettings.oPreviousSearch.sSearch;
 		var dtb_QtdPagina = oSettings._iDisplayLength;
 
-		$('.camada[nivel=' + nivel + ']').data('pagina', dtb_Pagina);
-		$('.camada[nivel=' + nivel + ']').data('buscar', dtb_Buscar);
-		$('.camada[nivel=' + nivel + ']').data('qtdPagina', dtb_QtdPagina);
+		$('div.camada[nivel=' + nivel + ']').data('pagina', dtb_Pagina);
+		$('div.camada[nivel=' + nivel + ']').data('buscar', dtb_Buscar);
+		$('div.camada[nivel=' + nivel + ']').data('qtdPagina', dtb_QtdPagina);
 
 	});
 
@@ -381,18 +384,21 @@ function deletaRegistro(arquivoDeleta, idDeletar, arquivoListar, destinoListar) 
 	} else {
 		if (confirm('Deseja realmente excluir esse registo? \n\n Observação: Todos seus vínculos também serão removidos(esse processo é irreversível).')) {
 			showLoad();
-			$.post(arquivoDeleta, {
-				acao : "deletar",
-				id : idDeletar
-			}, function(e) {
-				if (destinoListar == '')
-					destinoListar = '.camada[nivel=' + parseInt(nivel) + ']';
-				//SE NÃO DEFINIR O LOCAL, ATUALIZARÁ O NIVEL INTEIRO
-				retornoPadrao(destinoListar, arquivoListar);
-				acaoJson(e);
-				fecharNivel_load();
-				return false;
-			});
+			$.post(
+				arquivoDeleta, 
+				{
+					acao : "deletar",
+					id : idDeletar
+				},
+				function(e) {
+					//if (destinoListar == '')  destinoListar = 'div.camada[nivel=' + parseInt(nivel) + ']';
+					//SE NÃO DEFINIR O LOCAL, ATUALIZARÁ O NIVEL INTEIRO
+					retornoPadrao(destinoListar, arquivoListar);
+					acaoJson(e);
+					fecharNivel_load();
+					return false;
+				}
+			);
 		}
 	}
 }
@@ -458,9 +464,9 @@ function acaoJson(val) {
 			if (jsonR.atualizarNivelAtual === true) {
 				if (jsonR.depoisDeCarregar) {
 					//alert( jsonR.depoisDeCarregar );
-					carregarModulo(jsonR.pagina, '.camada[nivel=' + nivel + ']', jsonR.depoisDeCarregar);
+					carregarModulo(jsonR.pagina, '', jsonR.depoisDeCarregar);
 				} else {
-					carregarModulo(jsonR.pagina, '.camada[nivel=' + nivel + ']');
+					carregarModulo(jsonR.pagina, '');
 				}
 			}
 
@@ -471,7 +477,7 @@ function acaoJson(val) {
 		}
 
 		if (jsonR.nivelInteiro != undefined && jsonR.nivelInteiro === true)
-			$('.camada[nivel=' + nivel + '], .camada_fundo[nivel=' + nivel + ']').fadeIn('fast');
+			$('div.camada[nivel=' + nivel + '], div.camada_fundo[nivel=' + nivel + ']').fadeIn('fast');
 
 		//VALOR A SER CARREGADO - DEVE SER UM ARRAY DE VALORES
 		if (jsonR.valor != undefined) {
@@ -600,8 +606,6 @@ function retornoPadrao(onde, pg) {
 
 	} else {
 
-		if (onde == '')
-			onde = '.camada[nivel=' + parseInt(nivel - 1) + ']';
 		//SE NÃO DEFINIR O LOCAL, ATUALIZARÁ O NIVEL INTEIRO
 		carregarModulo(pg, onde);
 		//ATUALIZARA TODA TB

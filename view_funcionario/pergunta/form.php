@@ -4,20 +4,24 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
 $Pergunta = new Pergunta();
 
 if ($idPergunta = $_REQUEST["idPergunta"]) {
-	$Pergunta -> __construct($idPergunta);
-	$tipoPergunta_id = $Pergunta -> get_tipoPergunta_idPergunta();
+  $Pergunta -> __construct($idPergunta);
+  $tipoPergunta_id = $Pergunta -> get_tipoPergunta_idPergunta();
+  $pergunta_id = $Pergunta -> get_pergunta_idPergunta();
 } else {
-	$tipoPergunta_id = $_REQUEST['tipoPergunta_id'];
+  $tipoPergunta_id = $_REQUEST['tipoPergunta_id'];
+  $pergunta_id = $_REQUEST['pergunta_id'];
 }
 
-$Tipopergunta = new Tipopergunta($tipoPergunta_id);
 $url = "&tipoPergunta_id=" . $tipoPergunta_id;
 
 $nomeTable = "pergunta";
 $acao = CAM_VIEW . "pergunta/acao.php";
 ?>
 <fieldset>
-	<legend>Pergunta - <?php echo $Tipopergunta -> get_descricaoTipopergunta(); ?></legend>
+	<legend>Pergunta - 
+	  <?php $Tipopergunta = new Tipopergunta($tipoPergunta_id);
+    echo $Tipopergunta -> get_descricaoTipopergunta();
+ ?></legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />
@@ -27,7 +31,10 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 		<form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
 		  
 		  <input type="hidden" id="acao" name="acao" value="cadastrar" />
+		  <input type="hidden" id="idPergunta" name="idPergunta" value="<?php echo $Pergunta -> get_idPergunta() ?>" />
+		  
 		  <input type="hidden" id="tipoPergunta_id" name="tipoPergunta_id" value="<?php echo $tipoPergunta_id?>" />
+		  <input type="hidden" id="pergunta_id" name="pergunta_id" value="<?php echo $pergunta_id?>" /> <!--PERGUNTA PAI-->
 		  		  		
 		  <div class="linha-inteira">
 		  	
@@ -45,37 +52,60 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 			</div>	
 			
 			<div class="esquerda">
-
-				<input type="hidden" id="idPergunta" name="idPergunta" value="<?php echo $Pergunta -> get_idPergunta() ?>" />
 				
-				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI 
-				if( !$Pergunta->get_pergunta_idPergunta() ){?>
+				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI
+				$Idioma = new Idioma();
+        $Nivelpergunta = new Nivelpergunta();
+        $Categoriapergunta = new Categoriapergunta();
+        
+				if( !$pergunta_id ){?>
 					<p>
 						<label>Idioma (em que está escrita a pergunta):</label>
-						<?php $Idioma = new Idioma();
-							Html::set_cssClass(array("required"));
-							echo $Idioma -> selectIdioma_html('idioma_id', $Pergunta -> get_idioma_idPergunta());
+						<?php
+            Html::set_cssClass(array("required"));
+            echo $Idioma -> selectIdioma_html('idioma_id', $Pergunta -> get_idioma_idPergunta());
 						?>
 						<span class="placeholder" >Campo obrigatório</span>
 					</p>
 	
 					<p>
 						<label>Nível Pergunta:</label>
-						<?php $Nivelpergunta = new Nivelpergunta();
-							Html::set_cssClass(array("required"));
-							echo $Nivelpergunta -> selectNivelpergunta_html('nivelPergunta_id', $Pergunta -> get_nivelPergunta_idPergunta());
+						<?php
+            Html::set_cssClass(array("required"));
+            echo $Nivelpergunta -> selectNivelpergunta_html('nivelPergunta_id', $Pergunta -> get_nivelPergunta_idPergunta());
 						?>
 						<span class="placeholder" >Campo obrigatório</span>
 					</p>
 					<p>
 						<label>Categoria Pergunta:</label>
-						<?php $Categoriapergunta = new Categoriapergunta();
-							Html::set_cssClass(array("required"));
-							echo $Categoriapergunta -> selectCategoriapergunta_html('categoriaPergunta_id', $Pergunta -> get_categoriaPergunta_idPergunta());
+						<?php
+            Html::set_cssClass(array("required"));
+            echo $Categoriapergunta -> selectCategoriapergunta_html('categoriaPergunta_id', $Pergunta -> get_categoriaPergunta_idPergunta());
 						?>
 						<span class="placeholder" >Campo obrigatório</span>
 					</p>
-				<?php }?>
+				<?php }else{ 
+				  $Pergunta_pai = new Pergunta($pergunta_id);?>
+				  <p>
+            <label>Idioma (em que está escrita a pergunta):</label>
+            <input type="hidden" id="idioma_id" name="idioma_id" value="<?php echo $Pergunta_pai -> get_idioma_idPergunta() ?>" />
+            <?php $Idioma -> __construct($Pergunta_pai -> get_idioma_idPergunta());
+            echo $Idioma -> get_nomeIdioma(); ?>
+          </p>
+          <p>
+            <label>Nível Pergunta:</label>
+            <input type="hidden" id="nivelPergunta_id" name="nivelPergunta_id" value="<?php echo $Pergunta_pai -> get_nivelPergunta_idPergunta() ?>" />
+            <?php $Nivelpergunta -> __construct( $Pergunta_pai -> get_nivelPergunta_idPergunta());
+            echo $Nivelpergunta -> get_nomeNivelpergunta(); ?>
+          </p>
+          <p>
+            <label>Categoria Pergunta:</label>
+            <input type="hidden" id="categoriaPergunta_id" name="categoriaPergunta_id" value="<?php echo $Pergunta_pai -> get_categoriaPergunta_idPergunta() ?>" />
+            <?php $Categoriapergunta -> __construct($Pergunta_pai -> get_categoriaPergunta_idPergunta());
+            echo $Categoriapergunta -> get_nomeCategoriapergunta(); ?>
+          </p>
+				<?php } ?>
+				
 			</div>
 
 			<div class="direita">
@@ -88,18 +118,18 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required numeric" maxlength="3" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>
-				<?php }?>
+				<?php } ?>
 				
 				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI 
 				if( !$Pergunta->get_pergunta_idPergunta() ){?>								
 				<p>
 					<label>Exclusiva para a empresa (deixe em branco caso não seja exclusiva):</label>
 					<?php $Empresa = new Empresa();
-						echo $Empresa -> selectEmpresa_html('empresa_id', $Pergunta -> get_empresa_idPergunta());
+            echo $Empresa -> selectEmpresa_html('empresa_id', $Pergunta -> get_empresa_idPergunta());
 					?>
 					<span class="placeholder" ></span>
 				</p>
-				<?php }?>	
+				<?php } ?>	
 				<p>
 					<label for="inativo" >
 						<input type="checkbox" name="inativo" id="inativo" value="1" class=""
@@ -123,5 +153,5 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 
 <script>
 	ativarForm();
-	viraEditor('enunciado');		
+	viraEditor('enunciado');
 </script> 

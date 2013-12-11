@@ -11,14 +11,14 @@ function eventAbas(){
 	var onClick = function(){		
 		var id_div;		 		
 		
-		$('div[nivel='+nivel+'].camada').find('div').find('div.aba_interna').each(function(){			
+		$('div.camada[nivel=' + nivel + ']').find('div').find('div.aba_interna').each(function(){			
 			id_div = $(this).removeClass('ativa').attr('divExibir');		
-			$('#' + id_div).slideUp();
+			//$('#' + id_div).slideUp();
 		});				
 		
 		id_div = $(this).addClass('ativa').attr('divExibir');				
 		
-		$('#'+id_div).slideDown();						
+		$('div.camada[nivel=' + nivel + ']').find('#'+id_div).slideUp().slideDown();						
 		
 	};
 	
