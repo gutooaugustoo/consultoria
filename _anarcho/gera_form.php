@@ -77,8 +77,13 @@ foreach ($campos as $key => $campo) {
 $conteudoArquivo = "<?php
 require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 
-\$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"];
-\$" . $tableUp . " = new " . $tableUp . "(\$id" . $tableUp . ");
+\$" . $tableUp . " = new " . $tableUp . "();
+if( \$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"] ){
+  \$" . $tableUp . "->__construct(\$id" . $tableUp . ");
+}else{
+  //\$" . $tableUp . "->set_(\$_REQUEST[\"\"]);
+}
+
 \$nomeTable = \"" . ($table) . "\";
 \$acao = CAM_VIEW.\"" . ($table) . "/acao.php\";
 ?>

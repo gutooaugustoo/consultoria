@@ -91,6 +91,23 @@ class Servico extends Servico_m {
 		
 	}
 	
+  function tabelaConteudo_html( $servico_id ){
+      
+    $this->__construct($servico_id);
+    
+    if( $this->get_temEscritoServico() ){
+      
+    }
+    
+    if( $this->get_temOralServico() ){
+      
+    }
+    
+    if( $this->get_temRedacaoServico() ){
+      
+    }
+  }
+  
 	//AÇÕES
 	function cadastrarServico($idServico, $post = array()){
 		
