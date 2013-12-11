@@ -46,7 +46,7 @@ class Servico_avaliador_m extends Database {
 	}
 	
 	function set_valorServico_avaliador($valor) {
-		$this -> valorServico_avaliador = ($valor) ? $this -> gravarBD(Uteis::gravarMoeda($valor)) : "0";
+		$this -> valorServico_avaliador = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 		
@@ -64,8 +64,8 @@ class Servico_avaliador_m extends Database {
 		return ($this -> avaliador_idServico_avaliador);
 	}
 	
-	function get_valorServico_avaliador($formatarMoeda = false) {
-		return !$formatarMoeda ? Uteis::exibirMoeda($this -> valorServico_avaliador) : "R$ ".Uteis::formatarMoeda($this -> valorServico_avaliador);
+	function get_valorServico_avaliador() {
+		return ($this -> valorServico_avaliador);
 	}
 				
 	//MANUSEANDO O BANCO

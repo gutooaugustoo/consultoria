@@ -67,5 +67,5 @@ $Tipopergunta = new Tipopergunta($tipoPergunta_id);
 
 <script>
 	ativarForm();
-	$('#btFiltro_<?php echo $nomeTable ?>').click();
+	//$('#btFiltro_<?php echo $nomeTable ?>').click();
 </script>

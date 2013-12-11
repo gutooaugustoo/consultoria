@@ -4,9 +4,10 @@ require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 $Servico_gestor = new Servico_gestor();
 
 $idTabela = "tb_servico_gestor";
-//$campos = array("S.id", "S.servico_id", "S.gestor_id", );
 
-$url = "?";
+$servico_id = $_REQUEST["servico_id"];
+$url = "?servico_id=".$servico_id;
+
 $caminho = CAM_VIEW."servico_gestor/";
 $atualizar = CAM_VIEW."servico_gestor/lista.php".$url;
 $ondeAtualizar = "tr";	
@@ -28,22 +29,22 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE S.excluido = 0";
+$where = " WHERE S.excluido = 0 AND S.servico_id = ".Uteis::escapeRequest($servico_id);
 
 //echo $where;
 ?>
 
 <fieldset>
-  <legend>Servico Gestor</legend>
+  <legend>Gestores vínculados ao serviço</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#centro')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_servico')" /> 
   </div>
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Servico", "Gestor", ""));
+		Html::set_colunas(array("Gestor", ""));
 		echo $Servico_gestor -> tabelaServico_gestor_html($where, $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>

@@ -109,7 +109,7 @@
 	</p>
 
 	<p>
-		<label>Obs:</label>
+		<label>Observação:</label>
 		<textarea name="obs" id="obs" cols="60" rows="4" class="" ><?php echo $Pessoa -> get_obsPessoa()?></textarea>
 		<span class="placeholder" ></span>
 	</p>

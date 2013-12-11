@@ -230,7 +230,7 @@ class Pessoa_m extends Database {
 	}
 	
 	function deletePessoa() {
-		return $this -> updateCampoPessoa(array("P.excluido" => "1"), MSG_CADDEL);
+		return $this -> updateCampoPessoa(array("excluido" => "1"), MSG_CADDEL);
 	}
 
 	function updatePessoa() {

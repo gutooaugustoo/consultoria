@@ -40,10 +40,7 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 
 				<p>
 					<label>Selecione a(s) palavra(s) que será(ão) a lacuna e clique no botão "Definir lacuna":</label>
-					<!--<div id="div_enunciado"><?php echo $Pergunta -> get_enunciadoPergunta()?></div>-->
-					<textarea name="enunciado_base" id="enunciado_base" class="" >
-					<?php $Pergunta = new Pergunta( $Resp_preenchelacuna -> get_pergunta_idResp_preenchelacuna() ); 
-					echo $Pergunta -> get_enunciadoPergunta()?></textarea>
+					<textarea name="enunciado_base" id="enunciado_base" ><?php $Pergunta = new Pergunta( $Resp_preenchelacuna -> get_pergunta_idResp_preenchelacuna() ); echo $Pergunta -> get_enunciadoPergunta()?></textarea>
 					<textarea name="enunciado" id="enunciado" class="required"></textarea>
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>

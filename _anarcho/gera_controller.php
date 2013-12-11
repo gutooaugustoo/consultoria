@@ -68,17 +68,17 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 	//GERAR ELEMENTOS
 	function select" . $tableUp . "_html(\$nomeId, \$idAtual = \"\", \$where = \"WHERE 1 \") {
 		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "
-		\$campos = array(\"id\", \"" . $primeiroCampoValido . " AS legenda\");
+		\$campos = array(\"" . $tableAs . ".id\", \"" . $tableAs . "." . $primeiroCampoValido . " AS legenda\");
 		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
 		return Html::select(\$nomeId, \$idAtual, \$array);
 	}
 	
-	function selectMultiple" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
+	/*function selectMultiple" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "
-		\$campos = array(\"id\", \"" . $primeiroCampoValido . " AS legenda\");
+		\$campos = array(\"" . $tableAs . ".id\", \"" . $tableAs . "." . $primeiroCampoValido . " AS legenda\");
 		\$array = \$this -> select" . $tableUp . "(\$where, \$campos);
 		return Html::selectMultiple(\$nomeId, \$idAtual, \$array);
-	}
+	}*/
 	
 	/*function checkBox" . $tableUp . "_html(\$nomeId, \$idAtual = array(), \$where = \"WHERE 1 \") {
 		" . ($temExcluido ? "\$where .= \" AND " . $tableAs . ".excluido = 0\";" : "\$where .= \"\";") . "

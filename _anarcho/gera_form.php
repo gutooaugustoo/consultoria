@@ -31,7 +31,7 @@ foreach ($campos as $key => $campo) {
 				<p><label for=\"" . $campo['nome'] . "\" >
 				<input type=\"checkbox\" name=\"" . $campo['nome'] . "\" id=\"" . $campo['nome'] . "\" value=\"1\" class=\"\"
 				<?php echo Uteis::verificaChecked(\$" . $tableUp . " -> get_" . $campo['nomeComTabela'] . "())?> />
-				" . $campo['nomeAmigavel'] . ":</label>";
+				" . $campo['nomeAmigavel'] . "</label>";
 
 	} elseif ($campo['tipo'] == 'date') {
 

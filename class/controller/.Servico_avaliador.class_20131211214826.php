@@ -13,17 +13,17 @@ class Servico_avaliador extends Servico_avaliador_m {
 	//GERAR ELEMENTOS
 	function selectServico_avaliador_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_avaliador($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleServico_avaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleServico_avaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_avaliador($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxServico_avaliador_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
@@ -47,10 +47,12 @@ class Servico_avaliador extends Servico_avaliador_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-								
+				
+				$Servico = new Servico( $this -> get_servico_idServico_avaliador() );
+				$colunas[] = $Servico -> get_idServico();
 				$Avaliador = new Avaliador( $this -> get_avaliador_idServico_avaliador() );
-				$colunas[] = $Avaliador -> get_nomePessoa();
-				$colunas[] = $this -> get_valorServico_avaliador(true);
+				$colunas[] = $Avaliador -> get_idAvaliador();
+				$colunas[] = $this -> get_valorServico_avaliador();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
@@ -94,12 +96,7 @@ class Servico_avaliador extends Servico_avaliador_m {
 		
 		$valor = ($post['valor']);
 		if( $valor == '' ) return array(false, MSG_OBRIGAT." Valor");
-		
-    $where = " WHERE excluido = 0 AND avaliador_id = ".Uteis::escapeRequest($avaliador_id)." AND servico_id = ".Uteis::escapeRequest($servico_id);
-    if( $idServico_avaliador ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idServico_avaliador).") ";
-    $rs = $this->selectServico_avaliador($where, array("id"));
-    if( $rs ) return array(false, "Esse avaliador já está vinculado a este serviço");
-    
+				
 		//SETAR
 		$this
 			 -> set_servico_idServico_avaliador($servico_id)

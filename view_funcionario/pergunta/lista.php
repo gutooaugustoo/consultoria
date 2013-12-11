@@ -30,7 +30,7 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE P.excluido = 0 AND P.pergunta_id IS NULL AND P.tipoPergunta_id = ".$tipoPergunta_id;
+$where = " WHERE P.excluido = 0 AND P.pergunta_id IS NULL AND P.tipoPergunta_id = ".Uteis::escapeRequest($tipoPergunta_id);
 
 $empresa_id = implode(",", Uteis::escapeRequest($_POST['empresa_id']));
 if( $empresa_id ) $where .= " AND P.empresa_id IN(".($empresa_id).")";

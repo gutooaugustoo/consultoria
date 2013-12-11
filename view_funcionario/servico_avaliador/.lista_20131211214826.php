@@ -4,10 +4,9 @@ require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 $Servico_avaliador = new Servico_avaliador();
 
 $idTabela = "tb_servico_avaliador";
+//$campos = array("S.id", "S.servico_id", "S.avaliador_id", "S.valor", );
 
-$servico_id = $_REQUEST["servico_id"];
-$url = "?servico_id=".$servico_id;
-
+$url = "?";
 $caminho = CAM_VIEW."servico_avaliador/";
 $atualizar = CAM_VIEW."servico_avaliador/lista.php".$url;
 $ondeAtualizar = "tr";	
@@ -35,16 +34,16 @@ $where = " WHERE S.excluido = 0";
 ?>
 
 <fieldset>
-  <legend>Avaliadores vínculados ao serviço</legend>
+  <legend>Servico Avaliador</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_servico')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#centro')" /> 
   </div>
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Avaliador", "Valor pago (R$)", ""));
+		Html::set_colunas(array("Servico", "Avaliador", "Valor", ""));
 		echo $Servico_avaliador -> tabelaServico_avaliador_html($where, $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>

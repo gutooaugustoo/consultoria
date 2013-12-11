@@ -64,7 +64,7 @@ $acao = CAM_VIEW . "backgroundidioma/acao.php";
 			<div class="direita">
 
 				<p>
-					<label>Obs:</label>
+					<label>Observação:</label>
 					<textarea name="obs" id="obs" cols="60" rows="4" class="" ><?php echo $Backgroundidioma -> get_obsBackgroundidioma()?></textarea>
 					<span class="placeholder" ></span>
 				</p>

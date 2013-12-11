@@ -2,6 +2,7 @@
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
 
 $idServico = $_REQUEST["idServico"];
+$url = "?servico_id=".$idServico;
 ?>
 
 <div id="cadastro_servico" class="">
@@ -12,11 +13,26 @@ $idServico = $_REQUEST["idServico"];
 			Serviço
 		</div>
 		
-		<?php if( $idServico ){
+		<?php if( $idServico ){?>
 				
-			$Servico = new Servico($idServico);
+			<div id="aba_servico" divExibir="div_servico" class="aba_interna"
+      onclick="carregarModulo('<?php echo CAM_VIEW."servico_gestor/lista.php".$url?>' , '#div_servico')" >
+      Gestores 
+      </div>
+      
+      <div id="aba_servico" divExibir="div_servico" class="aba_interna"
+      onclick="carregarModulo('<?php echo CAM_VIEW."servico_avaliador/lista.php".$url?>' , '#div_servico')" >
+      Avaliadores 
+      </div>
+      
+      <div id="aba_servico" divExibir="div_servico" class="aba_interna"
+      onclick="carregarModulo('<?php echo CAM_VIEW."servico_candidato/lista.php".$url?>' , '#div_servico')" >
+      Candidatos 
+      </div>
+      
+			<?php $Servico = new Servico($idServico);
 			
-			if( $Servico->get_temEscritoServico() ){?>
+			/*if( $Servico->get_temEscritoServico() ){?>
 				<div id="aba_servico" divExibir="div_servico" class="aba_interna "
 				onclick="carregarModulo('<?php echo CAM_VIEW."/form.php?idServico=".$idServico?>' , '#div_servico')" >
 				Teste escrito	
@@ -42,7 +58,7 @@ $idServico = $_REQUEST["idServico"];
 				onclick="carregarModulo('<?php echo CAM_VIEW."/form.php?idServico=".$idServico?>' , '#div_servico')" >
 				Resultado final	
 				</div>
-			<?php }
+			<?php }*/
 			 
 		}?>	
 		

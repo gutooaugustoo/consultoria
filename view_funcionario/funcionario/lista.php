@@ -28,7 +28,7 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where .= " WHERE 1 ";
+$where .= " WHERE P.excluido = 0 ";
 
 $status = implode(",", Uteis::escapeRequest($_POST['status']));
 if( $status != "" ) $where .= " AND P.inativo IN(".$status.")";

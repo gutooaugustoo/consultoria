@@ -29,7 +29,7 @@ Html::set_idTabela($idTabela);
 }*/
 
 //FILTROS
-$where = " WHERE R.excluido = 0 AND R.pergunta_id = ".$pergunta_id;
+$where = " WHERE R.excluido = 0 AND R.pergunta_id = ".Uteis::escapeRequest($pergunta_id);
 
 //echo $where;
 ?>

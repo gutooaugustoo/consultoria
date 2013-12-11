@@ -1,18 +1,13 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Servico_gestor = new Servico_gestor();
-if( $idServico_gestor = $_REQUEST["idServico_gestor"] ){
-  $Servico_gestor->__construct($idServico_gestor);
-}else{
-  $Servico_gestor->set_servico_idServico_gestor($_REQUEST["servico_id"]);  
-}
-
-$nomeTable = "servico_gestor";
-$acao = CAM_VIEW."servico_gestor/acao.php";
+$idServico_avaliador = $_REQUEST["idServico_avaliador"];
+$Servico_avaliador = new Servico_avaliador($idServico_avaliador);
+$nomeTable = "servico_avaliador";
+$acao = CAM_VIEW."servico_avaliador/acao.php";
 ?>
 <fieldset>
-	<legend>Gestor vínculado ao serviço</legend>
+	<legend>Servico Avaliador</legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />
@@ -25,17 +20,26 @@ $acao = CAM_VIEW."servico_gestor/acao.php";
 		  
 		  <div class="esquerda">		  					
 				
-				<input type="hidden" id="idServico_gestor" name="idServico_gestor" value="<?php echo $Servico_gestor -> get_idServico_gestor() ?>" />
-				<input type="hidden" id="servico_id" name="servico_id" value="<?php echo $Servico_gestor -> get_servico_idServico_gestor() ?>" />
-						
+				<input type="hidden" id="idServico_avaliador" name="idServico_avaliador" value="<?php echo $Servico_avaliador -> get_idServico_avaliador() ?>" />
+		
 				<p>
-				<label>Gestor:</label>
-				<?php
-        $Servico = new Servico( $Servico_gestor->get_servico_idServico_gestor() );        
-        $where = " WHERE G.empresa_id = ".$Servico->get_empresa_idServico();        
+				<label>Servico:</label>
+				<?php $Servico = new Servico();
 				Html::set_cssClass(array("required"));
-        $Gestor = new Gestor();
-				echo $Gestor -> selectGestor_html('gestor_id', $Servico_gestor -> get_gestor_idServico_gestor(), $where); ?>
+				echo $Servico -> selectServico_html('servico_id', $Servico_avaliador -> get_servico_idServico_avaliador()); ?>
+				<span class="placeholder" >Campo obrigatório</span></p>
+		   									
+			</div>
+			
+			<div class="direita">
+				
+				<p>
+				<label>Avaliador:</label>
+				<?php $Avaliador = new Avaliador();
+				Html::set_cssClass(array("required"));
+				echo $Avaliador -> selectAvaliador_html('avaliador_id', $Servico_avaliador -> get_avaliador_idServico_avaliador()); ?>
+				<span class="placeholder" >Campo obrigatório</span></p>
+		
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 			</div>

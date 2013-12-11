@@ -52,11 +52,11 @@ $acao = CAM_VIEW."servico/acao.php";
 				echo $Idioma -> selectIdioma_html('idioma_id', $Servico -> get_idioma_idServico()); ?>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
-				<p>
+				<!--<p>
 				<label>Pertence a um grupo de serviços:</label>
 				<?php //$Servico = new Servico();
 				echo $Servico -> selectServico_html('servico_id', $Servico -> get_servico_idServico(), " WHERE S.id NOT IN(".Uteis::escapeRequest($idServico).")" ); ?>
-				<span class="placeholder" ></span></p>
+				<span class="placeholder" ></span></p>-->
 		   									
 			</div>
 			
@@ -64,25 +64,25 @@ $acao = CAM_VIEW."servico/acao.php";
 				<p><label for="temOral" >
 				<input type="checkbox" name="temOral" id="temOral" value="1" class=""
 				<?php echo Uteis::verificaChecked($Servico -> get_temOralServico())?> />
-				Tem Oral:</label>
+				Teste oral</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p><label for="temEscrito" >
 				<input type="checkbox" name="temEscrito" id="temEscrito" value="1" class=""
 				<?php echo Uteis::verificaChecked($Servico -> get_temEscritoServico())?> />
-				Tem Escrito:</label>
+				Teste escrito</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p><label for="temRedacao" >
 				<input type="checkbox" name="temRedacao" id="temRedacao" value="1" class=""
 				<?php echo Uteis::verificaChecked($Servico -> get_temRedacaoServico())?> />
-				Tem Redacao:</label>
+				Redação</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p><label for="temResultadoFinal" >
 				<input type="checkbox" name="temResultadoFinal" id="temResultadoFinal" value="1" class=""
 				<?php echo Uteis::verificaChecked($Servico -> get_temResultadoFinalServico())?> />
-				Tem Resultado Final:</label>
+				Resultado Final:</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>

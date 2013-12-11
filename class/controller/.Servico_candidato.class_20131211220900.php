@@ -13,17 +13,17 @@ class Servico_candidato extends Servico_candidato_m {
 	//GERAR ELEMENTOS
 	function selectServico_candidato_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_candidato($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	/*function selectMultipleServico_candidato_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	function selectMultipleServico_candidato_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_candidato($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}*/
+	}
 	
 	/*function checkBoxServico_candidato_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
@@ -48,8 +48,10 @@ class Servico_candidato extends Servico_candidato_m {
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
 				
+				$Servico = new Servico( $this -> get_servico_idServico_candidato() );
+				$colunas[] = $Servico -> get_idServico();
 				$Candidato = new Candidato( $this -> get_candidato_idServico_candidato() );
-				$colunas[] = $Candidato -> get_nomePessoa();
+				$colunas[] = $Candidato -> get_idCandidato();
 				$colunas[] = $this -> get_dataValidadeServico_candidato();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
@@ -94,12 +96,7 @@ class Servico_candidato extends Servico_candidato_m {
 		
 		$dataValidade = ($post['dataValidade']);
 		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Valade");
-		
-    $where = " WHERE excluido = 0 AND candidato_id = ".Uteis::escapeRequest($candidato_id)." AND servico_id = ".Uteis::escapeRequest($servico_id);
-    if( $idServico_candidato ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idServico_candidato).") ";
-    $rs = $this->selectServico_candidato($where, array("id"));
-    if( $rs ) return array(false, "Esse candidato já está vinculado a este serviço");    
-    	
+				
 		//SETAR
 		$this
 			 -> set_servico_idServico_candidato($servico_id)

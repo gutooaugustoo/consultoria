@@ -13,14 +13,14 @@ class Servico_gestor extends Servico_gestor_m {
 	//GERAR ELEMENTOS
 	function selectServico_gestor_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_gestor($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
 	function selectMultipleServico_gestor_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= " AND S.excluido = 0";
-		$campos = array("S.id", "S. AS legenda");
+		$campos = array("id", " AS legenda");
 		$array = $this -> selectServico_gestor($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}
@@ -47,9 +47,9 @@ class Servico_gestor extends Servico_gestor_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-								
+				
 				$Gestor = new Gestor( $this -> get_gestor_idServico_gestor() );
-				$colunas[] = $Gestor -> get_nomePessoa();
+				$colunas[] = $Gestor -> get_idGestor();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
@@ -90,12 +90,7 @@ class Servico_gestor extends Servico_gestor_m {
 		
 		$gestor_id = ($post['gestor_id']);
 		if( $gestor_id == '' ) return array(false, MSG_OBRIGAT." Gestor");
-    
-    $where = " WHERE excluido = 0 AND gestor_id = ".Uteis::escapeRequest($gestor_id)." AND servico_id = ".Uteis::escapeRequest($servico_id);
-    if( $idServico_gestor ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idServico_gestor).") ";
-    $rs = $this->selectServico_gestor($where, array("id"));
-    if( $rs ) return array(false, "Esse gestor já está vinculado a este serviço");				
-    
+				
 		//SETAR
 		$this
 			 -> set_servico_idServico_gestor($servico_id)

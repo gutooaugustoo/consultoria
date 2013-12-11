@@ -33,7 +33,6 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 \$" . $tableUp . " = new " . $tableUp . "();
 
 \$idTabela = \"tb_" . $table . "\";
-//\$campos = array(" . $carrega . ");
 
 \$url = \"?\";
 \$caminho = CAM_VIEW.\"" . $table . "/\";

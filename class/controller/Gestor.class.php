@@ -12,18 +12,18 @@ class Gestor extends Gestor_m {
 
 	//GERAR ELEMENTOS
 	function selectGestor_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
-		$where .= "";
-		$campos = array("id", " AS legenda");
+		$where .= " AND P.excluido = 0";
+		$campos = array("P.id", "P.nome AS legenda");
 		$array = $this -> selectGestor($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
 	
-	function selectMultipleGestor_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
+	/*function selectMultipleGestor_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
-		$campos = array("id", " AS legenda");
+		$campos = array("P.id", "P.nome AS legenda");
 		$array = $this -> selectGestor($where, $campos);
 		return Html::selectMultiple($nomeId, $idAtual, $array);
-	}
+	}*/
 	
 	/*function checkBoxGestor_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";
@@ -112,8 +112,8 @@ class Gestor extends Gestor_m {
 	}
 		
 	function deletarGestor($idGestor) {
-		$this -> set_idGestor($idGestor);	
-		return (	$this -> deleteGestor() );
+		$this -> set_idPessoa($idGestor);	
+		return (	$this -> deletePessoa() );
 	}
 	
 }

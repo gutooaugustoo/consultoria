@@ -30,7 +30,7 @@ Html::set_idTabela($idTabela);
 }*/
 
 //FILTROS
-$where = " WHERE P.excluido = 0 AND P.pergunta_id = " . $pergunta_id;
+$where = " WHERE P.excluido = 0 AND P.pergunta_id = " . Uteis::escapeRequest($pergunta_id);
 
 //echo $where;
 ?>

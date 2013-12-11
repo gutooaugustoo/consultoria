@@ -12,8 +12,8 @@ class Candidato extends Candidato_m {
 
 	//GERAR ELEMENTOS
 	function selectCandidato_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
-		$where .= "";
-		$campos = array("id", " AS legenda");
+		$where .= " AND P.excluido = 0";
+		$campos = array("P.id", "P.nome AS legenda");
 		$array = $this -> selectCandidato($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
@@ -104,8 +104,8 @@ class Candidato extends Candidato_m {
 	}
 		
 	function deletarCandidato($idCandidato) {
-		$this -> set_idCandidato($idCandidato);	
-		return (	$this -> deleteCandidato() );
+		$this -> set_idPessoa($idCandidato);	
+		return (	$this -> deletePessoa() );
 	}
 	
 }
