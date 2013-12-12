@@ -51,7 +51,7 @@ if( $servico_id ) $where .= " AND S.servico_id IN(".($servico_id).")";*/
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Descrição", "Empresa", "Idioma", "Período", "Oral", "Escrito", "Redacao", "Resultado Final", ""));
+		Html::set_colunas(array("Descrição", "Empresa", "Idioma", "Período", "Oral", "Escrito", "Redação", "Resultado Final", ""));
 		echo $Servico -> tabelaServico_html($where, $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>

@@ -31,7 +31,7 @@ $nomeTable = "servico";
         <div class="direita">
         	 
 					<p>
-					<label>ioma:</label>
+					<label>Idioma:</label>
 					<?php $Idioma = new Idioma();
 					echo $Idioma -> selectMultipleIdioma_html('idioma_id'); ?>
 					</p>

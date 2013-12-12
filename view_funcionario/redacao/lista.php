@@ -35,7 +35,7 @@ $where = " WHERE R.excluido = 0";
 ?>
 
 <fieldset>
-  <legend>Redacao</legend>
+  <legend>Redação</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 

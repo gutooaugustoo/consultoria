@@ -93,7 +93,7 @@ class Servico_candidato extends Servico_candidato_m {
 		if( $candidato_id == '' ) return array(false, MSG_OBRIGAT." Candato");
 		
 		$dataValidade = ($post['dataValidade']);
-		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Valade");
+		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Validade");
 		
     $where = " WHERE excluido = 0 AND candidato_id = ".Uteis::escapeRequest($candidato_id)." AND servico_id = ".Uteis::escapeRequest($servico_id);
     if( $idServico_candidato ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idServico_candidato).") ";

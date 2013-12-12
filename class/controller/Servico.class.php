@@ -116,18 +116,18 @@ class Servico extends Servico_m {
 		if( $empresa_id == '' ) return array(false, MSG_OBRIGAT." Empresa");
 		
 		$idioma_id = ($post['idioma_id']);
-		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." ioma");
+		if( $idioma_id == '' ) return array(false, MSG_OBRIGAT." Idioma");
 		
 		$servico_id = ($post['servico_id']);
 		
 		$descricao = ($post['descricao']);
-		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descricao");
+		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descrição");
 		
 		$dataInicio = ($post['dataInicio']);
 		if( $dataInicio == '' ) return array(false, MSG_OBRIGAT." Data Inicio");
 		
 		$dataValidade = ($post['dataValidade']);
-		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Valade");
+		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Validade");
 		
 		$temOral = ($post['temOral']);
 		

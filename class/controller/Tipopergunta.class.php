@@ -85,7 +85,7 @@ class Tipopergunta extends Tipopergunta_m {
 		
 		//CARREGAR DO POST
 		$descricao = ($post['descricao']);
-		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descricao");
+		if( $descricao == '' ) return array(false, MSG_OBRIGAT." Descrição");
 				
 		//SETAR
 		$this

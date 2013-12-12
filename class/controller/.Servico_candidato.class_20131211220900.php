@@ -95,7 +95,7 @@ class Servico_candidato extends Servico_candidato_m {
 		if( $candidato_id == '' ) return array(false, MSG_OBRIGAT." Candato");
 		
 		$dataValidade = ($post['dataValidade']);
-		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Valade");
+		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Validade");
 				
 		//SETAR
 		$this

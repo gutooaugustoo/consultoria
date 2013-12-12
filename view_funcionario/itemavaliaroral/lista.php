@@ -36,7 +36,7 @@ if( $status != "" ) $where .= " AND I.inativo IN(".$status.")";
 ?>
 
 <fieldset>
-  <legend>Item à avaliar teste oral</legend>
+  <legend>Item a avaliar teste oral</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 

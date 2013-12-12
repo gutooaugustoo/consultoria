@@ -93,7 +93,7 @@ class Telefone extends Telefone_m {
 		if( $pessoa_id == '' && $empresa_id == '' ) return array(false, MSG_ERR);
 		
 		$descricaoTelefone_id = ($post['descricaoTelefone_id']);
-			 if( $descricaoTelefone_id == '' ) return array(false, MSG_OBRIGAT." Descricao Telefone");
+			 if( $descricaoTelefone_id == '' ) return array(false, MSG_OBRIGAT." Descrição Telefone");
 		
 		$ddd = ($post['ddd']);
 			 if( $ddd == '' ) return array(false, MSG_OBRIGAT." Ddd");

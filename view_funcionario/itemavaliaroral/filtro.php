@@ -5,7 +5,7 @@ $nomeTable = "itemavaliaroral";
 ?>
 
 <fieldset>
-  <legend>Filtrar Item à avaliar teste oral</legend>
+  <legend>Filtrar Item a avaliar teste oral</legend>
   
   <img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar filtros" id="imgGrupoFiltro_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoFiltro_<?php echo $nomeTable ?>', 'imgGrupoFiltro_<?php echo $nomeTable ?>');" />

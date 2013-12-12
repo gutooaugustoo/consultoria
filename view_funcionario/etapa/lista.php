@@ -1,24 +1,23 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Servico_candidato = new Servico_candidato();
+$Etapa = new Etapa();
 
-$idTabela = "tb_servico_candidato";
-//$campos = array("S.id", "S.servico_id", "S.candidato_id", "S.dataValidade", );
+$idTabela = "tb_etapa";
 
 $url = "?";
-$caminho = CAM_VIEW."servico_candidato/";
-$atualizar = CAM_VIEW."servico_candidato/lista.php".$url;
+$caminho = CAM_VIEW."etapa/";
+$atualizar = CAM_VIEW."etapa/lista.php".$url;
 $ondeAtualizar = "tr";	
 
 Html::set_idTabela($idTabela);
 
 if( $_REQUEST["tr"] == "1" ){
 	//ATUALIZAR APENAS A LINHA
-	$idServico_candidato = Uteis::escapeRequest($_REQUEST["idServico_candidato"]);	
+	$idEtapa = Uteis::escapeRequest($_REQUEST["idEtapa"]);	
 	$ordem = $_REQUEST["ordem"];
 		
-	$arrayRetorno["updateTr"] = $Servico_candidato -> tabelaServico_candidato_html(" WHERE S.id = $idServico_candidato", $caminho, $atualizar, $ondeAtualizar, $ordem);
+	$arrayRetorno["updateTr"] = $Etapa -> tabelaEtapa_html(" WHERE E.id = $idEtapa", $caminho, $atualizar, $ondeAtualizar, $ordem);
 	$arrayRetorno["tabela"] = $idTabela;
 	$arrayRetorno["ordem"] = $ordem;
 	
@@ -28,13 +27,13 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE S.excluido = 0";
+$where .= " WHERE 1 ";
 
 //echo $where;
 ?>
 
 <fieldset>
-  <legend>Servico Candato</legend>
+  <legend>Etapa</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
@@ -43,8 +42,8 @@ $where = " WHERE S.excluido = 0";
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Servico", "Candato", "Data Valade", ""));
-		echo $Servico_candidato -> tabelaServico_candidato_html($where, $caminho, $atualizar, $ondeAtualizar);
+		Html::set_colunas(array("Etapa", ""));
+		echo $Etapa -> tabelaEtapa_html($where, $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>
 	
