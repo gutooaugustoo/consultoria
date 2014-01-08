@@ -1,46 +1,17 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Servico = new Servico($_REQUEST["servico_id"] );
-
-/*  
-
-exit;
-
-$Servico = new Servico();
-
-$idTabela = "tb_itensServico";
+$Etapa = new Etapa();
 
 $servico_id = $_REQUEST["servico_id"];
-$url = "?servico_id=".$servico_id;
+$Servico = new Servico($_REQUEST["servico_id"] );
 
-$ondeAtualizar = "div_servico";  
+$ondeAtualizar = "#div_servico";
+$atualizar = CAM_VIEW."servico/conteudo.php?servico_id=".$servico_id;
 
-Html::set_idTabela($idTabela);*/
-
-/*if( $_REQUEST["tr"] == "1" ){
-  //ATUALIZAR APENAS A LINHA
-  $idEscrito = Uteis::escapeRequest($_REQUEST["idEscrito"]);  
-  $ordem = $_REQUEST["ordem"];
-    
-  $arrayRetorno["updateTr"] = $Escrito -> tabelaEscrito_html(" WHERE E.id = $idEscrito", $caminho, $atualizar, $ondeAtualizar, $ordem);
-  $arrayRetorno["tabela"] = $idTabela;
-  $arrayRetorno["ordem"] = $ordem;
-  
-  echo json_encode($arrayRetorno);
-  exit;   
-  
-}*/
-
-//FILTROS
-//$where = " WHERE E.excluido = 0";
-
-//echo $where;
 $idTabela = "tb_etapa";
-
 Html::set_idTabela($idTabela);
 
-$Etapa = new Etapa();
 ?>
 
 <fieldset>
@@ -49,7 +20,7 @@ $Etapa = new Etapa();
   <div class="lista">
     <?php //IMPRIMIR TABELA   
     Html::set_colunas(array("Etapa", ""));
-    echo $Etapa -> tabelaEtapa_html($Servico, $caminho, $atualizar, $ondeAtualizar);
+    echo $Etapa -> tabelaEtapa_html($Servico, $atualizar, $ondeAtualizar);
     ?>
   </div>
   

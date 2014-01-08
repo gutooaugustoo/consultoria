@@ -14,7 +14,7 @@ $url = "&tipoPergunta_id=" . $tipoPergunta_id;
 ?>
 
 <div id="cadastro_pergunta" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		
 		<div id="aba_pergunta" divExibir="div_pergunta" class="aba_interna ativa"

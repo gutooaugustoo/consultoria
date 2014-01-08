@@ -5,7 +5,7 @@ $idCategoriapergunta = $_REQUEST["idCategoriapergunta"];
 ?>
 
 <div id="cadastro_categoriapergunta" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_categoriapergunta" divExibir="div_categoriapergunta" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."categoriapergunta/form.php?idCategoriapergunta=".$idCategoriapergunta?>' , '#div_categoriapergunta')" >Categoria pergunta</div>

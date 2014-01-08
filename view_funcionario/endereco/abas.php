@@ -9,7 +9,7 @@ $url = "&pessoa_id=".$pessoa_id."&empresa_id=".$empresa_id;
 ?>
 
 <div id="cadastro_endereco" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_endereco" divExibir="div_endereco" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."endereco/form.php?idEndereco=".$idEndereco.$url?>' , '#div_endereco')" >Endereço</div>

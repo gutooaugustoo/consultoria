@@ -6,6 +6,7 @@ if( $idRedacao = $_REQUEST["idRedacao"] ){
   $Redacao->__construct($idRedacao);
 }else{
   $Redacao->set_servico_idRedacao($_REQUEST["servico_id"]);
+  $Redacao->set_etapa_idRedacao($_REQUEST["etapa_id"]);
 }
 
 $nomeTable = "redacao";
@@ -30,10 +31,16 @@ $acao = CAM_VIEW."redacao/acao.php";
 		    
 				<p>
 				<label>Etapa:</label>
-				<?php $Etapa = new Etapa();
+				<?php $Etapa = new Etapa($Redacao-> get_etapa_idRedacao());
+        echo $Etapa->get_etapaEtapa();?>
+        <input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $Redacao-> get_etapa_idRedacao()?>" />
+        
+        <?php /*$Etapa = new Etapa();
 				Html::set_cssClass(array("required"));
-				echo $Etapa -> selectEtapa_html('etapa_id', $Redacao -> get_etapa_idRedacao()); ?>
-				<span class="placeholder" >Campo obrigatório</span></p>
+				echo $Etapa -> selectEtapa_html('etapa_id', $Redacao -> get_etapa_idRedacao()); */?>
+				<!--<span class="placeholder" >Campo obrigatório</span>-->
+				
+				</p>
 					
 				<p>
 				<label>Tempo Para Finalizacao:</label>

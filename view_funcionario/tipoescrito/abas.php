@@ -5,7 +5,7 @@ $idTipoescrito = $_REQUEST["idTipoescrito"];
 ?>
 
 <div id="cadastro_tipoescrito" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_tipoescrito" divExibir="div_tipoescrito" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."tipoescrito/form.php?idTipoescrito=".$idTipoescrito?>' , '#div_tipoescrito')" >Tipo de teste escrito</div>

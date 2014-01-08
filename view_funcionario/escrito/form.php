@@ -6,6 +6,7 @@ if( $idEscrito = $_REQUEST["idEscrito"] ){
   $Escrito->__construct($idEscrito);
 }else{
   $Escrito->set_servico_idEscrito($_REQUEST["servico_id"]);
+  $Escrito->set_etapa_idEscrito($_REQUEST["etapa_id"]);
 }
 
 $nomeTable = "escrito";
@@ -29,11 +30,17 @@ $acao = CAM_VIEW."escrito/acao.php";
 				<input type="hidden" id="servico_id" name="servico_id" value="<?php echo $Escrito -> get_servico_idEscrito() ?>" />
 		
 				<p>
-				<label>Etapa:</label>
-				<?php $Etapa = new Etapa();
+				<label>Etapa: </label>
+				<?php $Etapa = new Etapa($Escrito -> get_etapa_idEscrito());
+				echo $Etapa->get_etapaEtapa();?>
+				<input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $Escrito -> get_etapa_idEscrito()?>" />
+				
+				<?php /*$Etapa = new Etapa();
 				Html::set_cssClass(array("required"));
-				echo $Etapa -> selectEtapa_html('etapa_id', $Escrito -> get_etapa_idEscrito()); ?>
-				<span class="placeholder" >Campo obrigatório</span></p>
+				echo $Etapa -> selectEtapa_html('etapa_id', $Escrito -> get_etapa_idEscrito()); */?>
+				<!--<span class="placeholder" >Campo obrigatório</span>--> 
+				
+				</p>
 		
 				<p>
 				<label>Tipo do teste:</label>

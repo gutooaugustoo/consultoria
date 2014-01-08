@@ -110,7 +110,7 @@ class Servico extends Servico_m {
   
 	//AÇÕES
 	function cadastrarServico($idServico, $post = array()){
-		
+		//Uteis::pr($post, 1);
 		//CARREGAR DO POST
 		$empresa_id = ($post['empresa_id']);
 		if( $empresa_id == '' ) return array(false, MSG_OBRIGAT." Empresa");
@@ -129,12 +129,9 @@ class Servico extends Servico_m {
 		$dataValidade = ($post['dataValidade']);
 		if( $dataValidade == '' ) return array(false, MSG_OBRIGAT." Data Validade");
 		
-		$temOral = ($post['temOral']);
-		
-		$temEscrito = ($post['temEscrito']);
-		
-		$temRedacao = ($post['temRedacao']);
-		
+		$temEscrito = ($post['temEscrito']);      
+    $temOral = ($post['temOral']);      
+		$temRedacao = ($post['temRedacao']);		  
 		$temResultadoFinal = ($post['temResultadoFinal']);
 		
 		$obs = ($post['obs']);
@@ -157,9 +154,23 @@ class Servico extends Servico_m {
 			 -> set_obsServico($obs)
 			 -> set_hashServico();
 		
-		if( $idServico ){			
+		if( $idServico ){
+		  
+      $Escrito = new Escrito();
+      $rs = $Escrito -> selectEscrito(" WHERE excluido = 0 AND servico_id = " . $idServico);
+      if( !$temEscrito && $rs ) return array(false, "Já existe um teste Escrito definido");
+      
+      $Oral = new Oral();
+      $rs = $Oral -> selectOral(" WHERE excluido = 0 AND servico_id = " . $idServico);        
+      if( !$temOral && $rs ) return array(false, "Já existe um teste Oral definido");
+      
+      $Redacao = new Redacao();
+      $rs = $Redacao -> selectRedacao(" WHERE excluido = 0 AND servico_id = " . $idServico);
+      if( !$temRedacao && $rs ) return array(false, "Já existe uma Redação definida");
+      			
 			$this -> set_idServico($idServico);			
 			return ( $this -> updateServico() );
+      
 		}else{			
 			return ( $this -> insertServico() );			
 		}

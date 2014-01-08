@@ -5,7 +5,7 @@ $idServico_candidato = $_REQUEST["idServico_candidato"];
 ?>
 
 <div id="cadastro_servico_candidato" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_servico_candidato" divExibir="div_servico_candidato" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."servico_candidato/form.php?idServico_candidato=".$idServico_candidato?>' , '#div_servico_candidato')" >Candidato vínculado ao serviço</div>

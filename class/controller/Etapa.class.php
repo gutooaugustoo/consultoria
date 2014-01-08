@@ -32,92 +32,99 @@ class Etapa extends Etapa_m {
    return Html::selectMultiple($nomeId, $idAtual, $array);
    }*/
 
-  function tabelaEtapa_html($Servico, $caminho = "", $atualizar = "", $ondeAtualizar = "") {
-    
-    $contaEtapas = array();
-    if( $Servico->get_temEscritoServico() ) {      
-      $Escrito = new Escrito();
-      $rs = $Escrito->selectEscrito(" WHERE excluido = 0 AND servico_id = ".$Servico->get_idServico());
-      $contaEtapas["escrito"] = $rs[0]['etapa_id'];
-    }
-    
-    if( $Servico->get_temOralServico() ) {
-      $Oral = new Oral();
-      $rs = $Oral->selectOral(" WHERE excluido = 0 AND servico_id = ".$Servico->get_idServico());
-      $contaEtapas["oral"] = $rs[0]['etapa_id'];
-    }
-    
-    if( $Servico->get_temRedacaoServico() ) {
-      $Redacao = new Redacao();
-      $rs = $Redacao->selectRedacao(" WHERE excluido = 0 AND servico_id = ".$Servico->get_idServico());
-      $contaEtapas["redacao"] = $rs[0]['etapa_id'];
-    }
-    
-    $where = " ORDER BY id ASC";
-    $array = $this -> selectEtapa($where, array("E.id"));
+  function tabelaEtapa_html($Servico, $atualizar = "", $ondeAtualizar = "") {
 
-    if ($array) {
+    $etapasCadastradas = array();
+    $etapasCadastradas_id = array();
+
+    if ($Servico -> get_temEscritoServico()) {
+      $Escrito = new Escrito();
+      $rs = $Escrito -> selectEscrito(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
+      $etapasCadastradas["escrito"] = $rs[0]['etapa_id'];
+      $etapasCadastradas_id["escrito"] = $rs[0]['id'];
+    }
+
+    if ($Servico -> get_temOralServico()) {
+      $Oral = new Oral();
+      $rs = $Oral -> selectOral(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
+      $etapasCadastradas["oral"] = $rs[0]['etapa_id'];
+      $etapasCadastradas_id["oral"] = $rs[0]['id'];      
+    }
+
+    if ($Servico -> get_temRedacaoServico()) {
+      $Redacao = new Redacao();
+      $rs = $Redacao -> selectRedacao(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
+      $etapasCadastradas["redacao"] = $rs[0]['etapa_id'];
+      $etapasCadastradas_id["redacao"] = $rs[0]['id'];
+    }
+
+    $where = " ORDER BY id ASC";
+    $arrTodasEtapas = $this -> selectEtapa($where, array("E.id"));
+
+    if ($arrTodasEtapas) {
 
       $cont = 0;
       $linha = array();
-            
-      foreach ($array as $key => $iten) {
-          
-        if( count($contaEtapas) == $key ) break;        
-          
+      $parar = false;
+      $count_etapasCadastradas = count($etapasCadastradas);
+      
+      foreach ($arrTodasEtapas as $key_arrTodasEtapas => $iten_arrTodasEtapas) {
+
         $colunas = array();
+        $botaoEtapa = "";
+        
+        if ($parar || $count_etapasCadastradas == $key_arrTodasEtapas) break;
 
         //CARREGAR VALORES
-        $this -> __construct($iten['id']);
-        
+        $this -> __construct($iten_arrTodasEtapas['id']);
+
         $colunas[] = $this -> get_etapaEtapa();
-                
-        switch ( array_search($this->get_idEtapa(), $contaEtapas) ) {
-          case 'escrito':
-            $coluna .= ""; 
-            //break;
-          case 'oral':
-            $coluna .= ""; 
-           // break;
-          case 'redacao':
-            $coluna .= ""; 
-            //break;
-          case '':
-            $coluna .= "<button class=\"button gray\"
-            onclick=\"abrirNivelPagina(this, '', '', '')\" >
-              Teste escrito
-            </button>";            
-            //break;            
+        $etapaAtual = array_search($this -> get_idEtapa(), $etapasCadastradas);
+        
+        switch ( $etapaAtual ) {
+          case 'escrito' || 'oral' || 'redacao' :
+           
+            $botaoEtapa = "<img src=\"".CAM_IMG."editar.png\" 
+            onclick=\"abrirNivelPagina(this, '" . CAM_VIEW . $etapaAtual . "/abas.php?id" . ucfirst($etapaAtual) . "=".$etapasCadastradas_id[$etapaAtual]."', '$atualizar', '$ondeAtualizar')\" >              
+             ".ucfirst($etapaAtual);
+            unset($etapasCadastradas[$etapaAtual]);
+            break;
+
+          default :
+           
+            foreach ($etapasCadastradas as $key_etapasCadastradas => $iten_etapasCadastradas) {
+              $botaoEtapa .= "<button class=\"button gray\" 
+              onclick=\"abrirNivelPagina(this, '" . CAM_VIEW . $key_etapasCadastradas . "/abas.php?servico_id=".$Servico -> get_idServico()."&etapa_id=" . $this -> get_idEtapa() . "', '$atualizar', '$ondeAtualizar')\" >
+                " . ucfirst($key_etapasCadastradas) . "
+              </button>";
+            }
+            
+            $parar = true;
+            break;
         }
         
-        $colunas[] = $coluna;             
-        /*$ordem = ($apenasLinha !== false) ? $apenasLinha : $cont++;
-        $urlAux = "&ordem=" . $ordem . "&tabela=" . Html::get_idTabela();
-        $atualizarFinal = $atualizar . $urlAux . "&tr=1&idEtapa=" . $this -> get_idEtapa();*/
+        $colunas[] = $botaoEtapa;
 
-        /*$editar = "<img src=\"" . CAM_IMG . "editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '" . $caminho . "abas.php?idEtapa=" . $this -> get_idEtapa() . "', '$atualizarFinal', '$ondeAtualizar')\" >";
+         /*$deletar = "<img src=\"" . CAM_IMG . "excluir.png\" title=\"Excluir registro\"
+         onclick=\"deletaRegistro('" . $caminho . "acao.php?" . $urlAux . "', '" . $this -> get_idEtapa() . "', '$atualizarFinal', '$ondeAtualizar')\">";*/
 
-        $deletar = "<img src=\"" . CAM_IMG . "excluir.png\" title=\"Excluir registro\" 
-				onclick=\"deletaRegistro('" . $caminho . "acao.php?" . $urlAux . "', '" . $this -> get_idEtapa() . "', '$atualizarFinal', '$ondeAtualizar')\">";*/
-        
         $linhas[] = $colunas;
-        
+
       }
 
     }
-    
-    if( $Servico->get_temResultadoFinalServico() ){
-        
+
+    /*if ($Servico -> get_temResultadoFinalServico()) {
+
       $colunas = array();
-      
+
       $colunas[] = "Resultado final";
       $colunas[] = "";
-      
+
       $linhas[] = $colunas;
-      
-    }
-    
+
+    }*/
+
     return Html::montarColunas($linhas);
 
   }

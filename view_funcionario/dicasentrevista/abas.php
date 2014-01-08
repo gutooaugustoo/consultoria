@@ -5,7 +5,7 @@ $idDicasentrevista = $_REQUEST["idDicasentrevista"];
 ?>
 
 <div id="cadastro_dicasentrevista" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_dicasentrevista" divExibir="div_dicasentrevista" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."dicasentrevista/form.php?idDicasentrevista=".$idDicasentrevista?>' , '#div_dicasentrevista')" >Dicas de entrevista</div>

@@ -8,7 +8,7 @@ $url = "&servico_id=".$servico_id;
 ?>
 
 <div id="cadastro_servico_gestor" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_servico_gestor" divExibir="div_servico_gestor" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."servico_gestor/form.php?idServico_gestor=".$idServico_gestor.$url?>' , '#div_servico_gestor')" >Gestor vínculado ao serviço</div>

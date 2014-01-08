@@ -5,7 +5,8 @@ $Oral = new Oral();
 if( $idOral = $_REQUEST["idOral"] ){
   $Oral->__construct($idOral);
 }else{
-  $Oral->set_servico_idOral($_REQUEST["servico_id"]);
+  $Oral->set_servico_idOral($_REQUEST["servico_id"]);  
+  $Oral->set_etapa_idOral($_REQUEST["etapa_id"]);
 }
 
 $nomeTable = "oral";
@@ -23,17 +24,23 @@ $acao = CAM_VIEW."oral/acao.php";
 		  
 		  <input type="hidden" id="acao" name="acao" value="cadastrar" />
 		  
+		  <input type="hidden" id="idOral" name="idOral" value="<?php echo $Oral -> get_idOral() ?>" />
+      <input type="hidden" id="servico_id" name="servico_id" value="<?php echo $Oral -> get_servico_idOral() ?>" />
+        
 		  <div class="esquerda">		  					
-				
-				<input type="hidden" id="idOral" name="idOral" value="<?php echo $Oral -> get_idOral() ?>" />
-		    <input type="hidden" id="servico_id" name="servico_id" value="<?php echo $Oral -> get_servico_idOral() ?>" />
-		
+			
 				<p>
-				<label>Etapa:</label>
-				<?php $Etapa = new Etapa();
+				<label>Etapa:</label>				
+				<?php $Etapa = new Etapa($Oral->get_etapa_idOral());
+        echo $Etapa->get_etapaEtapa();?>
+        <input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $Oral->get_etapa_idOral()?>" />
+        
+				<?php /*$Etapa = new Etapa();
 				Html::set_cssClass(array("required"));
-				echo $Etapa -> selectEtapa_html('etapa_id', $Oral -> get_etapa_idOral()); ?>
-				<span class="placeholder" >Campo obrigatório</span></p>
+				echo $Etapa -> selectEtapa_html('etapa_id', $Oral -> get_etapa_idOral()); */?>
+				<!--<span class="placeholder" >Campo obrigatório</span>-->
+				
+				</p>
 				
 				<p><label for="video" >
 				<input type="checkbox" name="video" id="video" value="1" class=""

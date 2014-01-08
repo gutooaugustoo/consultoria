@@ -9,7 +9,7 @@ $url = "&pessoa_id=".$pessoa_id."&empresa_id=".$empresa_id;
 ?>
 
 <div id="cadastro_telefone" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_telefone" divExibir="div_telefone" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."telefone/form.php?idTelefone=".$idTelefone.$url?>' , '#div_telefone')" >Telefone</div>

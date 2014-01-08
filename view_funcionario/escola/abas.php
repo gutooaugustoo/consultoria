@@ -5,7 +5,7 @@ $idEscola = $_REQUEST["idEscola"];
 ?>
 
 <div id="cadastro_escola" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_escola" divExibir="div_escola" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."escola/form.php?idEscola=".$idEscola?>' , '#div_escola')" >Escola</div>

@@ -78,7 +78,7 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 ?>
 
 <div id=\"cadastro_" . $table . "\" class=\"\">
-	<div id=\"fechar_nivel\" class=\"fechar\" onclick=\"fecharNivel(nivel);\" title=\"Fechar\"></div>
+	<div class=\"fechar\" onclick=\"fecharNivel();\" title=\"Fechar\"></div>
 	<div id=\"abas\">
 		<div id=\"aba_" . $table . "\" divExibir=\"div_" . $table . "\" class=\"aba_interna ativa\"
 		onclick=\"carregarModulo('<?php echo CAM_VIEW.\"".$table."/form.php?id" . $tableUp."=\".\$id" . $tableUp."?>' , '#div_" . $table . "')\" >" . $tabelaNome . "</div>

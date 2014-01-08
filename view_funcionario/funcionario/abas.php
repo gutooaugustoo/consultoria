@@ -6,7 +6,7 @@ $url = "?pessoa_id=".$idFuncionario;
 ?>
 
 <div id="cadastro_funcionario" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="abaLista_funcionario" divExibir="divLista_res" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."funcionario/form.php?idFuncionario=".$idFuncionario?>' , '#divLista_res')" >

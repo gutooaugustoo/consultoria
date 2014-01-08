@@ -6,7 +6,7 @@ $url = "&itemAvaliarOral_id=".$idItemavaliaroral;
 ?>
 
 <div id="cadastro_itemavaliaroral" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_itemavaliaroral" divExibir="div_itemavaliaroral" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."itemavaliaroral/form.php?idItemavaliaroral=".$idItemavaliaroral?>' , '#div_itemavaliaroral')" >

@@ -4,11 +4,13 @@ require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 $idOral = $_REQUEST["idOral"];
 
 $servico_id = $_REQUEST["servico_id"];
-$url = "&servico_id=".$servico_id;
+$etapa_id = $_REQUEST["etapa_id"];
+
+$url = "&servico_id=".$servico_id."&etapa_id=".$etapa_id;
 ?>
 
 <div id="cadastro_oral" class="">
-	<div id="fechar_nivel" class="fechar" onclick="fecharNivel(nivel);" title="Fechar"></div>
+	<div class="fechar" onclick="fecharNivel();" title="Fechar"></div>
 	<div id="abas">
 		<div id="aba_oral" divExibir="div_oral" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."oral/form.php?idOral=".$idOral.$url?>' , '#div_oral')" >Oral</div>
