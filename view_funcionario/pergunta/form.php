@@ -114,8 +114,8 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 				//AGRUPAMENTO NAO PRECISA DE TEMPO
 				if( $tipoPergunta_id != "5" ){?>		
 				<p>
-					<label>Tempo para responder (em segundos):</label>
-					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required numeric" maxlength="3" />
+					<label>Tempo para responder (mm:ss):</label>
+					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required hora" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>
 				<?php } ?>

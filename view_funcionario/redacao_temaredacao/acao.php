@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Redacao = new Redacao();
+$Redacao_temaredacao = new Redacao_temaredacao();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idRedacao = $_REQUEST['id'];
+	$idRedacao_temaredacao = $_REQUEST['id'];
 	
-	$rs = $Redacao -> deletarRedacao($idRedacao);
+	$rs = $Redacao_temaredacao -> deletarRedacao_temaredacao($idRedacao_temaredacao);
 	
 	if( $rs[0] != false ){
 							
@@ -20,14 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idRedacao = $_REQUEST['idRedacao'];
+	$idRedacao_temaredacao = $_REQUEST['idRedacao_temaredacao'];
 	
-	$rs = $Redacao -> cadastrarRedacao($idRedacao, $_POST);
+	$rs = $Redacao_temaredacao -> cadastrarRedacao_temaredacao($idRedacao_temaredacao, $_POST);
 
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-    if( !$idRedacao ) $idRedacao = $rs[0];
-    $arrayRetorno['pagina'] = CAM_VIEW."redacao/abas.php?idRedacao=".$idRedacao;
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

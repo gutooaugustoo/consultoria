@@ -50,7 +50,7 @@ class Redacao_m extends Database {
 	}
 	
 	function set_tempoParaFinalizacaoRedacao($valor) {
-		$this -> tempoParaFinalizacaoRedacao = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		$this -> tempoParaFinalizacaoRedacao = ($valor) ? $this -> gravarBD( Uteis::gravarHoras($valor) ) : "NULL";
 		return $this;
 	}
 	
@@ -79,7 +79,7 @@ class Redacao_m extends Database {
 	}
 	
 	function get_tempoParaFinalizacaoRedacao() {
-		return ($this -> tempoParaFinalizacaoRedacao);
+		return Uteis::exibirHorasInput(($this -> tempoParaFinalizacaoRedacao));
 	}
 	
 	function get_minimoLinhasRedacao() {

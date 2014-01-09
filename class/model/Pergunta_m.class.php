@@ -90,7 +90,7 @@ class Pergunta_m extends Database {
 	}
 	
 	function set_tempoRespostaPergunta($valor) {
-		$this -> tempoRespostaPergunta = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		$this -> tempoRespostaPergunta = ($valor) ? $this -> gravarBD( Uteis::gravarHoras($valor) ) : "NULL";
 		return $this;
 	}
 	
@@ -138,7 +138,7 @@ class Pergunta_m extends Database {
 	}
 	
 	function get_tempoRespostaPergunta() {
-		return ($this -> tempoRespostaPergunta);
+		return Uteis::exibirHorasInput($this -> tempoRespostaPergunta);
 	}
 	
 	function get_inativoPergunta($mostrarImagem = false) {

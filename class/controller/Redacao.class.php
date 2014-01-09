@@ -98,7 +98,8 @@ class Redacao extends Redacao_m {
 		if( $minimoLinhas == '' ) return array(false, MSG_OBRIGAT." Minimo Linhas");
 		
 		$maximoLinhas = ($post['maximoLinhas']);
-		if( $maximoLinhas == '' ) return array(false, MSG_OBRIGAT." Maximo Linhas");
+		//if( $maximoLinhas == '' ) return array(false, MSG_OBRIGAT." Maximo Linhas");
+    if( $maximoLinhas && $maximoLinhas <= $minimoLinhas ) return array(false, "Maximo de linhas deve ser maior que o minimo");
 				
 		//SETAR
 		$this

@@ -43,19 +43,19 @@ $acao = CAM_VIEW."redacao/acao.php";
 				</p>
 					
 				<p>
-				<label>Tempo Para Finalizacao:</label>
-				<input type="text" name="tempoParaFinalizacao" id="tempoParaFinalizacao" value="<?php echo $Redacao -> get_tempoParaFinalizacaoRedacao()?>" class="required numeric" />
+				<label>Tempo para finalizar a redação (mm:ss):</label>
+				<input type="text" name="tempoParaFinalizacao" id="tempoParaFinalizacao" value="<?php echo $Redacao -> get_tempoParaFinalizacaoRedacao()?>" class="required hora" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Minimo Linhas:</label>
+				<label>Minimo linhas:</label>
 				<input type="text" name="minimoLinhas" id="minimoLinhas" value="<?php echo $Redacao -> get_minimoLinhasRedacao()?>" class="required numeric" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Maximo Linhas:</label>
-				<input type="text" name="maximoLinhas" id="maximoLinhas" value="<?php echo $Redacao -> get_maximoLinhasRedacao()?>" class="required numeric" />
-				<span class="placeholder" >Campo obrigatório</span></p>
+				<label>Maximo linhas:</label>
+				<input type="text" name="maximoLinhas" id="maximoLinhas" value="<?php echo $Redacao -> get_maximoLinhasRedacao()?>" class="numeric" />
+				<span class="placeholder" ></span></p>
 		
 			</div>
 			
