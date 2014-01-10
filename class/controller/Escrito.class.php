@@ -93,15 +93,18 @@ class Escrito extends Escrito_m {
 		
 		$servico_id = ($post['servico_id']);
 		if( $servico_id == '' ) return array(false, MSG_OBRIGAT." Servico");
-		
-		$randomico = ($post['randomico']);
+				
+		$porcentagemCorte = ($post['porcentagemCorte']);
+    
+    $randomico = ($post['randomico']);
 				
 		//SETAR
 		$this
 			 -> set_etapa_idEscrito($etapa_id)
 			 -> set_tipoEscrito_idEscrito($tipoEscrito_id)
 			 -> set_servico_idEscrito($servico_id)
-			 -> set_randomicoEscrito($randomico);
+			 -> set_porcentagemCorte($porcentagemCorte)
+       -> set_randomicoEscrito($randomico);
 		
 		if( $idEscrito ){			
 			$this -> set_idEscrito($idEscrito);			

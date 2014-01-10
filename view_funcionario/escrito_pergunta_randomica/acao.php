@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Escrito = new Escrito();
+$Escrito_pergunta_randomica = new Escrito_pergunta_randomica();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idEscrito = $_REQUEST['id'];
+	$idEscrito_pergunta_randomica = $_REQUEST['id'];
 	
-	$rs = $Escrito -> deletarEscrito($idEscrito);
+	$rs = $Escrito_pergunta_randomica -> deletarEscrito_pergunta_randomica($idEscrito_pergunta_randomica);
 	
 	if( $rs[0] != false ){
 							
@@ -20,14 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idEscrito = $_REQUEST['idEscrito'];
+	$idEscrito_pergunta_randomica = $_REQUEST['idEscrito_pergunta_randomica'];
 	
-	$rs = $Escrito -> cadastrarEscrito($idEscrito, $_POST);
+	$rs = $Escrito_pergunta_randomica -> cadastrarEscrito_pergunta_randomica($idEscrito_pergunta_randomica, $_POST);
 
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-    if( !$idEscrito ) $idEscrito = $rs[0];
-    $arrayRetorno['pagina'] = CAM_VIEW."escrito/abas.php?idEscrito=".$idEscrito;
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

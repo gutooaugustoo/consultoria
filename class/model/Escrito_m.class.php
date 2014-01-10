@@ -6,6 +6,7 @@ class Escrito_m extends Database {
 	protected $etapa_idEscrito;
 	protected $tipoEscrito_idEscrito;
 	protected $servico_idEscrito;
+  protected $porcentagemCorte;
 	protected $randomicoEscrito = 0;
 	
 	//CONSTRUTOR
@@ -21,7 +22,8 @@ class Escrito_m extends Database {
 			$this -> etapa_idEscrito = $array[0]['etapa_id'];
 			$this -> tipoEscrito_idEscrito = $array[0]['tipoEscrito_id'];
 			$this -> servico_idEscrito = $array[0]['servico_id'];
-			$this -> randomicoEscrito = $array[0]['randomico'];
+			$this -> porcentagemCorte = $array[0]['porcentagemCorte'];
+      $this -> randomicoEscrito = $array[0]['randomico'];
 			
 		}
 	}
@@ -52,10 +54,15 @@ class Escrito_m extends Database {
 		return $this;
 	}
 	
-	function set_randomicoEscrito($valor) {
-		$this -> randomicoEscrito = ($valor) ? $this -> gravarBD($valor) : "0";
+	function set_porcentagemCorte($valor) {	     	 
+		$this -> porcentagemCorte = ($valor) ? $this -> gravarBD( Uteis::gravarMoeda($valor, 2) ) : "NULL";
 		return $this;
 	}
+  
+  function set_randomicoEscrito($valor) {
+    $this -> randomicoEscrito = ($valor) ? $this -> gravarBD($valor) : "0";
+    return $this;
+  }
 		
 	//GETS
 	
@@ -74,7 +81,11 @@ class Escrito_m extends Database {
 	function get_servico_idEscrito() {
 		return ($this -> servico_idEscrito);
 	}
-	
+    
+	function get_porcentagemCorte() {
+    return Uteis::formatarMoeda($this -> porcentagemCorte, true);
+  }
+  
 	function get_randomicoEscrito($mostrarImagem = false) {
 		return !$mostrarImagem ? $this -> randomicoEscrito : Uteis::exibirStatus($this -> randomicoEscrito);
 	}
@@ -83,11 +94,12 @@ class Escrito_m extends Database {
 		
 	function insertEscrito() {
 		$sql = "INSERT INTO escrito 
-		(etapa_id, tipoEscrito_id, servico_id, randomico) 
+		(etapa_id, tipoEscrito_id, servico_id, porcentagemCorte, randomico) 
 		VALUES (	
 			" . $this -> etapa_idEscrito . ", 	
 			" . $this -> tipoEscrito_idEscrito . ", 	
 			" . $this -> servico_idEscrito . ", 	
+			" . $this -> porcentagemCorte . ",
 			" . $this -> randomicoEscrito . "
 		)";
 		if( $this -> query($sql) ){
@@ -109,7 +121,8 @@ class Escrito_m extends Database {
 					"etapa_id" => $this -> etapa_idEscrito, 		
 					"tipoEscrito_id" => $this -> tipoEscrito_idEscrito, 		
 					"servico_id" => $this -> servico_idEscrito, 		
-					"randomico" => $this -> randomicoEscrito				
+					"porcentagemCorte" => $this -> porcentagemCorte,		
+					"randomico" => $this -> randomicoEscrito
 				)	
 			);
 			

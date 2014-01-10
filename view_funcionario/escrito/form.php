@@ -41,20 +41,25 @@ $acao = CAM_VIEW."escrito/acao.php";
 				<!--<span class="placeholder" >Campo obrigatório</span>--> 
 				
 				</p>
-		
+		    
 				<p>
 				<label>Tipo do teste:</label>
 				<?php $Tipoescrito = new Tipoescrito();
 				Html::set_cssClass(array("required"));
 				echo $Tipoescrito -> selectTipoescrito_html('tipoEscrito_id', $Escrito -> get_tipoEscrito_idEscrito()); ?>
 				<span class="placeholder" >Campo obrigatório</span></p>
-		  			
+		  	
+		  	<p>
+        <label>Porcentagem de corte (%):</label>
+        <input type="text" name="porcentagemCorte" id="porcentagemCorte" value="<?php echo $Escrito -> get_porcentagemCorte()?>" class="percentual" />
+        <span class="placeholder" >Campo obrigatório</span></p>
+        		
 				<p><label for="randomico" >
 				<input type="checkbox" name="randomico" id="randomico" value="1" class=""
 				<?php echo Uteis::verificaChecked($Escrito -> get_randomicoEscrito())?> />
 				Randomico</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
-		
+		    
 			</div>
 			
 			<div class="linha-inteira">

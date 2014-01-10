@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Escrito = new Escrito();
+$Escrito_pergunta = new Escrito_pergunta();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idEscrito = $_REQUEST['id'];
+	$idEscrito_pergunta = $_REQUEST['id'];
 	
-	$rs = $Escrito -> deletarEscrito($idEscrito);
+	$rs = $Escrito_pergunta -> deletarEscrito_pergunta($idEscrito_pergunta);
 	
 	if( $rs[0] != false ){
 							
@@ -20,14 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idEscrito = $_REQUEST['idEscrito'];
+	$idEscrito_pergunta = $_REQUEST['idEscrito_pergunta'];
 	
-	$rs = $Escrito -> cadastrarEscrito($idEscrito, $_POST);
+	$rs = $Escrito_pergunta -> cadastrarEscrito_pergunta($idEscrito_pergunta, $_POST);
 
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-    if( !$idEscrito ) $idEscrito = $rs[0];
-    $arrayRetorno['pagina'] = CAM_VIEW."escrito/abas.php?idEscrito=".$idEscrito;
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }
