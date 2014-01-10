@@ -98,7 +98,7 @@ class Redacao_itemavaliar extends Redacao_itemavaliar_m {
     $where = " WHERE excluido = 0 AND itemAvaliarRedacao_id = ".Uteis::escapeRequest($itemAvaliarRedacao_id)." AND redacao_id = ".Uteis::escapeRequest($redacao_id);
     if( $idRedacao_itemavaliar ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idRedacao_itemavaliar).") ";
     $rs = $this->selectRedacao_itemavaliar($where, array("id"));
-    if( $rs ) return array(false, "Esse item já está vinculado a esta redação");
+    if( $rs ) return array(false, "O item já está vinculado a esta redação");
 				
 		//SETAR
 		$this

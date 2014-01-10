@@ -56,7 +56,7 @@ foreach ($campos as $key => $campo) {
 
 	}
 
-	if ($campo['relac'] != 'pk') {
+	if ( $campo['relac'] != 'pk' && $campo['tipo'] != 'tinyint') {
 		$form .= "
 				<span class=\"placeholder\" >" . ($campo['accNulo'] == 1 ? "" : "Campo obrigatório") . "</span></p>
 		";

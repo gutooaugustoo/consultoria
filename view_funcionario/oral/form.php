@@ -45,19 +45,19 @@ $acao = CAM_VIEW."oral/acao.php";
 				<p><label for="video" >
 				<input type="checkbox" name="video" id="video" value="1" class=""
 				<?php echo Uteis::verificaChecked($Oral -> get_videoOral())?> />
-				Veo</label>
+				Disponibilizar <b>upload de vídeo</b> para o candidato</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p><label for="mostrarAnotacao" >
 				<input type="checkbox" name="mostrarAnotacao" id="mostrarAnotacao" value="1" class=""
 				<?php echo Uteis::verificaChecked($Oral -> get_mostrarAnotacaoOral())?> />
-				Mostrar Anotacao</label>
+				Disponibilizar <b>VPG</b> para o avaliador</label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p><label for="temAreaAtencao" >
 				<input type="checkbox" name="temAreaAtencao" id="temAreaAtencao" value="1" class=""
 				<?php echo Uteis::verificaChecked($Oral -> get_temAreaAtencaoOral())?> />
-				Tem Area Atencao</label>
+				O avaliador deverá preencher <b>área de atenção</b></label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 			</div>

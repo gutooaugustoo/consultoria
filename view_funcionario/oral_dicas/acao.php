@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Oral = new Oral();
+$Oral_dicas = new Oral_dicas();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idOral = $_REQUEST['id'];
+	$idOral_dicas = $_REQUEST['id'];
 	
-	$rs = $Oral -> deletarOral($idOral);
+	$rs = $Oral_dicas -> deletarOral_dicas($idOral_dicas);
 	
 	if( $rs[0] != false ){
 							
@@ -20,14 +20,12 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idOral = $_REQUEST['idOral'];
+	$idOral_dicas = $_REQUEST['idOral_dicas'];
 	
-	$rs = $Oral -> cadastrarOral($idOral, $_POST);
+	$rs = $Oral_dicas -> cadastrarOral_dicas($idOral_dicas, $_POST);
 
 	if( $rs[0] != false ){			
-		$arrayRetorno['atualizarNivelAtual'] = true;
-    if( !$idOral ) $idOral = $rs[0];
-    $arrayRetorno['pagina'] = CAM_VIEW."oral/abas.php?idOral=".$idOral;
+		$arrayRetorno['fecharNivel'] = true;
 	}
 	
 }

@@ -96,7 +96,7 @@ class Redacao_temaredacao extends Redacao_temaredacao_m {
     $where = " WHERE excluido = 0 AND temaRedacao_id = ".Uteis::escapeRequest($temaRedacao_id)." AND redacao_id = ".Uteis::escapeRequest($redacao_id);
     if( $idRedacao_temaredacao ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idRedacao_temaredacao).") ";
     $rs = $this->selectRedacao_temaredacao($where, array("id"));
-    if( $rs ) return array(false, "Esse tema já está vinculado a esta redação");
+    if( $rs ) return array(false, "O tema já está vinculado a esta redação");
     	
 		//SETAR
 		$this

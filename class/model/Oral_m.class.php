@@ -102,8 +102,26 @@ class Oral_m extends Database {
 			" . $this -> mostrarAnotacaoOral . ", 	
 			" . $this -> temAreaAtencaoOral . "
 		)";
+        
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+		  $id = mysql_insert_id($this -> connect);
+      
+      $Itemanotacaoentrevista = new Item_anotacaoentrevista();
+      $rs_item = $Itemanotacaoentrevista->selectItem_anotacaoentrevista("", array("id"));
+      
+      if( $rs_item ){
+          
+        $Oral_itemanotacaoentrevista = new Oral_itemanotacaoentrevista();
+        $Oral_itemanotacaoentrevista->set_oral_idOral_itemanotacaoentrevista($id);
+        
+        foreach ($rs_item as $item) {
+          $Oral_itemanotacaoentrevista->set_item_anotacaoEntrevista_idOral_itemanotacaoentrevista($item['id']);
+          $Oral_itemanotacaoentrevista->insertOral_itemanotacaoentrevista();          
+        }  
+      }
+            
+			return array($id, MSG_CADNEW);
+      
 		}else{
 			return array(false, MSG_ERR);
 		}		
