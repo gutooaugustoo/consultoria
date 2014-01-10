@@ -3,7 +3,7 @@ class Escrito_pergunta extends Escrito_pergunta_m {
 		
 	//CONSTRUTOR
 	function __construct($idEscrito_pergunta = "") {
-		parent::__construct($idEscrito_pergunta);	
+		parent::__construct($idEscrito_pergunta);    
 	}
 
 	function __destruct(){
@@ -48,30 +48,34 @@ class Escrito_pergunta extends Escrito_pergunta_m {
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
 				
-				$Escrito = new Escrito( $this -> get_escrito_idEscrito_pergunta() );
-				$colunas[] = $Escrito -> get_idEscrito();
-				$Pergunta = new Pergunta( $this -> get_pergunta_idEscrito_pergunta() );
-				$colunas[] = $Pergunta -> get_idPergunta();
-				$colunas[] = $this -> get_ordemEscrito_pergunta();
+				$colunas[] = $this -> get_ordemEscrito_pergunta();				
+				        
+        $Pergunta = new Pergunta( $this -> get_pergunta_idEscrito_pergunta() );
+        $Tipopergunta = new Tipopergunta( $Pergunta->get_tipoPergunta_idPergunta() );
+        
+        $colunas[] = $Tipopergunta -> get_descricaoTipopergunta();
+				$colunas[] = $Pergunta -> get_tituloPergunta();				
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
 				$atualizarFinal = $atualizar.$urlAux."&tr=1&idEscrito_pergunta=".$this -> get_idEscrito_pergunta();
 						
-				$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
-				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idEscrito_pergunta=".$this -> get_idEscrito_pergunta() ."', '$atualizarFinal', '$ondeAtualizar')\" >";
+				/*$editar = "<img src=\"".CAM_IMG."editar.png\" title=\"Editar registro\" 
+				onclick=\"abrirNivelPagina(this, '".$caminho."abas.php?idEscrito_pergunta=".$this -> get_idEscrito_pergunta() ."', '$atualizarFinal', '$ondeAtualizar')\" >";*/
 				
 				$deletar = "<img src=\"".CAM_IMG."excluir.png\" title=\"Excluir registro\" 
 				onclick=\"deletaRegistro('".$caminho."acao.php?".$urlAux."', '".$this -> get_idEscrito_pergunta() ."', '$atualizarFinal', '$ondeAtualizar')\">";							
 					
 				if( $apenasLinha !== false ){						
 					$colunas[] = implode(ICON_SEPARATOR, array(
-						$editar,	$deletar
+						//$editar,	
+						$deletar
 					));									
 					break;					
 				}else{						
 					$colunas[] = array(
-						$editar,	$deletar
+						//$editar,	
+						$deletar
 					);
 					$linhas[] = $colunas;					
 				}
@@ -93,20 +97,23 @@ class Escrito_pergunta extends Escrito_pergunta_m {
 		
 		$pergunta_id = ($post['pergunta_id']);
 		if( $pergunta_id == '' ) return array(false, MSG_OBRIGAT." Pergunta");
-		
-		$ordem = ($post['ordem']);
-		if( $ordem == '' ) return array(false, MSG_OBRIGAT." Ordem");
-				
+	 
+    //VERIFICA SE JA EXISTE UM PESO CADASTRADO COM ESSE NIVEL
+    $where = " WHERE excluido = 0 AND pergunta_id = ".Uteis::escapeRequest($pergunta_id)." AND escrito_id = ".Uteis::escapeRequest($escrito_id);
+    if( $idEscrito_pergunta ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idEscrito_pergunta).") ";
+    $rs = $this->selectEscrito_pergunta($where, array("id"));
+    if( $rs ) return array(false, "A pergunta já está vinculada a este teste escrito");
+    			
 		//SETAR
 		$this
 			 -> set_escrito_idEscrito_pergunta($escrito_id)
-			 -> set_pergunta_idEscrito_pergunta($pergunta_id)
-			 -> set_ordemEscrito_pergunta($ordem);
-		
+			 -> set_pergunta_idEscrito_pergunta($pergunta_id);       
+			 
 		if( $idEscrito_pergunta ){			
-			$this -> set_idEscrito_pergunta($idEscrito_pergunta);			
+			$this->set_idEscrito_pergunta($idEscrito_pergunta);			
 			return ( $this -> updateEscrito_pergunta() );
-		}else{			
+		}else{
+		  $this-> set_ordemEscrito_pergunta( $this->get_proximaOrdem() );			
 			return ( $this -> insertEscrito_pergunta() );			
 		}
 
@@ -116,6 +123,13 @@ class Escrito_pergunta extends Escrito_pergunta_m {
 		$this -> set_idEscrito_pergunta($idEscrito_pergunta);	
 		return (	$this -> deleteEscrito_pergunta() );
 	}
-	
+  
+  function get_proximaOrdem() {
+    if ($this -> escrito_idEscrito_pergunta){
+      $rs = $this -> selectEscrito_pergunta(" WHERE excluido = 0 AND escrito_id = " . $this -> escrito_idEscrito_pergunta . " ORDER BY ordem DESC");
+      return ($rs ? $rs[0]['ordem'] : "0") + 1;
+    }    
+  }
+  	
 }
 

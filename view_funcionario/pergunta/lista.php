@@ -3,7 +3,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
 $Pergunta = new Pergunta();
 
-$tipoPergunta_id = $_REQUEST['tipoPergunta_id'];
+$tipoPergunta_id = $_REQUEST['tipoPergunta_id']; 
 $Tipopergunta = new Tipopergunta($tipoPergunta_id);
 
 $idTabela = "tb_pergunta";
@@ -30,7 +30,7 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE P.excluido = 0 AND P.pergunta_id IS NULL AND P.tipoPergunta_id = ".Uteis::escapeRequest($tipoPergunta_id);
+$where = " WHERE P.excluido = 0 AND P.pergunta_id IS NULL ";
 
 $empresa_id = implode(",", Uteis::escapeRequest($_POST['empresa_id']));
 if( $empresa_id ) $where .= " AND P.empresa_id IN(".($empresa_id).")";
@@ -38,6 +38,7 @@ if( $empresa_id ) $where .= " AND P.empresa_id IN(".($empresa_id).")";
 $idioma_id = implode(",", Uteis::escapeRequest($_POST['idioma_id']));
 if( $idioma_id ) $where .= " AND P.idioma_id IN(".($idioma_id).")";
 
+Uteis::pr($_POST['nivelPergunta_id']);
 $nivelPergunta_id = implode(",", Uteis::escapeRequest($_POST['nivelPergunta_id']));
 if( $nivelPergunta_id ) $where .= " AND P.nivelPergunta_id IN(".($nivelPergunta_id).")";
 
@@ -47,11 +48,13 @@ if( $categoriaPergunta_id ) $where .= " AND P.categoriaPergunta_id IN(".($catego
 $status = implode(",", Uteis::escapeRequest($_POST['status']));
 if( $status != "" ) $where .= " AND P.inativo IN(".($status).")";
 
+if( $tipoPergunta_id != "" ) $where .= " AND P.tipoPergunta_id = ".$tipoPergunta_id;
+
 //echo $where;
 ?>
 
 <fieldset>
-  <legend>Pergunta - <?php echo $Tipopergunta->get_descricaoTipopergunta();?></legend>
+  <legend><?php echo $Tipopergunta->get_descricaoTipopergunta();?></legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 

@@ -47,15 +47,13 @@ class Escrito_pergunta_randomica extends Escrito_pergunta_randomica_m {
 				
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
-				
-				$Escrito = new Escrito( $this -> get_escrito_idEscrito_pergunta_randomica() );
-				$colunas[] = $Escrito -> get_idEscrito();
-				$Nivelpergunta = new Nivelpergunta( $this -> get_nivelPergunta_idEscrito_pergunta_randomica() );
-				$colunas[] = $Nivelpergunta -> get_idNivelpergunta();
-				$Categoriapergunta = new Categoriapergunta( $this -> get_categoriaPergunta_idEscrito_pergunta_randomica() );
-				$colunas[] = $Categoriapergunta -> get_idCategoriapergunta();
+								
 				$Idioma = new Idioma( $this -> get_idioma_idEscrito_pergunta_randomica() );
-				$colunas[] = $Idioma -> get_idIdioma();
+        $colunas[] = $Idioma -> get_nomeIdioma();        
+        $Nivelpergunta = new Nivelpergunta( $this -> get_nivelPergunta_idEscrito_pergunta_randomica() );
+				$colunas[] = $Nivelpergunta -> get_nomeNivelpergunta();
+				$Categoriapergunta = new Categoriapergunta( $this -> get_categoriaPergunta_idEscrito_pergunta_randomica() );
+				$colunas[] = $Categoriapergunta -> get_nomeCategoriapergunta();				
 				$colunas[] = $this -> get_quantidadeEscrito_pergunta_randomica();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
@@ -106,7 +104,16 @@ class Escrito_pergunta_randomica extends Escrito_pergunta_randomica_m {
 		
 		$quantidade = ($post['quantidade']);
 		if( $quantidade == '' ) return array(false, MSG_OBRIGAT." Quantade");
-				
+	 
+     //VERIFICA SE JA EXISTE UM PESO CADASTRADO COM ESSE NIVEL
+    $where = " WHERE excluido = 0 AND escrito_id = ".Uteis::escapeRequest($escrito_id). 
+    " AND nivelPergunta_id = ".Uteis::escapeRequest($nivelPergunta_id)." 
+      AND categoriaPergunta_id = ".Uteis::escapeRequest($categoriaPergunta_id)." 
+      AND idioma_id = ".Uteis::escapeRequest($idioma_id);      
+    if( $idEscrito_pergunta_randomica ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idEscrito_pergunta_randomica).") ";
+    $rs = $this->selectEscrito_pergunta_randomica($where, array("id"));
+    if( $rs ) return array(false, "A definição de pergunta randomica selecionada já está vinculada a este teste escrito");
+    	
 		//SETAR
 		$this
 			 -> set_escrito_idEscrito_pergunta_randomica($escrito_id)

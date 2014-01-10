@@ -7,7 +7,7 @@ $Tipopergunta = new Tipopergunta($tipoPergunta_id);
 ?>
 
 <fieldset>
-  <legend>Filtrar Pergunta - <?php echo $Tipopergunta -> get_descricaoTipopergunta(); ?></legend>
+  <legend>Filtrar Pergunta</legend>
   
   <img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar filtros" id="imgGrupoFiltro_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoFiltro_<?php echo $nomeTable ?>', 'imgGrupoFiltro_<?php echo $nomeTable ?>');" />
@@ -17,11 +17,18 @@ $Tipopergunta = new Tipopergunta($tipoPergunta_id);
       <div class="linha-inteira">
         <div class="esquerda">
 					<p>
-						<label>Idioma:</label>
-						<?php $Idioma = new Idioma();
-							echo $Idioma -> selectMultipleIdioma_html('idioma_id');
+						<label>Tipo da pergunta:</label>
+						<?php $Tipopergunta = new Tipopergunta();
+							echo $Tipopergunta -> selectTipopergunta2_html('tipoPergunta_id', $tipoPergunta_id);
 						?>
 					</p>
+					
+					<p>
+            <label>Idioma:</label>
+            <?php $Idioma = new Idioma();
+              echo $Idioma -> selectMultipleIdioma_html('idioma_id');
+            ?>
+          </p>
 				
 					<p>
 						<label>Categoria Pergunta:</label>
@@ -56,7 +63,7 @@ $Tipopergunta = new Tipopergunta($tipoPergunta_id);
       </div>
       <div class="linha-inteira">
         <button id="btFiltro_<?php echo $nomeTable?>" class="button blue" 
-        onclick="filtro_postForm('imgGrupoFiltro_<?php echo $nomeTable ?>', 'formFiltrar_<?php echo $nomeTable ?>', '<?php echo CAM_VIEW."pergunta/lista.php"?>', '<?php echo "&tipoPergunta_id=".$tipoPergunta_id?>', '#divResFiltro_<?php echo $nomeTable ?>')" >
+        onclick="filtro_postForm('imgGrupoFiltro_<?php echo $nomeTable ?>', 'formFiltrar_<?php echo $nomeTable ?>', '<?php echo CAM_VIEW."pergunta/lista.php"?>', '<?php //echo "&tipoPergunta_id=".$tipoPergunta_id?>', '#divResFiltro_<?php echo $nomeTable ?>')" >
         Buscar</button>
       </div>
     </form>

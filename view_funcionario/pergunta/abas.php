@@ -19,9 +19,7 @@ $url = "&tipoPergunta_id=" . $tipoPergunta_id;
 		
 		<div id="aba_pergunta" divExibir="div_pergunta" class="aba_interna ativa"
 		onclick="carregarModulo('<?php echo CAM_VIEW."pergunta/form.php?idPergunta=".$idPergunta.$url?>' , '#div_pergunta')" >
-		  Pergunta - <?php $Tipopergunta = new Tipopergunta($tipoPergunta_id);
-      echo $Tipopergunta -> get_descricaoTipopergunta();
-    ?>
+		  Pergunta
     </div>
     
 		<?php if( $idPergunta ){ 

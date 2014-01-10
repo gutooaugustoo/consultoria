@@ -17,6 +17,13 @@ class Tipopergunta extends Tipopergunta_m {
 		$array = $this -> selectTipopergunta($where, $campos);
 		return Html::select($nomeId, $idAtual, $array);
 	}
+  
+  function selectTipopergunta2_html($nomeId, $idAtual = "", $where = "WHERE 1 ") {
+    $where .= "";
+    $campos = array("id", "descricao AS legenda");
+    $array = $this -> selectTipopergunta($where, $campos);
+    return Html::select2($nomeId, $idAtual, $array);
+  }
 	
 	function selectMultipleTipopergunta_html($nomeId, $idAtual = array(), $where = "WHERE 1 ") {
 		$where .= "";

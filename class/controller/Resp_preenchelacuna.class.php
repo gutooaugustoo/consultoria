@@ -2,7 +2,7 @@
 class Resp_preenchelacuna extends Resp_preenchelacuna_m {
 
   //CONSTRUTOR
-  function __construct($idResp_preenchelacuna = "") {
+  function __construct($idResp_preenchelacuna = "") {    
     parent::__construct($idResp_preenchelacuna);
   }
 
@@ -85,29 +85,31 @@ class Resp_preenchelacuna extends Resp_preenchelacuna_m {
     if ($pergunta_id == '')
       return array(false, MSG_OBRIGAT . " Pergunta");
 
-    $ordem = ($post['ordem_respLacuna']);
-
     $lacuna = ($post['lacuna_respLacuna']);
     if ($lacuna == '')
       return array(false, MSG_OBRIGAT . " Lacuna");
-    
+
     $enunciado = ($post['enunciado']);
-    if ( $enunciado == '')
+    if ($enunciado == '')
       return array(false, MSG_OBRIGAT . "Texto");
 
     $Pergunta = new Pergunta();
     $Pergunta -> set_idPergunta($pergunta_id);
-    $rs = $Pergunta -> updateCampoPergunta( array("enunciado" => Uteis::escapeRequest($enunciado)) );
-    if( $rs[0] == false ) return $rs;
+    $rs = $Pergunta -> updateCampoPergunta(array("enunciado" => Uteis::escapeRequest($enunciado)));
+    if ($rs[0] == false)
+      return $rs;
 
     //SETAR
-    $this -> set_pergunta_idResp_preenchelacuna($pergunta_id) -> set_lacunaResp_preenchelacuna($lacuna) -> set_ordemResp_preenchelacuna($ordem);
+    $this 
+      -> set_pergunta_idResp_preenchelacuna($pergunta_id) 
+      -> set_lacunaResp_preenchelacuna($lacuna);
+      //-> set_ordemResp_preenchelacuna( $this->get_ordemResp_preenchelacuna() );
 
     if ($idResp_preenchelacuna) {
       $this -> set_idResp_preenchelacuna($idResp_preenchelacuna);
       return ($this -> updateResp_preenchelacuna());
     } else {
-
+      $this->set_ordemResp_preenchelacuna(  $this->get_proximaOrdem() );
       return ($this -> insertResp_preenchelacuna());
     }
 
@@ -119,9 +121,10 @@ class Resp_preenchelacuna extends Resp_preenchelacuna_m {
   }
 
   function get_proximaOrdem() {
-    if ($this -> pergunta_idResp_preenchelacuna)
+    if ($this -> pergunta_idResp_preenchelacuna){
       $rs = $this -> selectResp_preenchelacuna(" WHERE R.excluido = 0 AND R.pergunta_id = " . $this -> pergunta_idResp_preenchelacuna . " ORDER BY R.ordem DESC");
-    return ($rs ? $rs[0]['ordem'] : "0") + 1;
+      return($rs ? $rs[0]['ordem'] : "0") + 1;
+    }
   }
 
 }

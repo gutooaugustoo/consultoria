@@ -5,8 +5,9 @@ $Resp_preenchelacuna = new Resp_preenchelacuna();
 if ($idResp_preenchelacuna = $_REQUEST["idResp_preenchelacuna"]) {
   $Resp_preenchelacuna -> __construct($idResp_preenchelacuna);
 } else {
-  $Resp_preenchelacuna -> set_pergunta_idResp_preenchelacuna($_REQUEST["pergunta_id"]);
-  $Resp_preenchelacuna -> set_ordemResp_preenchelacuna($Resp_preenchelacuna -> get_proximaOrdem());
+  $Resp_preenchelacuna 
+    -> set_pergunta_idResp_preenchelacuna($_REQUEST["pergunta_id"])
+    -> set_ordemResp_preenchelacuna( $Resp_preenchelacuna->get_proximaOrdem() );  
 }
 
 $nomeTable = "resp_preenchelacuna";
@@ -33,9 +34,7 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 
 				<p>
 					<label>Ordem:</label>
-					<?php echo $Resp_preenchelacuna -> get_ordemResp_preenchelacuna()
-					?>
-					<input type="hidden" name="ordem_respLacuna" id="ordem_respLacuna" value="<?php echo $Resp_preenchelacuna -> get_ordemResp_preenchelacuna()?>" class="" />
+					<?php echo $Resp_preenchelacuna -> get_ordemResp_preenchelacuna();?>					
 				</p>
 
 				<p>
@@ -47,7 +46,7 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 
 				<p>
 					<label>Lacuna:</label>
-					<input type="text" name="lacuna_respLacuna" id="lacuna_respLacuna" value="<?php echo $Resp_preenchelacuna -> get_lacunaResp_preenchelacuna()?>" class="required" readonly  />
+					<input type="text" name="lacuna_respLacuna" id="lacuna_respLacuna" value="<?php echo $Resp_preenchelacuna -> get_lacunaResp_preenchelacuna()?>" class="required textoGrande" readonly  />
 					<span class="placeholder" >Campo obrigatório (não digite aqui)</span>
 				</p>
 

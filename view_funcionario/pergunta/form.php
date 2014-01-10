@@ -18,7 +18,7 @@ $nomeTable = "pergunta";
 $acao = CAM_VIEW . "pergunta/acao.php";
 ?>
 <fieldset>
-	<legend>Pergunta - 
+	<legend> 
 	  <?php $Tipopergunta = new Tipopergunta($tipoPergunta_id);
     echo $Tipopergunta -> get_descricaoTipopergunta();
  ?></legend>

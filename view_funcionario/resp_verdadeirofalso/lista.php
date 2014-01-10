@@ -35,7 +35,7 @@ $where = " WHERE R.excluido = 0 AND R.pergunta_id = ".Uteis::escapeRequest($perg
 ?>
 
 <fieldset>
-  <legend>Resp Verdadeirofalso</legend>
+  <legend>Respostas</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 

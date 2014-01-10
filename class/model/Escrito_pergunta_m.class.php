@@ -96,7 +96,7 @@ class Escrito_pergunta_m extends Database {
 				array(		
 					"escrito_id" => $this -> escrito_idEscrito_pergunta, 		
 					"pergunta_id" => $this -> pergunta_idEscrito_pergunta, 		
-					"ordem" => $this -> ordemEscrito_pergunta				
+					//"ordem" => $this -> ordemEscrito_pergunta				
 				)	
 			);
 			

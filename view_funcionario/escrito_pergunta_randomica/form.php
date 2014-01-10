@@ -5,14 +5,14 @@ $Escrito_pergunta_randomica = new Escrito_pergunta_randomica();
 if( $idEscrito_pergunta_randomica = $_REQUEST["idEscrito_pergunta_randomica"] ){
   $Escrito_pergunta_randomica->__construct($idEscrito_pergunta_randomica);
 }else{
-  //$Escrito_pergunta_randomica->set_($_REQUEST[""]);
+  $Escrito_pergunta_randomica->set_escrito_idEscrito_pergunta_randomica($_REQUEST["escrito_id"]);
 }
 
 $nomeTable = "escrito_pergunta_randomica";
 $acao = CAM_VIEW."escrito_pergunta_randomica/acao.php";
 ?>
 <fieldset>
-	<legend>Escrito Pergunta Randomica</legend>
+	<legend>Pergunta randomica</legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />
@@ -26,41 +26,31 @@ $acao = CAM_VIEW."escrito_pergunta_randomica/acao.php";
 		  <div class="esquerda">		  					
 				
 				<input type="hidden" id="idEscrito_pergunta_randomica" name="idEscrito_pergunta_randomica" value="<?php echo $Escrito_pergunta_randomica -> get_idEscrito_pergunta_randomica() ?>" />
-		
+				<input type="hidden" id="escrito_id" name="escrito_id" value="<?php echo $Escrito_pergunta_randomica -> get_escrito_idEscrito_pergunta_randomica() ?>" />
+						
 				<p>
-				<label>Escrito:</label>
-				<?php $Escrito = new Escrito();
-				Html::set_cssClass(array("required"));
-				echo $Escrito -> selectEscrito_html('escrito_id', $Escrito_pergunta_randomica -> get_escrito_idEscrito_pergunta_randomica()); ?>
-				<span class="placeholder" >Campo obrigatório</span></p>
-		
-				<p>
-				<label>Nivel Pergunta:</label>
+        <label>Idioma:</label>
+        <?php $Idioma = new Idioma();
+        Html::set_cssClass(array("required"));
+        echo $Idioma -> selectIdioma_html('idioma_id', $Escrito_pergunta_randomica -> get_idioma_idEscrito_pergunta_randomica()); ?>
+        <span class="placeholder" >Campo obrigatório</span></p>
+        
+        <p>
+				<label>Nivel:</label>
 				<?php $Nivelpergunta = new Nivelpergunta();
 				Html::set_cssClass(array("required"));
 				echo $Nivelpergunta -> selectNivelpergunta_html('nivelPergunta_id', $Escrito_pergunta_randomica -> get_nivelPergunta_idEscrito_pergunta_randomica()); ?>
 				<span class="placeholder" >Campo obrigatório</span></p>
-		   									
-			</div>
-			
-			<div class="direita">
-				
+		  
 				<p>
-				<label>Categoria Pergunta:</label>
+				<label>Categoria:</label>
 				<?php $Categoriapergunta = new Categoriapergunta();
 				Html::set_cssClass(array("required"));
 				echo $Categoriapergunta -> selectCategoriapergunta_html('categoriaPergunta_id', $Escrito_pergunta_randomica -> get_categoriaPergunta_idEscrito_pergunta_randomica()); ?>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>ioma:</label>
-				<?php $Idioma = new Idioma();
-				Html::set_cssClass(array("required"));
-				echo $Idioma -> selectIdioma_html('idioma_id', $Escrito_pergunta_randomica -> get_idioma_idEscrito_pergunta_randomica()); ?>
-				<span class="placeholder" >Campo obrigatório</span></p>
-		
-				<p>
-				<label>Quantade:</label>
+				<label>Quantidade de questões:</label>
 				<input type="text" name="quantidade" id="quantidade" value="<?php echo $Escrito_pergunta_randomica -> get_quantidadeEscrito_pergunta_randomica()?>" class="required numeric" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		

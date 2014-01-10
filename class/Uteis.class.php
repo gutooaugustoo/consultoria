@@ -502,7 +502,7 @@ class Uteis {
   static function escapeRequest($request, $preparaParaQuery = true) {
 
     if (is_array($request)) {
-      return array_map(array(self, "escapeRequest"), $request);
+      return array_map(array(self, "escapeRequest"), array_filter($request));
     } else {
 
       $request = mysql_real_escape_string(trim($request));

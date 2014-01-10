@@ -75,7 +75,7 @@ class Html {
 	static function select($nomeId, $idAtual, $array) {
 
 		$html = "<select name=\"$nomeId\" id=\"$nomeId\" " . self::montaClass() . " " . self::montaEventos() . " >
-		<option value=\"\">Selecione</option>";
+		<option value >Selecione</option>";
 
 		foreach ($array as $iten) {
 			$selecionado = ($idAtual == $iten['id']) ? "selected" : "";
@@ -90,11 +90,29 @@ class Html {
 
 		return $html;
 	}
+  
+  static function select2($nomeId, $idAtual, $array) {
+
+    $html = "<select name=\"$nomeId\" id=\"$nomeId\" " . self::montaClass() . " " . self::montaEventos() . " >";
+
+    foreach ($array as $iten) {
+      $selecionado = ($idAtual == $iten['id']) ? "selected" : "";
+      $html .= "<option value=\"" . $iten['id'] . "\" " . self::montaSelectOptionProp($iten) . " $selecionado >" . $iten['legenda'] . "</option>";
+    }
+
+    $html .= "</select>";
+
+    self::set_cssClass();
+    self::set_eventos();
+    self::set_selectOptionProp();
+
+    return $html;
+  }
 
 	static function selectMultiple($nomeId, $idsAtuais = array(), $array) {
 
 		$html = "<select name=\"" . $nomeId . "[]\" id=\"$nomeId\" multiple=\"multiple\" " . self::montaClass() . " " . self::montaEventos() . " >
-		<option value=\"\">Todos</option>";
+		<option value >Todos</option>";
 
 		foreach ($array as $iten) {
 			$selecionado = (in_array($iten['id'], $idsAtuais)) ? "selected" : "";

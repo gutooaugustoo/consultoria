@@ -94,9 +94,9 @@ class Resp_preenchelacuna_m extends Database {
 				
 			return $this -> updateCampoResp_preenchelacuna(
 				array(		
-					"pergunta_id" => $this -> pergunta_idResp_preenchelacuna, 		
-					//"ordem" => $this -> ordemResp_preenchelacuna, 		
-					"lacuna" => $this -> lacunaResp_preenchelacuna				
+					"pergunta_id" => $this -> pergunta_idResp_preenchelacuna, 							 	
+					"lacuna" => $this -> lacunaResp_preenchelacuna			
+					//"ordem" => $this -> ordemResp_preenchelacuna,
 				)	
 			);
 			

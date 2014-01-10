@@ -13,7 +13,7 @@ $nomeTable = "resp_associeresposta";
 $acao = CAM_VIEW."resp_associeresposta/acao.php";
 ?>
 <fieldset>
-	<legend>Resp Associeresposta</legend>
+	<legend>Respostas</legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />
@@ -38,9 +38,7 @@ $acao = CAM_VIEW."resp_associeresposta/acao.php";
 				<input type="text" name="ordem" id="ordem" value="<?php echo $Resp_associeresposta -> get_ordemResp_associeresposta()?>" class="numeric" />
 				<span class="placeholder" ></span></p>-->
         
-        <?php $idPergunta = $Resp_associeresposta -> get_pergunta_idResp_associeresposta();
-        include_once "../pergunta/_respostas.php";?>
-        	   				
+               	   				
 				<p>
 				<label>Opção original:</label>
 				<input type="text" name="descPergunta" id="descPergunta" value="<?php echo $Resp_associeresposta -> get_descPerguntaResp_associeresposta()?>" class="required textoGrande" />
