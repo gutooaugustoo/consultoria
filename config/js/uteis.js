@@ -2,8 +2,8 @@
 var nivel = 0;
 
 //CAMINHO GLOBAL PARA A PASTA config
-var caminhoCfg = '/sistema/config/';
-var caminhoImg = '/sistema/images/';
+var caminhoCfg = '/consultoria/config/';
+var caminhoImg = '/consultoria/images/';
 
 //REFERENCIA DO CLICK, PARA ROLAR A PG AO FECHER O NIVEL
 var trNivel = [0];
@@ -584,7 +584,7 @@ function enviarSenha(doc, origem) {
 		$(doc).focus();
 		alert('Preencha o documento principal.');
 	} else {
-		postForm('', '/sistema/admin/recuperaSenha.php', 'doc=' + valor + '&origem=' + origem);
+		postForm('', '/consultoria/admin/recuperaSenha.php', 'doc=' + valor + '&origem=' + origem);
 	}
 }
 

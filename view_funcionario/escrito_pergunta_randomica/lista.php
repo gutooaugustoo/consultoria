@@ -10,7 +10,7 @@ $url = "?escrito_id=".$escrito_id;
 
 $caminho = CAM_VIEW."escrito_pergunta_randomica/";
 $atualizar = CAM_VIEW."escrito_pergunta_randomica/lista.php".$url;
-$ondeAtualizar = "tr";	
+$ondeAtualizar = "#div_escrito";	
 
 Html::set_idTabela($idTabela);
 

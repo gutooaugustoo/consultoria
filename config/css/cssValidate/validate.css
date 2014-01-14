@@ -70,13 +70,13 @@ body
     box-shadow: 0 0 3px red;  
     border-radius:4px; 
     -moz-border-radius:4px;
-    background: url('/sistema/images/error.png') no-repeat right;
+    background: url('/consultoria/images/error.png') no-repeat right;
     position: relative;
     padding-right: 20px !important;
 }
 
 .validate .valid{
-    background: url('/sistema/images/success.png') no-repeat right;
+    background: url('/consultoria/images/success.png') no-repeat right;
     padding-right: 20px !important;  
 }
 
