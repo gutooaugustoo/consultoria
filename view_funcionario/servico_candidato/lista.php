@@ -29,7 +29,7 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE S.excluido = 0";
+$where = " WHERE S.excluido = 0 AND S.servico_id = ".Uteis::escapeRequest($servico_id);
 
 //echo $where;
 ?>
@@ -39,7 +39,8 @@ $where = " WHERE S.excluido = 0";
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_servico')" /> 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_servico')" />
+				
   </div>
   
   <div class="lista">

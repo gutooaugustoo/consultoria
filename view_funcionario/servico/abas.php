@@ -26,9 +26,14 @@ $url = "?servico_id=" . $idServico;
 			Avaliadores
 		</div>
 
-		<div id="aba_servico" divExibir="div_servico" class="aba_interna"
+		<div id="aba_servico-precadastro" divExibir="div_servico" class="aba_interna"
+    onclick="carregarModulo('<?php echo CAM_VIEW."candidato_precadastro/lista.php".$url?>' , '#div_servico')" >
+      Pré-cadastro de candidatos
+    </div>
+    
+    <div id="aba_servico" divExibir="div_servico" class="aba_interna"
 		onclick="carregarModulo('<?php echo CAM_VIEW."servico_candidato/lista.php".$url?>' , '#div_servico')" >
-			Candidatos
+			Candidatos vinculados
 		</div>
 
 		<div id="aba_servico" divExibir="div_servico" class="aba_interna"

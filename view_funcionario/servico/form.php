@@ -24,6 +24,11 @@ $acao = CAM_VIEW."servico/acao.php";
 				<input type="hidden" id="idServico" name="idServico" value="<?php echo $Servico -> get_idServico() ?>" />
 				
 				<p>
+        <label>Link:</label>
+        <input type="text" class="textoGrande" value="<?php echo "www.".$_SERVER['HTTP_HOST'].".com.br".CAM_ROOT."?hash=".$Servico->get_hashServico() ?>" />
+        </p>
+        
+        <p>
 				<label>Descrição:</label>
 				<input type="text" name="descricao" id="descricao" value="<?php echo $Servico -> get_descricaoServico()?>" class="required" />
 				<span class="placeholder" >Campo obrigatório</span></p>

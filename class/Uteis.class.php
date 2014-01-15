@@ -525,4 +525,45 @@ class Uteis {
       exit ;
   }
 
+  static function uploadFile($files, $nome, $permitidos = array(), $pasta, $tamanhoMaximo = false) {
+
+    if (is_array($files[$nome])) {
+
+      $file = $files[$nome];
+      $ext = strtolower(strrchr($file['name'], "."));
+      //pega a extensão do arquivo
+
+      if (in_array($ext, $permitidos)) {// verifica se a extensão está entre as extensões permitidas
+
+        //converte o tamanho para KB
+        $tamanho = round($file['size'] / 1024);
+        
+        //se arquivo não tiver definição de tamanho maximo OU for menor q o tamanho maximo definido
+        if (!$tamanhoMaximo || $tamanho <= $tamanhoMaximo) {
+
+          //novo nome para o arquivo
+          $novo_nome = md5(uniqid(time())) . $ext;          
+          //caminho para salvar o arquivo
+          $caminho = CAM_UP_ROOT . $pasta . "/";
+          //mover do caminho temporario para o caminho definitivo
+          if (move_uploaded_file($file['tmp_name'], $caminho.$novo_nome)) {
+            return array(true, $novo_nome);
+          } else {
+            return array(false, "Não foi possível concluir");
+          }
+
+        } else {
+          return array(false, "O arquivo deve ter no maximo ".($tamanho*1024)." MB");
+        }
+
+      } else {
+        return array(false, "Tipo de arquivo não permitido.");
+      }
+
+    } else {
+      return array(false, "Não foi possível ler o arquivo.");
+    }
+
+  }
+
 }
