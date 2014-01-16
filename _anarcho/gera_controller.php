@@ -94,7 +94,7 @@ class " . $tableUp . " extends " . $tableUp . "_m {
 		if( \$array ){
 				
 			\$cont = 0;				
-			\$linha = array();
+			\$linhass = array();
 						
 			foreach(\$array as \$iten){
 					

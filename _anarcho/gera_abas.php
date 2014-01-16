@@ -91,4 +91,4 @@ require_once(\$_SERVER['DOCUMENT_ROOT'].\"/consultoria/config/verificar.php\");
 </div>
 ";
 
-gravarArquivo("view_funcionario/".$table, $table, "abas", $conteudoArquivo);
+gravarArquivo("view_candidato/".$table, $table, "abas", $conteudoArquivo);

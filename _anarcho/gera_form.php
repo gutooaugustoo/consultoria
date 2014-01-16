@@ -118,4 +118,4 @@ if( \$id" . $tableUp . " = \$_REQUEST[\"id" . $tableUp . "\"] ){
 </fieldset>
 <script>ativarForm();</script> ";
 
-gravarArquivo("view_funcionario/".$table, $table, "form", $conteudoArquivo);
+gravarArquivo("view_candidato/".$table, $table, "form", $conteudoArquivo);

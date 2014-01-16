@@ -60,7 +60,7 @@ if ($documentoUnico != '' && $senhaAcesso != '') {
               $quemSelec = "funcionario";
               $login_temp = "414.428.868-46";
               $senha_temp = "123456";
-            }echo $quemSelec;
+            }
             ?>
 						<label>Quem é você ?</label>
 						<select class="required" id="quem" name="quem">

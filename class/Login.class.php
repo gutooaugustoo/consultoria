@@ -37,7 +37,7 @@ class Login extends Database {
         SE.dataValidade >= CURDATE() OR S.dataValidade >= CURDATE()
       ) 
       AND S.candidato_id = ".$id." AND SE.hash = ".Uteis::escapeRequest($hash);
-      $rs = $Servico_candidato->selectServico_candidatoJoin($where, array("SE.servico_id"));
+      $rs = $Servico_candidato->selectServico_candidatoJoin($where, array("S.servico_id"));
       
 		  if( $rs ){		    
 		    $this->efetuarLogin($id, "candidato", array("servico_id"=> $rs[0]['servico_id']));
