@@ -41,7 +41,7 @@ class Candidato_m extends Pessoa {
 		$sql = "INSERT INTO candidato (id) VALUES (" . $this -> idCandidato . ")";		
 		if( $this -> query($sql) ){
 			return array(
-				$this -> idAvaliador,
+				$this -> idCandidato,
 				MSG_CADNEW
 			);
 		}else{

@@ -24,8 +24,7 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 	$rs = $Servico -> cadastrarServico($idServico, $_POST);
 
-	if( $rs[0] != false ){			
-		//$arrayRetorno['fecharNivel'] = true;
+	if( $rs[0] != false ){					
 		$arrayRetorno['atualizarNivelAtual'] = true;
 		if( !$idServico ) $idServico = $rs[0];
 		$arrayRetorno['pagina'] = CAM_VIEW."servico/abas.php?idServico=".$idServico;

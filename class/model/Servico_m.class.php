@@ -109,7 +109,7 @@ class Servico_m extends Database {
 	}
 	
 	function set_hashServico() {
-		$valor = sha1($this->idServico.date('YmdHis'));
+		$valor = sha1(date('YmwdHis').rand(1000, 9999));
 		$this -> hashServico = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}

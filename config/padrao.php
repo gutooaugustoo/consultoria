@@ -14,6 +14,7 @@ setlocale(LC_ALL, LOCALE);
 
 //PASTAS PADRAO
 define("CAM_ROOT", "/consultoria");
+define("CAM_ROOT_COMPLETO", "http://".$_SERVER['SERVER_NAME'].CAM_ROOT."/");
 
 	define("CAM_UP", CAM_ROOT."/upload/");
 	define("CAM_UP_ROOT", $_SERVER['DOCUMENT_ROOT'].CAM_ROOT."/upload/");

@@ -5,7 +5,7 @@ $idServico = $_REQUEST["idServico"];
 $Servico = new Servico($idServico);
 $nomeTable = "servico";
 $acao = CAM_VIEW."servico/acao.php";
-//Uteis::pr($Servico);
+
 ?>
 <fieldset>
 	<legend>Serviço</legend>
@@ -23,10 +23,12 @@ $acao = CAM_VIEW."servico/acao.php";
 				
 				<input type="hidden" id="idServico" name="idServico" value="<?php echo $Servico -> get_idServico() ?>" />
 				
-				<p>
+				<?php if($idServico){ ?><p>
         <label>Link:</label>
-        <input type="text" class="textoGrande" value="<?php echo "www.".$_SERVER['HTTP_HOST'].".com.br".CAM_ROOT."?hash=".$Servico->get_hashServico() ?>" />
+        <input type="text" id="hash" class="textoGrande" readonly="readonly" 
+        value="<?php echo CAM_ROOT_COMPLETO."login.php?hash=".$Servico->get_hashServico() ?>" />
         </p>
+        <?php } ?>
         
         <p>
 				<label>Descrição:</label>
@@ -111,4 +113,9 @@ $acao = CAM_VIEW."servico/acao.php";
 	
 	</div>
 </fieldset>
-<script>ativarForm();</script> 
+<script>ativarForm();
+  
+$("#formCad_<?php echo $nomeTable ?> #hash").click(function() {
+   $(this).select();
+});
+</script> 

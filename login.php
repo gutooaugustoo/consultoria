@@ -2,36 +2,30 @@
 $pgLogin = true;
 require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
 
-$documento = $_POST['documento'];
-$password = $_POST['password'];
+$documentoUnico = $_POST['documento'];
+$senhaAcesso = $_POST['password'];
 
-if ($documento != '' && $password != '') {
+if ($documentoUnico != '' && $senhaAcesso != '') {
 
 	switch ($_POST['quem']) {
-		case 'candidato' :
-			if (!$Login -> efetuarLogin_candidato($documento, $password))
-				Uteis::alertJava("Login ou senha inválidos.", true);
+		case 'candidato' :      
+			$res = $Login -> efetuarLogin_candidato($documentoUnico, $senhaAcesso, $_REQUEST['hash']);			
 			break;
 		case 'avaliador' :
-			if (!$Login -> efetuarLogin_avaliador($documento, $password))
-				Uteis::alertJava("Login ou senha inválidos.", true);
+			$res = $Login -> efetuarLogin_avaliador($documentoUnico, $senhaAcesso);
 			break;
 		case 'gestor' :
-			if (!$Login -> efetuarLogin_gestor($documento, $password))
-				Uteis::alertJava("Login ou senha inválidos.", true);
+			$res = $Login -> efetuarLogin_gestor($documentoUnico, $senhaAcesso);
 			break;
 		case 'funcionario' :			
-			if (!$Login -> efetuarLogin_adm($documento, $password))
-				Uteis::alertJava("Login ou senha inválidos.", true);
+			$res = $Login -> efetuarLogin_funcionario($documentoUnico, $senhaAcesso);
 			break;
 	}
-
-}
-
-if (!EMPRESA) {
-	$quemSelec = "selected";
-	$login_temp = "414.428.868-46";
-	$senha_temp = "123456";
+  
+  if( $res[0] == false){
+    Uteis::alertJava($res[1], true);
+  }
+  
 }
 ?>
 
@@ -59,15 +53,22 @@ if (!EMPRESA) {
 			<br />
 			<div id="alertas"></div>
 			<div id="div_login" >
-				<form id="login" class="validate" action="login.php" method="post" >
+				<form id="login" class="validate" action="" method="post" >
 					<p>
+					  <?php
+            if (!EMPRESA) {
+              $quemSelec = "funcionario";
+              $login_temp = "414.428.868-46";
+              $senha_temp = "123456";
+            }echo $quemSelec;
+            ?>
 						<label>Quem é você ?</label>
 						<select class="required" id="quem" name="quem">
-							<option value="">Selecione</option>
-							<option value="candidato" >Candidato</option>
-							<option value="avaliador" >Avaliador</option>
-							<option value="gestor" >Gestor de empresa</option>
-							<option value="funcionario" <?php echo $quemSelec ?> >Funcionário</option>
+							<option value="">Selecione</option>							
+							<option value="avaliador" <?php echo $quemSelec == "avaliador" ? "selected" : "" ?>>Avaliador</option>
+							<option value="gestor" <?php echo $quemSelec == "gestor" ? "selected" : "" ?>>Gestor de empresa</option>
+							<option value="funcionario" <?php echo $quemSelec == "funcionario" ? "selected" : "" ?>>Funcionário</option>
+							<option value="candidato" <?php echo ($quemSelec == "candidato" || isset($_REQUEST['hash'])) ? "selected" : "" ?> >Candidato</option>
 
 						</select>
 						<span class="placeholder">Campo Obrigatório</span>

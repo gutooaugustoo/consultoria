@@ -23,7 +23,7 @@ if( $_REQUEST['acao'] == "deletar" ){
 	$idCandidato = $_REQUEST['idCandidato'];
 	
 	$rs = $Candidato -> cadastrarCandidato($idCandidato, $_POST);
-
+  
 	if( $rs[0] != false ){			
 		$arrayRetorno['atualizarNivelAtual'] = true;
 		$arrayRetorno['pagina'] = CAM_VIEW."candidato/abas.php?idCandidato=".$rs[0];

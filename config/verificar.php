@@ -13,3 +13,5 @@ if ( $Login -> verificarLogin() && isset($pgLogin) ) {
 } elseif (!($Login -> verificarLogin()) && !isset($pgLogin)) {
 	header('Location:'.CAM_ROOT.'/login.php');
 }
+
+//Uteis::pr($_SESSION);
