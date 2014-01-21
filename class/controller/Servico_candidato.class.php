@@ -34,34 +34,57 @@ class Servico_candidato extends Servico_candidato_m {
 
   function tabela_areaCandidato_html($idCandidato, $idServico, $caminho, $atualizar, $ondeAtualizar) {
     
-    $Avaliador = new Avaliador();
-    
+    $Servico = new Servico($idServico);
+    $linhas = array();
+       
     //TESTE ORAL
-    $where = " WHERE CO.excluido = 0 AND O.video = 1 AND S.id = " . Uteis::escapeRequest($idServico) . " AND SC.candidato_id = " . Uteis::escapeRequest($idCandidato);
-    $Candidato_oral = new Candidato_oral();
-    $rs = $Candidato_oral -> selectCandidato_oralJoin($where, array("CO.id", "CO.finalizado", "SA.avaliador_id"));
-    
-    $teste = "Teste Oral";
-    if ( $rs ) {
-
-      $Avaliador->__construct( $rs[0]['avaliador_id'] );
+    if ( $Servico -> get_temOralServico() ) {
       
-      $linhas[] = array(
-        $teste,
-        $Avaliador->get_nomePessoa(),
-        Uteis::exibirStatus($rs[0]['finalizado'])
-      );
-
-    } else {
-
-      $Servico = new Servico($idServico);
-      if ($Servico -> get_temOralServico()) {
-        $linhas[] = array("Teste oral", "agendar com um avaliador", "");
+      $colunas = array();
+      $colunas[] = "Teste oral";
+      
+      $Candidato_oral = new Candidato_oral();
+      $where = " WHERE CO.excluido = 0 AND O.video = 1 AND S.id = " . Uteis::escapeRequest($idServico) . " AND SC.candidato_id = " . Uteis::escapeRequest($idCandidato);    
+      $rs = $Candidato_oral -> selectCandidato_oralJoin($where, array("CO.id", "CO.finalizado", "SA.avaliador_id"));
+      
+      if ( $rs ) {
+        $Avaliador = new Avaliador( $rs[0]['avaliador_id'] );        
+        $colunas[] = $Avaliador->get_nomePessoa();
+        $colunas[] = Uteis::exibirStatus($rs[0]['finalizado']);        
+      } else {       
+        $colunas[] = "Agendar";
+        $colunas[] = "";      
       }
-
+      $linhas[] = $colunas;  
     }
-
+    
+    //REDAÇÃO
+    if ( $Servico ->get_temRedacaoServico() ) {
+        
+      $colunas = array();
+      $colunas[] = "Redação";
+      
+      $colunas[] = ""; 
+      $colunas[] = ""; 
+      
+      $linhas[] = $colunas;
+    }
+    
+    
+    //ESCRITO
+    if ($Servico -> get_temEscritoServico() ) {
+            
+      $colunas = array();
+      $colunas[] = "Teste escrito";
+      
+      $colunas[] = ""; 
+      $colunas[] = ""; 
+      
+      $linhas[] = $colunas;
+    }   
+    
     return Html::montarColunas($linhas);
+    
   }
 
   function tabelaServico_candidato_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false) {

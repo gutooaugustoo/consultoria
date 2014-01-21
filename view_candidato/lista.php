@@ -19,8 +19,8 @@ Html::set_idTabela($idTabela);
   <legend>Serviços</legend>
   
   <div class="menu_interno"> 
-  	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', 'click', '#btFiltro_servico')" /> 
+ <!-- 	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
+		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', 'click', '#btFiltro_servico')" /> --> 
   </div>
   
   <div class="lista">

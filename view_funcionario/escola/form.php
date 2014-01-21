@@ -21,11 +21,7 @@ $acao = CAM_VIEW."escola/acao.php";
 		  <div class="esquerda">		  					
 				
 				<input type="hidden" id="idEscola" name="idEscola" value="<?php echo $Escola -> get_idEscola() ?>" />
-		   									
-			</div>
-			
-			<div class="direita">
-				
+						
 				<p>
 				<label>Nome:</label>
 				<input type="text" name="nome" id="nome" value="<?php echo $Escola -> get_nomeEscola()?>" class="required" />

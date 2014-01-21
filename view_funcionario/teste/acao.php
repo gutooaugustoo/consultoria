@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
 
-$Candidato_oral = new Candidato_oral();
+$Teste = new Teste();
 
 $arrayRetorno = array();
 
 if( $_REQUEST['acao'] == "deletar" ){
 		
-	$idCandidato_oral = $_REQUEST['id'];
+	$idTeste = $_REQUEST['id'];
 	
-	$rs = $Candidato_oral -> deletarCandidato_oral($idCandidato_oral);
+	$rs = $Teste -> deletarTeste($idTeste);
 	
 	if( $rs[0] != false ){
 							
@@ -20,9 +20,9 @@ if( $_REQUEST['acao'] == "deletar" ){
 	
 }elseif( $_REQUEST['acao'] == "cadastrar" ){
 		
-	$idCandidato_oral = $_REQUEST['idCandidato_oral'];
+	$idTeste = $_REQUEST['idTeste'];
 	
-	$rs = $Candidato_oral -> cadastrarCandidato_oral($idCandidato_oral, $_POST);
+	$rs = $Teste -> cadastrarTeste($idTeste, $_POST);
 
 	if( $rs[0] != false ){			
 		$arrayRetorno['fecharNivel'] = true;

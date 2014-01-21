@@ -30,7 +30,7 @@ if( $_REQUEST["tr"] == "1" ){
 }
 
 //FILTROS
-$where = " WHERE B.excluido = 0 AND E.pessoa_id = ".$pessoa_id;
+$where = " WHERE B.excluido = 0 AND B.candidato_id = ".$pessoa_id;
 
 //echo $where;
 ?>

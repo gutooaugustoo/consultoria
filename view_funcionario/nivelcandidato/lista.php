@@ -34,7 +34,7 @@ $where = " WHERE N.excluido = 0";
 ?>
 
 <fieldset>
-  <legend>Nível candiaato</legend>
+  <legend>Nível candiadato</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
