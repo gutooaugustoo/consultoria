@@ -5,27 +5,35 @@ class Oral_m extends Database {
 	protected $idOral;
 	protected $servico_idOral;
 	protected $etapa_idOral;
+	protected $local_oral_idOral;
 	protected $videoOral = 0;
 	protected $mostrarAnotacaoOral = 0;
 	protected $temAreaAtencaoOral = 0;
+	protected $temPlanoAcaoOral = 0;
 	
 	//CONSTRUTOR
 	function __construct( $idOral = "" ) {
 		
 		parent::__construct();
 		
-		if( is_numeric($idOral) ){
-		
-			$array = $this -> selectOral(" WHERE O.id = ".$this -> gravarBD($idOral) );			
-			
+		if( is_numeric($idOral) ){		
+			$array = $this -> selectOral(" WHERE O.id = ".$this -> gravarBD($idOral) );						
+    }elseif( $idOral != "" ){
+      $array = $this -> selectOral($idOral." LIMIT 1");
+    }
+    
+    if( $array ){
 			$this -> idOral = $array[0]['id'];
 			$this -> servico_idOral = $array[0]['servico_id'];
 			$this -> etapa_idOral = $array[0]['etapa_id'];
+			$this -> local_oral_idOral = $array[0]['local_oral_id'];
 			$this -> videoOral = $array[0]['video'];
 			$this -> mostrarAnotacaoOral = $array[0]['mostrarAnotacao'];
 			$this -> temAreaAtencaoOral = $array[0]['temAreaAtencao'];
+			$this -> temPlanoAcaoOral = $array[0]['temPlanoAcao'];
 			
 		}
+		
 	}
 
 	function __destruct(){
@@ -49,6 +57,11 @@ class Oral_m extends Database {
 		return $this;
 	}
 	
+	function set_local_oral_idOral($valor) {
+		$this -> local_oral_idOral = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
 	function set_videoOral($valor) {
 		$this -> videoOral = ($valor) ? $this -> gravarBD($valor) : "0";
 		return $this;
@@ -61,6 +74,11 @@ class Oral_m extends Database {
 	
 	function set_temAreaAtencaoOral($valor) {
 		$this -> temAreaAtencaoOral = ($valor) ? $this -> gravarBD($valor) : "0";
+		return $this;
+	}
+	
+	function set_temPlanoAcaoOral($valor) {
+		$this -> temPlanoAcaoOral = ($valor) ? $this -> gravarBD($valor) : "0";
 		return $this;
 	}
 		
@@ -78,6 +96,10 @@ class Oral_m extends Database {
 		return ($this -> etapa_idOral);
 	}
 	
+	function get_local_oral_idOral() {
+		return ($this -> local_oral_idOral);
+	}
+	
 	function get_videoOral($mostrarImagem = false) {
 		return !$mostrarImagem ? $this -> videoOral : Uteis::exibirStatus($this -> videoOral);
 	}
@@ -89,39 +111,27 @@ class Oral_m extends Database {
 	function get_temAreaAtencaoOral($mostrarImagem = false) {
 		return !$mostrarImagem ? $this -> temAreaAtencaoOral : Uteis::exibirStatus($this -> temAreaAtencaoOral);
 	}
+	
+	function get_temPlanoAcaoOral($mostrarImagem = false) {
+		return !$mostrarImagem ? $this -> temPlanoAcaoOral : Uteis::exibirStatus($this -> temPlanoAcaoOral);
+	}
 				
 	//MANUSEANDO O BANCO
 		
 	function insertOral() {
 		$sql = "INSERT INTO oral 
-		(servico_id, etapa_id, video, mostrarAnotacao, temAreaAtencao) 
+		(servico_id, etapa_id, local_oral_id, video, mostrarAnotacao, temAreaAtencao, temPlanoAcao) 
 		VALUES (	
 			" . $this -> servico_idOral . ", 	
 			" . $this -> etapa_idOral . ", 	
+			" . $this -> local_oral_idOral . ", 	
 			" . $this -> videoOral . ", 	
 			" . $this -> mostrarAnotacaoOral . ", 	
-			" . $this -> temAreaAtencaoOral . "
+			" . $this -> temAreaAtencaoOral . ", 	
+			" . $this -> temPlanoAcaoOral . "
 		)";
-        
 		if( $this -> query($sql) ){
-		  $id = mysql_insert_id($this -> connect);
-      
-      $Itemanotacaoentrevista = new Item_anotacaoentrevista();
-      $rs_item = $Itemanotacaoentrevista->selectItem_anotacaoentrevista("", array("id"));
-      
-      if( $rs_item ){
-          
-        $Oral_itemanotacaoentrevista = new Oral_itemanotacaoentrevista();
-        $Oral_itemanotacaoentrevista->set_oral_idOral_itemanotacaoentrevista($id);
-        
-        foreach ($rs_item as $item) {
-          $Oral_itemanotacaoentrevista->set_item_anotacaoEntrevista_idOral_itemanotacaoentrevista($item['id']);
-          $Oral_itemanotacaoentrevista->insertOral_itemanotacaoentrevista();          
-        }  
-      }
-            
-			return array($id, MSG_CADNEW);
-      
+			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		
@@ -138,9 +148,11 @@ class Oral_m extends Database {
 				array(		
 					"servico_id" => $this -> servico_idOral, 		
 					"etapa_id" => $this -> etapa_idOral, 		
+					"local_oral_id" => $this -> local_oral_idOral, 		
 					"video" => $this -> videoOral, 		
 					"mostrarAnotacao" => $this -> mostrarAnotacaoOral, 		
-					"temAreaAtencao" => $this -> temAreaAtencaoOral				
+					"temAreaAtencao" => $this -> temAreaAtencaoOral, 		
+					"temPlanoAcao" => $this -> temPlanoAcaoOral				
 				)	
 			);
 			

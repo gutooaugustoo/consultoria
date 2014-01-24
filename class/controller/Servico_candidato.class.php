@@ -32,17 +32,92 @@ class Servico_candidato extends Servico_candidato_m {
    return Html::selectMultiple($nomeId, $idAtual, $array);
    }*/
 
-  function tabela_areaCandidato_html($idCandidato, $idServico, $caminho, $atualizar, $ondeAtualizar) {
+  function tabela_areaCandidato_html($servico_candidato_id, $caminho, $atualizar, $ondeAtualizar) {
     
-    $Servico = new Servico($idServico);
+    $this->__construct($servico_candidato_id);    
+    $Servico = new Servico( $this->get_servico_idServico_candidato() );
+    
+    $etapas = array();        
+    if ( $Servico -> get_temOralServico() ) $etapas[] = "oral";
+    if ( $Servico -> get_temRedacaoServico() ) $etapas[] = "redacao";
+    if ( $Servico -> get_temEscritoServico() ) $etapas[] = "escrito"; 
+        
+    $Etapa = new Etapa();
+    $where = " WHERE servico_id = ".$Servico->get_idServico()." AND excluido = 0";
     $linhas = array();
+     
+    foreach ($etapas as $key_etapas => $value_etapas) {
+      
+      switch ($value_etapas) {
+          
+        case 'oral':
+          $descricao = "Avaliação oral";
+          
+          $Oral = new Oral($where);
+          $etapa = $Oral->get_etapa_idOral();
+          
+          $where_oral = " WHERE servico_candidato_id = ".$this -> get_idServico_candidato(). " AND oral_id = ".$Oral->get_idOral();
+          $Candidato_oral = new Candidato_oral($where_oral);
+          $status = $Candidato_oral->get_finalizadoCandidato_oral();
+          
+          $editar = "";    
+          
+          break;
+        
+        case 'redacao':
+          $descricao = "Redação";
+          
+          $Redacao = new Redacao($where);
+          $etapa = $Redacao->get_etapa_idRedacao();   
+          
+          $where_redacao = " WHERE servico_candidato_id = ".$this -> get_idServico_candidato(). " AND redacao_id = ".$Redacao->get_idRedacao();
+          $Candidato_redacao = new Candidato_redacao($where_redacao);                 
+          $status = $Candidato_redacao->get_finalizadoCandidato_redacao();
+          
+          $editar = "";
+          
+          break;
+        
+        case 'escrito':
+          $descricao = "Teste escrito";
+          
+          $Escrito = new Escrito($where);                   
+          $etapa = $Escrito->get_etapa_idEscrito();
+          
+          $where_escrito = " WHERE servico_candidato_id = ".$this -> get_idServico_candidato(). " AND escrito_id = ".$Escrito->get_idEscrito();
+          if( $Escrito->get_randomicoEscrito() ){
+            $Candidato_escrito_randomica = new Candidato_escrito_randomica($where_escrito);
+            $status = $Candidato_escrito_randomica->get_finalizadoCandidato_escrito_randomica();      
+          }else{
+            $Candidato_escrito = new Candidato_escrito($where_escrito);
+            $status = $Candidato_escrito->get_finalizadoCandidato_escrito();            
+          }
+          
+          $editar = "<img src=\"" . CAM_IMG . "prova.png\" title=\"Realizar teste\" 
+          onclick=\"abrirNivelPagina(this, '" . $caminho . "abas.php?idServico_candidato=" . $this -> get_idServico_candidato() . "', '$atualizarFinal', '$ondeAtualizar')\" >";
+          
+          break;
+                    
+        default:
+          break 2;              
+      }
+      //Uteis::pr($rs);    
+      $Etapa->__construct($etapa);
+      $status = Uteis::exibirStatus($status);
        
+      $colunas = array();      
+      $colunas[] = $Etapa->get_etapaEtapa();
+      $colunas[] = $descricao;       
+      $colunas[] = array($status);
+      $colunas[] = array($editar);
+               
+      $linhas[] = $colunas;
+      
+    }   
+    
     //TESTE ORAL
-    if ( $Servico -> get_temOralServico() ) {
-      
-      $colunas = array();
-      $colunas[] = "Teste oral";
-      
+   /* if ( $Servico -> get_temOralServico() ) {
+          
       $Candidato_oral = new Candidato_oral();
       $where = " WHERE CO.excluido = 0 AND O.video = 1 AND S.id = " . Uteis::escapeRequest($idServico) . " AND SC.candidato_id = " . Uteis::escapeRequest($idCandidato);    
       $rs = $Candidato_oral -> selectCandidato_oralJoin($where, array("CO.id", "CO.finalizado", "SA.avaliador_id"));
@@ -55,34 +130,9 @@ class Servico_candidato extends Servico_candidato_m {
         $colunas[] = "Agendar";
         $colunas[] = "";      
       }
-      $linhas[] = $colunas;  
+      
     }
-    
-    //REDAÇÃO
-    if ( $Servico ->get_temRedacaoServico() ) {
-        
-      $colunas = array();
-      $colunas[] = "Redação";
-      
-      $colunas[] = ""; 
-      $colunas[] = ""; 
-      
-      $linhas[] = $colunas;
-    }
-    
-    
-    //ESCRITO
-    if ($Servico -> get_temEscritoServico() ) {
-            
-      $colunas = array();
-      $colunas[] = "Teste escrito";
-      
-      $colunas[] = ""; 
-      $colunas[] = ""; 
-      
-      $linhas[] = $colunas;
-    }   
-    
+    */
     return Html::montarColunas($linhas);
     
   }

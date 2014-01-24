@@ -48,6 +48,8 @@ class Candidato_oral extends Candidato_oral_m {
 				//CARREGAR VALORES
 				$this -> __construct($iten['id']); 				
 				
+				$Oral = new Oral( $this -> get_oral_idCandidato_oral() );
+				$colunas[] = $Oral -> get_idOral();
 				$Servico_candidato = new Servico_candidato( $this -> get_servico_candidato_idCandidato_oral() );
 				$colunas[] = $Servico_candidato -> get_idServico_candidato();
 				$Servico_avaliador = new Servico_avaliador( $this -> get_servico_avaliador_idCandidato_oral() );
@@ -89,11 +91,13 @@ class Candidato_oral extends Candidato_oral_m {
 	function cadastrarCandidato_oral($idCandidato_oral, $post = array()){
 		
 		//CARREGAR DO POST
+		$oral_id = ($post['oral_id']);
+		if( $oral_id == '' ) return array(false, MSG_OBRIGAT." Oral");
+		
 		$servico_candidato_id = ($post['servico_candidato_id']);
 		if( $servico_candidato_id == '' ) return array(false, MSG_OBRIGAT." Servico Candato");
 		
 		$servico_avaliador_id = ($post['servico_avaliador_id']);
-		if( $servico_avaliador_id == '' ) return array(false, MSG_OBRIGAT." Servico Avaliador");
 		
 		$video = ($post['video']);
 		
@@ -101,6 +105,7 @@ class Candidato_oral extends Candidato_oral_m {
 				
 		//SETAR
 		$this
+			 -> set_oral_idCandidato_oral($oral_id)
 			 -> set_servico_candidato_idCandidato_oral($servico_candidato_id)
 			 -> set_servico_avaliador_idCandidato_oral($servico_avaliador_id)
 			 -> set_videoCandidato_oral($video)

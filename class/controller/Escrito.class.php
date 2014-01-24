@@ -97,14 +97,16 @@ class Escrito extends Escrito_m {
 		$porcentagemCorte = ($post['porcentagemCorte']);
     
     $randomico = ($post['randomico']);
-				
+    $temPlanoAcao = ($post['temPlanoAcao']);
+			
 		//SETAR
 		$this
 			 -> set_etapa_idEscrito($etapa_id)
 			 -> set_tipoEscrito_idEscrito($tipoEscrito_id)
 			 -> set_servico_idEscrito($servico_id)
 			 -> set_porcentagemCorte($porcentagemCorte)
-       -> set_randomicoEscrito($randomico);
+       -> set_randomicoEscrito($randomico)
+       -> set_temPlanoAcaoEscrito($temPlanoAcao);
 		
 		if( $idEscrito ){			
 			$this -> set_idEscrito($idEscrito);			

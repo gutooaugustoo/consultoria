@@ -8,24 +8,30 @@ class Redacao_m extends Database {
 	protected $tempoParaFinalizacaoRedacao;
 	protected $minimoLinhasRedacao;
 	protected $maximoLinhasRedacao;
+	protected $temPlanoAcaoRedacao = 0;
 	
 	//CONSTRUTOR
 	function __construct( $idRedacao = "" ) {
 		
 		parent::__construct();
 		
-		if( is_numeric($idRedacao) ){
-		
-			$array = $this -> selectRedacao(" WHERE R.id = ".$this -> gravarBD($idRedacao) );			
-			
+		if( is_numeric($idRedacao) ){		
+			$array = $this -> selectRedacao(" WHERE R.id = ".$this -> gravarBD($idRedacao) );						
+    }elseif( $idRedacao != "" ){
+      $array = $this -> selectRedacao($idRedacao." LIMIT 1");
+    }
+    
+    if( $array ){
 			$this -> idRedacao = $array[0]['id'];
 			$this -> servico_idRedacao = $array[0]['servico_id'];
 			$this -> etapa_idRedacao = $array[0]['etapa_id'];
 			$this -> tempoParaFinalizacaoRedacao = $array[0]['tempoParaFinalizacao'];
 			$this -> minimoLinhasRedacao = $array[0]['minimoLinhas'];
 			$this -> maximoLinhasRedacao = $array[0]['maximoLinhas'];
+			$this -> temPlanoAcaoRedacao = $array[0]['temPlanoAcao'];
 			
 		}
+		
 	}
 
 	function __destruct(){
@@ -50,7 +56,7 @@ class Redacao_m extends Database {
 	}
 	
 	function set_tempoParaFinalizacaoRedacao($valor) {
-		$this -> tempoParaFinalizacaoRedacao = ($valor) ? $this -> gravarBD( Uteis::gravarHoras($valor) ) : "NULL";
+		$this -> tempoParaFinalizacaoRedacao = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 	
@@ -61,6 +67,11 @@ class Redacao_m extends Database {
 	
 	function set_maximoLinhasRedacao($valor) {
 		$this -> maximoLinhasRedacao = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
+	function set_temPlanoAcaoRedacao($valor) {
+		$this -> temPlanoAcaoRedacao = ($valor) ? $this -> gravarBD($valor) : "0";
 		return $this;
 	}
 		
@@ -79,7 +90,7 @@ class Redacao_m extends Database {
 	}
 	
 	function get_tempoParaFinalizacaoRedacao() {
-		return Uteis::exibirHorasInput(($this -> tempoParaFinalizacaoRedacao));
+		return ($this -> tempoParaFinalizacaoRedacao);
 	}
 	
 	function get_minimoLinhasRedacao() {
@@ -89,18 +100,23 @@ class Redacao_m extends Database {
 	function get_maximoLinhasRedacao() {
 		return ($this -> maximoLinhasRedacao);
 	}
+	
+	function get_temPlanoAcaoRedacao($mostrarImagem = false) {
+		return !$mostrarImagem ? $this -> temPlanoAcaoRedacao : Uteis::exibirStatus($this -> temPlanoAcaoRedacao);
+	}
 				
 	//MANUSEANDO O BANCO
 		
 	function insertRedacao() {
 		$sql = "INSERT INTO redacao 
-		(servico_id, etapa_id, tempoParaFinalizacao, minimoLinhas, maximoLinhas) 
+		(servico_id, etapa_id, tempoParaFinalizacao, minimoLinhas, maximoLinhas, temPlanoAcao) 
 		VALUES (	
 			" . $this -> servico_idRedacao . ", 	
 			" . $this -> etapa_idRedacao . ", 	
 			" . $this -> tempoParaFinalizacaoRedacao . ", 	
 			" . $this -> minimoLinhasRedacao . ", 	
-			" . $this -> maximoLinhasRedacao . "
+			" . $this -> maximoLinhasRedacao . ", 	
+			" . $this -> temPlanoAcaoRedacao . "
 		)";
 		if( $this -> query($sql) ){
 			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
@@ -122,7 +138,8 @@ class Redacao_m extends Database {
 					"etapa_id" => $this -> etapa_idRedacao, 		
 					"tempoParaFinalizacao" => $this -> tempoParaFinalizacaoRedacao, 		
 					"minimoLinhas" => $this -> minimoLinhasRedacao, 		
-					"maximoLinhas" => $this -> maximoLinhasRedacao				
+					"maximoLinhas" => $this -> maximoLinhasRedacao, 		
+					"temPlanoAcao" => $this -> temPlanoAcaoRedacao				
 				)	
 			);
 			

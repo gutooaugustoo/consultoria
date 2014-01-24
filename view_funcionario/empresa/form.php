@@ -34,7 +34,7 @@ $acao = CAM_VIEW."empresa/acao.php";
 		
 				<p>
 				<label>CNPJ:</label>
-				<input type="text" name="cnpj" id="cnpj" value="<?php echo $Empresa -> get_cnpjEmpresa()?>" class="required" />
+				<input type="text" name="cnpj" id="cnpj" value="<?php echo $Empresa -> get_cnpjEmpresa()?>" class="required cnpj" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		   									
 			</div>

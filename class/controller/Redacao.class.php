@@ -100,14 +100,16 @@ class Redacao extends Redacao_m {
 		$maximoLinhas = ($post['maximoLinhas']);
 		//if( $maximoLinhas == '' ) return array(false, MSG_OBRIGAT." Maximo Linhas");
     if( $maximoLinhas && $maximoLinhas <= $minimoLinhas ) return array(false, "Maximo de linhas deve ser maior que o minimo");
-				
+		
+    $temPlanoAcao = ($post['temPlanoAcao']);		
 		//SETAR
 		$this
 			 -> set_servico_idRedacao($servico_id)
 			 -> set_etapa_idRedacao($etapa_id)
 			 -> set_tempoParaFinalizacaoRedacao($tempoParaFinalizacao)
 			 -> set_minimoLinhasRedacao($minimoLinhas)
-			 -> set_maximoLinhasRedacao($maximoLinhas);
+			 -> set_maximoLinhasRedacao($maximoLinhas)
+       -> set_temPlanoAcaoRedacao($temPlanoAcao);
 		
 		if( $idRedacao ){			
 			$this -> set_idRedacao($idRedacao);			

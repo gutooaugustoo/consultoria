@@ -12,8 +12,8 @@ foreach ($campos as $campo) {
 //CONSTRUTOR
 $contruct = "";
 foreach ($campos as $campo) {
-	$contruct .= "
-			\$this -> " . $campo['nomeComTabela'] . " = \$array[0]['" . $campo['nome'] . "'];";
+	$contruct .= "			\$this -> " . $campo['nomeComTabela'] . " = \$array[0]['" . $campo['nome'] . "'];
+";
 }
 
 //SETS
@@ -143,12 +143,16 @@ class " . $tableUp . "_m extends Database {
 		
 		parent::__construct();
 		
-		if( is_numeric(\$id" . $tableUp . ") ){
-		
-			\$array = \$this -> select" . $tableUp . "(\" WHERE " . $tableAs . ".id = \".\$this -> gravarBD(\$id" . $tableUp . ") );			
-			" . $contruct . "
-			
+		if( is_numeric(\$id" . $tableUp . ") ){		
+			\$array = \$this -> select" . $tableUp . "(\" WHERE " . $tableAs . ".id = \".\$this -> gravarBD(\$id" . $tableUp . ") );						
+    }elseif( \$id" . $tableUp . " != \"\" ){
+      \$array = \$this -> select" . $tableUp . "(\$id" . $tableUp . ".\" LIMIT 1\");
+    }
+    
+    if( \$array ){
+" . $contruct . "			
 		}
+		
 	}
 
 	function __destruct(){

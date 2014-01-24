@@ -120,8 +120,11 @@ class Servico_candidato_m extends Database {
 	}
   
   function selectServico_candidatoJoin($where = "", $campos = array("S.*") ) {  
-    $sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM servico_candidato AS S 
-    INNER JOIN servico AS SE ON SE.id = S.servico_id ".$where;
+    $sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM servico_candidato AS SC 
+    INNER JOIN servico AS S ON S.id = SC.servico_id 
+    INNER JOIN candidato AS C ON C.id = SC.candidato_id 
+    INNER JOIN pessoa AS P ON P.id = C.id ".$where;
+    //echo $sql;
     return $this -> executarQuery($sql);
   }
 		

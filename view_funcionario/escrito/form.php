@@ -57,8 +57,14 @@ $acao = CAM_VIEW."escrito/acao.php";
 				<p><label for="randomico" >
 				<input type="checkbox" name="randomico" id="randomico" value="1" class=""
 				<?php echo Uteis::verificaChecked($Escrito -> get_randomicoEscrito())?> />
-				Randomico</label>
+				Teste <b>randomico</b></label>
 				<span class="placeholder" >Campo obrigatório</span></p>
+				
+				<p><label for="temPlanoAcao" >
+        <input type="checkbox" name="temPlanoAcao" id="temPlanoAcao" value="1" class=""
+        <?php echo Uteis::verificaChecked($Escrito -> get_temPlanoAcaoEscrito())?> />
+        Haverá <b>plano de açao</b></label>
+        <span class="placeholder" >Campo obrigatório</span></p>
 		    
 			</div>
 			

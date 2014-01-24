@@ -28,6 +28,14 @@ if( $_REQUEST['acao'] == "deletar" ){
 		$arrayRetorno['fecharNivel'] = true;
 	}
 	
+}elseif( $_REQUEST['acao'] == "getComplemento" ){
+                
+   $Pergunta = new Pergunta($_POST['id']);      
+   $arrayRetorno['valor2'][] = $Pergunta->get_enunciadoPergunta();
+   $arrayRetorno['elementoAtualizar'][] = $_POST['onde'];     
+   echo json_encode($arrayRetorno);   
+   exit; 
+   
 }
 
 $arrayRetorno['mensagem'] = $rs[1];

@@ -15,11 +15,11 @@ Html::set_idTabela($idTabela);
 ?>
 
 <fieldset>
-  <legend>Conteúdo</legend>
+  <legend>Conteúdoaa</legend>
   
   <div class="lista">
     <?php //IMPRIMIR TABELA   
-    Html::set_colunas(array("Etapa", ""));
+    Html::set_colunas(array("Etapaaa", ""));
     echo $Etapa -> tabelaEtapa_html($Servico, $atualizar, $ondeAtualizar);
     ?>
   </div>

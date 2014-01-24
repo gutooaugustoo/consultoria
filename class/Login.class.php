@@ -21,30 +21,20 @@ class Login extends Database {
   }
 
   function efetuarLogin_candidato($documentoUnico, $senhaAcesso, $hash) {
-
-    $Candidato = new Candidato();
-    $where = "WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = " . Uteis::escapeRequest($documentoUnico) . " AND P.senha = " . Uteis::escapeRequest($senhaAcesso);
-    $rs = $Candidato -> selectCandidato($where, array("C.id"));
-
-    if (!$rs) {
-      return array(false, "Login ou senha inválidos");
-    } elseif (!$hash) {
-      return array(false, "O link que você esta usando é inválido");
-    } else {
-      $id = $rs[0]['id'];
+   
+    if (!$hash) {
+      return array(false, "O link utilizado é inválido");
+    } else {      
       $Servico_candidato = new Servico_candidato();
-      $where = " 
-      WHERE S.excluido = 0 AND SE.excluido = 0 
-      AND (
-        SE.dataValidade >= CURDATE() OR S.dataValidade >= CURDATE()
-      ) 
-      AND S.candidato_id = " . $id . " AND SE.hash = " . Uteis::escapeRequest($hash);
-      $rs = $Servico_candidato -> selectServico_candidatoJoin($where, array("S.servico_id"));
+      $where = " WHERE P.excluido = 0 AND P.inativo = 0 AND P.documento = " . Uteis::escapeRequest($documentoUnico) . " AND P.senha = " . Uteis::escapeRequest($senhaAcesso)." 
+      AND S.hash = " . Uteis::escapeRequest($hash)." AND S.excluido = 0 AND SC.excluido = 0  AND ( S.dataValidade >= CURDATE() OR SC.dataValidade >= CURDATE() )"; 
+      $rs = $Servico_candidato -> selectServico_candidatoJoin($where, array("SC.id AS servico_candidato_id", "C.id AS idCandidato"));
 
       if ($rs) {
-        $this -> efetuarLogin($id, "candidato", array("servico_id" => $rs[0]['servico_id']));
+        $this -> efetuarLogin($rs[0]['idCandidato'], "candidato", array("servico_candidato_id" => $rs[0]['servico_candidato_id']));
       } else {
-        return array(false, "Usuário sem permisão para acessar o link");
+        //return array(false, "Usuário sem permisão para acessar o link");
+        return array(false, "Login ou senha inválidos");
       }
 
     }

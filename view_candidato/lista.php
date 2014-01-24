@@ -25,8 +25,8 @@ Html::set_idTabela($idTabela);
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Teste", "Avaliador", "Status"));
-		echo $Servico_candidato -> tabela_areaCandidato_html($_SESSION['idCandidato'], $_SESSION['servico_id'], $caminho, $atualizar, $ondeAtualizar);
+		Html::set_colunas(array("Etapa", "Teste", "Status", ""));
+		echo $Servico_candidato -> tabela_areaCandidato_html($_SESSION['servico_candidato_id'], $caminho, $atualizar, $ondeAtualizar);
 		?>
 	</div>
 	

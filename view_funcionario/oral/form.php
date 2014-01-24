@@ -29,19 +29,22 @@ $acao = CAM_VIEW."oral/acao.php";
         
 		  <div class="esquerda">		  					
 			
-				<p>
-				<label>Etapa:</label>				
-				<?php $Etapa = new Etapa($Oral->get_etapa_idOral());
+			  <p>
+        <label>Etapa:</label>       
+        <?php $Etapa = new Etapa($Oral->get_etapa_idOral());
         echo $Etapa->get_etapaEtapa();?>
-        <input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $Oral->get_etapa_idOral()?>" />
-        
-				<?php /*$Etapa = new Etapa();
-				Html::set_cssClass(array("required"));
-				echo $Etapa -> selectEtapa_html('etapa_id', $Oral -> get_etapa_idOral()); */?>
-				<!--<span class="placeholder" >Campo obrigatório</span>-->
-				
+        <input type="hidden" id="etapa_id" name="etapa_id" value="<?php echo $Oral->get_etapa_idOral()?>" />        
 				</p>
-				
+			   
+			  <p>
+        <label>Local onde será realizado:</label>       
+        <?php       
+        $Local_oral = new Local_oral();
+        Html::set_cssClass(array("required"));
+        echo $Local_oral->selectLocal_oral_html("local_oral_id", $Oral->get_local_oral_idOral());
+        ?>        
+        </p>
+        	
 				<p><label for="video" >
 				<input type="checkbox" name="video" id="video" value="1" class=""
 				<?php echo Uteis::verificaChecked($Oral -> get_videoOral())?> />
@@ -59,7 +62,13 @@ $acao = CAM_VIEW."oral/acao.php";
 				<?php echo Uteis::verificaChecked($Oral -> get_temAreaAtencaoOral())?> />
 				O avaliador deverá preencher <b>área de atenção</b></label>
 				<span class="placeholder" >Campo obrigatório</span></p>
-		
+		    
+		    <p><label for="temPlanoAcao" >
+        <input type="checkbox" name="temPlanoAcao" id="temPlanoAcao" value="1" class=""
+        <?php echo Uteis::verificaChecked($Oral -> get_temPlanoAcaoOral())?> />
+        Haverá <b>plano de açao</b></label>
+        <span class="placeholder" >Campo obrigatório</span></p>
+        
 			</div>
 			
 			<div class="linha-inteira">

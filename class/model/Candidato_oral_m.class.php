@@ -3,6 +3,7 @@ class Candidato_oral_m extends Database {
 	
 	// ATRIBUTOS
 	protected $idCandidato_oral;
+	protected $oral_idCandidato_oral;
 	protected $servico_candidato_idCandidato_oral;
 	protected $servico_avaliador_idCandidato_oral;
 	protected $videoCandidato_oral;
@@ -13,17 +14,22 @@ class Candidato_oral_m extends Database {
 		
 		parent::__construct();
 		
-		if( is_numeric($idCandidato_oral) ){
-		
-			$array = $this -> selectCandidato_oral(" WHERE C.id = ".$this -> gravarBD($idCandidato_oral) );			
-			
+		if( is_numeric($idCandidato_oral) ){		
+			$array = $this -> selectCandidato_oral(" WHERE C.id = ".$this -> gravarBD($idCandidato_oral) );						
+    }elseif( $idCandidato_oral != "" ){
+      $array = $this -> selectCandidato_oral($idCandidato_oral." LIMIT 1");
+    }
+    
+    if( $array ){
 			$this -> idCandidato_oral = $array[0]['id'];
+			$this -> oral_idCandidato_oral = $array[0]['oral_id'];
 			$this -> servico_candidato_idCandidato_oral = $array[0]['servico_candidato_id'];
 			$this -> servico_avaliador_idCandidato_oral = $array[0]['servico_avaliador_id'];
 			$this -> videoCandidato_oral = $array[0]['video'];
 			$this -> finalizadoCandidato_oral = $array[0]['finalizado'];
 			
 		}
+		
 	}
 
 	function __destruct(){
@@ -34,6 +40,11 @@ class Candidato_oral_m extends Database {
 	
 	function set_idCandidato_oral($valor) {
 		$this -> idCandidato_oral = ($valor) ? $this -> gravarBD($valor) : "NULL";
+		return $this;
+	}
+	
+	function set_oral_idCandidato_oral($valor) {
+		$this -> oral_idCandidato_oral = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 	
@@ -63,6 +74,10 @@ class Candidato_oral_m extends Database {
 		return ($this -> idCandidato_oral);
 	}
 	
+	function get_oral_idCandidato_oral() {
+		return ($this -> oral_idCandidato_oral);
+	}
+	
 	function get_servico_candidato_idCandidato_oral() {
 		return ($this -> servico_candidato_idCandidato_oral);
 	}
@@ -83,8 +98,9 @@ class Candidato_oral_m extends Database {
 		
 	function insertCandidato_oral() {
 		$sql = "INSERT INTO candidato_oral 
-		(servico_candidato_id, servico_avaliador_id, video, finalizado) 
+		(oral_id, servico_candidato_id, servico_avaliador_id, video, finalizado) 
 		VALUES (	
+			" . $this -> oral_idCandidato_oral . ", 	
 			" . $this -> servico_candidato_idCandidato_oral . ", 	
 			" . $this -> servico_avaliador_idCandidato_oral . ", 	
 			" . $this -> videoCandidato_oral . ", 	
@@ -106,6 +122,7 @@ class Candidato_oral_m extends Database {
 				
 			return $this -> updateCampoCandidato_oral(
 				array(		
+					"oral_id" => $this -> oral_idCandidato_oral, 		
 					"servico_candidato_id" => $this -> servico_candidato_idCandidato_oral, 		
 					"servico_avaliador_id" => $this -> servico_avaliador_idCandidato_oral, 		
 					"video" => $this -> videoCandidato_oral, 		
@@ -131,16 +148,5 @@ class Candidato_oral_m extends Database {
 		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM candidato_oral AS C ".$where;
 		return $this -> executarQuery($sql);
 	}
-  
-  function selectCandidato_oralJoin($where = "", $campos = array("CO.*") ) { 
-    $sql = "SELECT SQL_CACHE ".implode(",", $campos)." 
-    FROM candidato_oral AS CO    
-    INNER JOIN servico_candidato AS SC ON SC.excluido = 0 AND SC.id = CO.servico_candidato_id
-    INNER JOIN servico_avaliador AS SA ON SA.excluido = 0 AND SA.id = CO.servico_avaliador_id
-    INNER JOIN servico AS S ON S.excluido = 0 AND S.id = SC.servico_id 
-    INNER JOIN oral AS O ON O.excluido = 0 AND O.servico_id = S.id 
-    ".$where;
-    //echo $sql;
-    return $this -> executarQuery($sql);
-  }		
+		
 }

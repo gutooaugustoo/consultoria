@@ -44,18 +44,18 @@ class Etapa extends Etapa_m {
       $etapasCadastradas_id["escrito"] = $rs[0]['id'];
     }
 
-    if ($Servico -> get_temOralServico()) {
-      $Oral = new Oral();
-      $rs = $Oral -> selectOral(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
-      $etapasCadastradas["oral"] = $rs[0]['etapa_id'];
-      $etapasCadastradas_id["oral"] = $rs[0]['id'];      
-    }
-
     if ($Servico -> get_temRedacaoServico()) {
       $Redacao = new Redacao();
       $rs = $Redacao -> selectRedacao(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
       $etapasCadastradas["redacao"] = $rs[0]['etapa_id'];
       $etapasCadastradas_id["redacao"] = $rs[0]['id'];
+    }
+    
+    if ($Servico -> get_temOralServico()) {
+      $Oral = new Oral();
+      $rs = $Oral -> selectOral(" WHERE excluido = 0 AND servico_id = " . $Servico -> get_idServico());
+      $etapasCadastradas["oral"] = $rs[0]['etapa_id'];
+      $etapasCadastradas_id["oral"] = $rs[0]['id'];      
     }
 
     $where = " ORDER BY id ASC";

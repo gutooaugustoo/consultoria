@@ -8,24 +8,29 @@ class Escrito_m extends Database {
 	protected $servico_idEscrito;
   protected $porcentagemCorte;
 	protected $randomicoEscrito = 0;
-	
+	protected $temPlanoAcaoEscrito = 0;
+    
 	//CONSTRUTOR
 	function __construct( $idEscrito = "" ) {
 		
 		parent::__construct();
 		
-		if( is_numeric($idEscrito) ){
-		
-			$array = $this -> selectEscrito(" WHERE E.id = ".$this -> gravarBD($idEscrito) );			
-			
-			$this -> idEscrito = $array[0]['id'];
-			$this -> etapa_idEscrito = $array[0]['etapa_id'];
-			$this -> tipoEscrito_idEscrito = $array[0]['tipoEscrito_id'];
-			$this -> servico_idEscrito = $array[0]['servico_id'];
-			$this -> porcentagemCorte = $array[0]['porcentagemCorte'];
-      $this -> randomicoEscrito = $array[0]['randomico'];
-			
+		if( is_numeric($idEscrito) ){		
+			$array = $this -> selectEscrito(" WHERE E.id = ".$this -> gravarBD($idEscrito) );						
+		}elseif( $idEscrito != "" ){
+		  $array = $this -> selectEscrito($idEscrito." LIMIT 1");
 		}
+    
+    if( $array ){
+      $this -> idEscrito = $array[0]['id'];
+      $this -> etapa_idEscrito = $array[0]['etapa_id'];
+      $this -> tipoEscrito_idEscrito = $array[0]['tipoEscrito_id'];
+      $this -> servico_idEscrito = $array[0]['servico_id'];
+      $this -> porcentagemCorte = $array[0]['porcentagemCorte'];
+      $this -> randomicoEscrito = $array[0]['randomico'];
+      $this -> temPlanoAcaoEscrito = $array[0]['temPlanoAcao'];
+    }
+    
 	}
 
 	function __destruct(){
@@ -63,6 +68,11 @@ class Escrito_m extends Database {
     $this -> randomicoEscrito = ($valor) ? $this -> gravarBD($valor) : "0";
     return $this;
   }
+  
+  function set_temPlanoAcaoEscrito($valor) {
+    $this -> temPlanoAcaoEscrito = ($valor) ? $this -> gravarBD($valor) : "0";
+    return $this;
+  }
 		
 	//GETS
 	
@@ -89,18 +99,23 @@ class Escrito_m extends Database {
 	function get_randomicoEscrito($mostrarImagem = false) {
 		return !$mostrarImagem ? $this -> randomicoEscrito : Uteis::exibirStatus($this -> randomicoEscrito);
 	}
+  
+  function get_temPlanoAcaoEscrito($mostrarImagem = false) {
+    return !$mostrarImagem ? $this -> temPlanoAcaoEscrito : Uteis::exibirStatus($this -> temPlanoAcaoEscrito);
+  }
 				
 	//MANUSEANDO O BANCO
 		
 	function insertEscrito() {
 		$sql = "INSERT INTO escrito 
-		(etapa_id, tipoEscrito_id, servico_id, porcentagemCorte, randomico) 
+		(etapa_id, tipoEscrito_id, servico_id, porcentagemCorte, randomico, temPlanoAcao) 
 		VALUES (	
 			" . $this -> etapa_idEscrito . ", 	
 			" . $this -> tipoEscrito_idEscrito . ", 	
 			" . $this -> servico_idEscrito . ", 	
 			" . $this -> porcentagemCorte . ",
-			" . $this -> randomicoEscrito . "
+			" . $this -> randomicoEscrito . ",
+			" . $this -> temPlanoAcaoEscrito . "
 		)";
 		if( $this -> query($sql) ){
 			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
@@ -122,7 +137,8 @@ class Escrito_m extends Database {
 					"tipoEscrito_id" => $this -> tipoEscrito_idEscrito, 		
 					"servico_id" => $this -> servico_idEscrito, 		
 					"porcentagemCorte" => $this -> porcentagemCorte,		
-					"randomico" => $this -> randomicoEscrito
+					"randomico" => $this -> randomicoEscrito,
+					"temPlanoAcao" => $this -> temPlanoAcaoEscrito,
 				)	
 			);
 			

@@ -86,7 +86,7 @@ class Oral extends Oral_m {
 		
 		//CARREGAR DO POST
 		$servico_id = ($post['servico_id']);
-		if( $servico_id == '' ) return array(false, MSG_OBRIGAT." Servico");
+		if( $servico_id == '' ) return array(false, MSG_OBRIGAT." Serviço");
 		
 		$etapa_id = ($post['etapa_id']);
 		if( $etapa_id == '' ) return array(false, MSG_OBRIGAT." Etapa");
@@ -96,14 +96,21 @@ class Oral extends Oral_m {
 		$mostrarAnotacao = ($post['mostrarAnotacao']);
 		
 		$temAreaAtencao = ($post['temAreaAtencao']);
-				
+    
+    $temPlanoAcao = ($post['temPlanoAcao']);
+    
+    $local_oral_id = ($post['local_oral_id']);
+    if( $local_oral_id == '' ) return array(false, MSG_OBRIGAT." Local");
+    				
 		//SETAR
 		$this
 			 -> set_servico_idOral($servico_id)
 			 -> set_etapa_idOral($etapa_id)
 			 -> set_videoOral($video)
 			 -> set_mostrarAnotacaoOral($mostrarAnotacao)
-			 -> set_temAreaAtencaoOral($temAreaAtencao);
+			 -> set_temAreaAtencaoOral($temAreaAtencao)
+       -> set_temPlanoAcaoOral($temPlanoAcao)
+       ->set_local_oral_idOral($local_oral_id);
 		
 		if( $idOral ){			
 			$this -> set_idOral($idOral);			
