@@ -219,16 +219,7 @@ class Uteis {
     $val = explode(" ", $value);
     return self::exibirData($val[0]) . " às " . self::exibirHoras(self::gravarHoras($val[1]));
   }
-
-  //IMPRIME CÓDIGO JS PARA ALERT OU ALERTA PERSONALIZADO
-  static function alertJava($msg, $js = false) {
-    if ($js == true) {
-      echo "<script type=\"text/javascript\">alert('" . $msg . "')</script>";
-    } else {
-      echo "<script type=\"text/javascript\">alerta('" . $msg . "')</script>";
-    }
-  }
-
+  
   //EXECUTAR UMA QUERY NO BANCO
   static function executarQuery($sql) {
     $Database = new Database();
@@ -516,7 +507,8 @@ class Uteis {
     }
 
   }
-
+  
+  //FORMATA E IMPRIME ARRAY (USANDO PRINT_R)
   static function pr($arr, $exit = 0) {
     echo "<pre>";
     print_r($arr);
@@ -524,7 +516,8 @@ class Uteis {
     if ($exit)
       exit ;
   }
-
+  
+  //UPLOAD DE ARQUIVO
   static function uploadFile($files, $nome, $permitidos = array(), $pasta, $tamanhoMaximo = false) {
 
     if (is_array($files[$nome])) {
@@ -566,4 +559,28 @@ class Uteis {
 
   }
 
+  //IMPRIME CÓDIGO JS
+  static function executarJava($codigo) {
+    echo "<script type=\"text/javascript\">".$codigo."</script>";  
+  }
+  
+  //ALERT OU ALERTA PERSONALIZADO
+  static function alertJava($msg, $js = false) {
+    if ($js == true) {
+      self::executarJava("alert('" . $msg . "')");
+    } else {
+      self::executarJava("alerta('" . $msg . "')");
+    }
+  }
+  
+  //ALERT OU ALERTA PERSONALIZADO
+  static function fecharNivel() {    
+    self::executarJava("fecharNivel();");    
+  }
+  
+  //ALERT OU ALERTA PERSONALIZADO
+  static function timer($onde, $segundos) {    
+    self::executarJava("timer('$onde', '$segundos');");    
+  }
+  
 }

@@ -12,10 +12,13 @@ class Escrito_pergunta_m extends Database {
 		
 		parent::__construct();
 		
-		if( is_numeric($idEscrito_pergunta) ){
-		
+		if( is_numeric($idEscrito_pergunta) ){		
 			$array = $this -> selectEscrito_pergunta(" WHERE E.id = ".$this -> gravarBD($idEscrito_pergunta) );			
-			
+		}elseif( $idEscrito_pergunta != "" ){
+      $array = $this -> selectEscrito_pergunta($idEscrito_pergunta." LIMIT 1");
+    }
+    
+    if( $array ){	
 			$this -> idEscrito_pergunta = $array[0]['id'];
 			$this -> escrito_idEscrito_pergunta = $array[0]['escrito_id'];
 			$this -> pergunta_idEscrito_pergunta = $array[0]['pergunta_id'];
@@ -116,6 +119,7 @@ class Escrito_pergunta_m extends Database {
 
 	function selectEscrito_pergunta($where = "", $campos = array("E.*") ) {	
 		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM escrito_pergunta AS E ".$where;
+    //echo "$sql";
 		return $this -> executarQuery($sql);
 	}
 		

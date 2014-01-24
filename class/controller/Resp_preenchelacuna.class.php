@@ -126,5 +126,9 @@ class Resp_preenchelacuna extends Resp_preenchelacuna_m {
       return($rs ? $rs[0]['ordem'] : "0") + 1;
     }
   }
-
+  
+  function montarRespostas_html($idPergunta){
+    
+  }
+  
 }

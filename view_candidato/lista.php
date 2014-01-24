@@ -7,8 +7,8 @@ $idTabela = "tb_servico";
 
 $url = "?";
 $caminho = CAM_VIEW."servico/";
-$atualizar = CAM_VIEW."servico/lista.php".$url;
-$ondeAtualizar = "tr";	
+$atualizar = CAM_VIEW."lista.php".$url;
+$ondeAtualizar = "#centro";	
 
 Html::set_idTabela($idTabela);
 
@@ -16,7 +16,7 @@ Html::set_idTabela($idTabela);
 ?>
 
 <fieldset>
-  <legend>Serviços</legend>
+  <legend>Avaliações disponíveis</legend>
   
   <div class="menu_interno"> 
  <!-- 	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
@@ -31,7 +31,8 @@ Html::set_idTabela($idTabela);
 	</div>
 	
 	<script>
-	tabelaDataTable('<?php echo $idTabela?>', '');
+	tabelaDataTable('<?php echo $idTabela?>', 'simples');
+	$('#bt_escrito').click()
 	</script>
 	   	      
 </fieldset>

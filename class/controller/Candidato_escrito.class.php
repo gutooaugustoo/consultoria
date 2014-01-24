@@ -32,7 +32,7 @@ class Candidato_escrito extends Candidato_escrito_m {
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	function tabelaCandidato_escrito_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
+	/*function tabelaCandidato_escrito_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
 			
 		$array = $this -> selectCandidato_escrito($where, array("C.id"));
 		
@@ -84,7 +84,7 @@ class Candidato_escrito extends Candidato_escrito_m {
 	
 		return ( $apenasLinha !== false ) ? $colunas : Html::montarColunas($linhas);
 		
-	}
+	}*/
 	
 	//AÇÕES
 	function cadastrarCandidato_escrito($idCandidato_escrito, $post = array()){

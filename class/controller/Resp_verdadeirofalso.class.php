@@ -32,7 +32,7 @@ class Resp_verdadeirofalso extends Resp_verdadeirofalso_m {
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	function tabelaResp_verdadeirofalso_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
+	/*function tabelaResp_verdadeirofalso_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
 			
 		$array = $this -> selectResp_verdadeirofalso($where, array("R.id"));
 		
@@ -80,7 +80,7 @@ class Resp_verdadeirofalso extends Resp_verdadeirofalso_m {
 		return ( $apenasLinha !== false ) ? $colunas : Html::montarColunas($linhas);
 		
 	}
-	
+	*/
 	//AÇÕES
 	function cadastrarResp_verdadeirofalso($idResp_verdadeirofalso, $post = array()){
 		
@@ -115,6 +115,20 @@ class Resp_verdadeirofalso extends Resp_verdadeirofalso_m {
 		$this -> set_idResp_verdadeirofalso($idResp_verdadeirofalso);	
 		return (	$this -> deleteResp_verdadeirofalso() );
 	}
-	
+  
+  function montarRespostas_html($idPergunta){
+    $html = "";
+    $this->set_pergunta_idResp_verdadeirofalso( $idPergunta );
+    $rs = $this->selectResp_verdadeirofalso(" WHERE excluido = 0 AND pergunta_id = ".$this->get_pergunta_idResp_verdadeirofalso()." ORDER BY RAND();");    
+    foreach($rs as $valor){      
+      $html .= "<p>      
+      <input type=\"radio\" name=\"resp_".$valor['id']."\" id=\"respV_".$valor['id']."\" value=\"V\" /><b>V</b>      
+      <input type=\"radio\" name=\"resp_".$valor['id']."\" id=\"respF_".$valor['id']."\" value=\"F\" /><b>F</b>
+      &nbsp;&nbsp;".ICON_SEPARATOR."&nbsp;&nbsp;".$valor['resposta']."
+      </p>";
+    }
+    return $html;
+  }
+  	
 }
 

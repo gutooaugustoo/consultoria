@@ -132,5 +132,18 @@ class Resp_alternativacorreta extends Resp_alternativacorreta_m {
 		}	
 	}	
 	
+  function montarRespostas_html($idPergunta){
+    $html = "";
+    $this->set_pergunta_idResp_alternativacorreta( $idPergunta );
+    $rs = $this->selectResp_alternativacorreta(" WHERE excluido = 0 AND pergunta_id = ".$this->get_pergunta_idResp_alternativacorreta()." ORDER BY RAND();");    
+    foreach($rs as $valor){      
+      $html .= "<p><label for=\"resp_".$valor['id']."\" >
+      <input type=\"radio\" name=\"resp\" id=\"resp_".$valor['id']."\" value=\"".$valor['id']."\" />
+      ".$valor['resposta']."</label></p>";
+    }
+    return $html;
+  }
+  
+  
 }
 

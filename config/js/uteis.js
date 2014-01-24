@@ -26,7 +26,7 @@ function imprimirDiv(div, titulo) {
 	var opt = {
 		mode : 'iframe',
 		popTitle : titulo,
-		extraCss : caminhoCfg+'css/estilo.css'
+		extraCss : caminhoCfg + 'css/estilo.css'
 	};
 	$(div).printArea(opt);
 }
@@ -89,8 +89,9 @@ function fecharNivel_load() {
 
 function fecharNivel() {
 
-	if( nivel == 0 ) return;
-	
+	if (nivel == 0)
+		return;
+
 	var liNivel = $('div.camada[nivel=' + nivel + ']');
 	var liNivelFundo = $('div.camada_fundo[nivel=' + nivel + ']');
 
@@ -101,18 +102,18 @@ function fecharNivel() {
 	//QUANTIDADE POR PAGINA
 	dtb_Buscar = liNivel.data('buscar');
 	//TEXTO BUSCADO
-	
+
 	//ROLAR A PAGINA ATÉ O ELEMENTO QUE ABRIU O NIVEL
 	if (nivel > 0) {
 		$('body,html').animate({
 			scrollTop : $(trNivel[nivel]).offset().top - 15
 		});
 	}
-	
+
 	trNivel.splice(nivel, 1);
-			
+
 	contaNivel(-1);
-	
+
 	var nivelAtu = liNivel.data('atualizaPg');
 	var localAtu = liNivel.data('localAtu');
 
@@ -120,7 +121,7 @@ function fecharNivel() {
 		//ATUALIZA DE ACORDO COM OS PARAMETRO PASSADOS
 		retornoPadrao(localAtu, nivelAtu);
 	}
-		
+
 	liNivel.fadeOut('fast', function() {
 		$(this).remove();
 	});
@@ -135,12 +136,12 @@ function carregarModulo(arquivo, destino, depoisDeCarregar) {
 
 	showLoad();
 
-	if (destino == undefined || destino == ''){
+	if (destino == undefined || destino == '') {
 		var $o = $('div.camada[nivel=' + nivel + ']');
-	}else{
+	} else {
 		var $o = $('div.camada[nivel=' + nivel + ']').find(destino);
 	}
-	
+
 	$o.load(arquivo, function() {
 
 		//JOGAR NIVEL NA FRENTE DAS ABAS
@@ -172,33 +173,37 @@ function viraEditor(id) {
 }
 
 function viraEditor_lacuna(id) {
-	
+
 	tinymce.init({
 		selector : '#' + id + '_base',
-		language : "pt_BR",		
+		language : "pt_BR",
 		toolbar1 : "botaoLacuna",
 		menubar : false,
 		toolbar_items_size : 'small',
-		setup: function(editor) {
-	    editor.addButton('botaoLacuna', {
-	        text: 'Definir lacuna',
-	        icon: false,
-	        onclick: function() {
-	        	if( $.trim(editor.selection.getContent({format : 'text'})) != ''){
-	          	//editor.insertContent('#_'+$.trim(editor.selection.getContent({format : 'text'}))+'_#');
-	          	$('#lacuna_respLacuna:first').val( $.trim(editor.selection.getContent({format : 'text'})) );
-	          	editor.insertContent('#_'+$('#ordem_respLacuna:first').val()+'_#');
-						}
-	        }
-	    });
+		setup : function(editor) {
+			editor.addButton('botaoLacuna', {
+				text : 'Definir lacuna',
+				icon : false,
+				onclick : function() {
+					if ($.trim(editor.selection.getContent({
+						format : 'text'
+					})) != '') {
+						//editor.insertContent('#_'+$.trim(editor.selection.getContent({format : 'text'}))+'_#');
+						$('#lacuna_respLacuna:first').val($.trim(editor.selection.getContent({
+							format : 'text'
+						})));
+						editor.insertContent('#_' + $('#ordem_respLacuna:first').val() + '_#');
+					}
+				}
+			});
 		}
 	});
-	$('#' + id).hide();	
+	$('#' + id).hide();
 }
 
 function postForm_editor(editor, idForm, pagina, param, onde) {
 	//alert( tinymce.get(editor + '_base').getContent() );
-	$('#' + editor).val( tinymce.get(editor + '_base').getContent() );	
+	$('#' + editor).val(tinymce.get(editor + '_base').getContent());
 	postForm(idForm, pagina, param, onde);
 }
 
@@ -384,21 +389,17 @@ function deletaRegistro(arquivoDeleta, idDeletar, arquivoListar, destinoListar) 
 	} else {
 		if (confirm('Deseja realmente excluir esse registo? \n\n Observação: Todos seus vínculos também serão removidos(esse processo é irreversível).')) {
 			showLoad();
-			$.post(
-				arquivoDeleta, 
-				{
-					acao : "deletar",
-					id : idDeletar
-				},
-				function(e) {
-					//if (destinoListar == '')  destinoListar = 'div.camada[nivel=' + parseInt(nivel) + ']';
-					//SE NÃO DEFINIR O LOCAL, ATUALIZARÁ O NIVEL INTEIRO
-					retornoPadrao(destinoListar, arquivoListar);
-					acaoJson(e);
-					fecharNivel_load();
-					return false;
-				}
-			);
+			$.post(arquivoDeleta, {
+				acao : "deletar",
+				id : idDeletar
+			}, function(e) {
+				//if (destinoListar == '')  destinoListar = 'div.camada[nivel=' + parseInt(nivel) + ']';
+				//SE NÃO DEFINIR O LOCAL, ATUALIZARÁ O NIVEL INTEIRO
+				retornoPadrao(destinoListar, arquivoListar);
+				acaoJson(e);
+				fecharNivel_load();
+				return false;
+			});
 		}
 	}
 }
@@ -417,7 +418,7 @@ function acaoJson(val) {
 		//ATUALIZAR APENAS A LINHA
 		if (jsonR.tabela != '' && jsonR.tabela != undefined && jsonR.ordem != '' && jsonR.ordem != undefined) {
 
-			var oUpdate = $('#'+jsonR.tabela).dataTable();
+			var oUpdate = $('#' + jsonR.tabela).dataTable();
 
 			if (jsonR.updateTr == '' || jsonR.updateTr == undefined || jsonR.updateTr == null) {
 
@@ -436,7 +437,7 @@ function acaoJson(val) {
 		if (jsonR.addLinha != undefined && jsonR.addLinha == true) {
 			if (jsonR.tabela != '' && jsonR.tabela != undefined && jsonR.updateTr != '' && jsonR.updateTr != undefined) {
 
-				var oTb = $('#'+jsonR.tabela).dataTable();
+				var oTb = $('#' + jsonR.tabela).dataTable();
 				var a = oTb.fnAddData(jsonR.updateTr);
 				var oRow = oTb.fnSettings().aoData[a[0]].nTr;
 
@@ -711,11 +712,11 @@ function escondeDivAlerta() {
 		});
 }
 
-function mostrarTitle($origem) {
+function mostrarTitle(origem) {
 
-	var top = $($origem).offset().top + $($origem).height();
-	var left = $($origem).offset().left + $($origem).width();
-	var txt = $($origem).attr('mostrarTitle');
+	var top = $(origem).offset().top + $(origem).height();
+	var left = $(origem).offset().left + $(origem).width();
+	var txt = $(origem).attr('mostrarTitle');
 
 	var $divExcluir = $('<div></div>').html('<strong>[x]</strong>').css({
 		'float' : 'left',
@@ -731,6 +732,46 @@ function mostrarTitle($origem) {
 		'top' : top + 'px',
 		'left' : left + 'px'
 	}).append($divExcluir).append($divConteudo).appendTo('body');
+}
+
+function timer(onde, segundos) {
+	var o = $(onde);
+	var h = '0' + parseInt(segundos / 60);
+	var m = '0' + parseInt(segundos % 60);
+
+	o.html( right(h, 2) + ':' + right(m, 2) );
+
+	if (segundos <= 0) {
+		alerta('Tempo esgotado.');
+	} else {
+
+		if (segundos <= 10) o.css({'color' : 'red'});
+		if (segundos == 15) alerta('Você tem apenas '+segundos+' segundos para responder');
+
+		setTimeout(function() {
+			timer(onde, segundos - 1);
+		}, 1000);
+	}
+}
+
+function left(str, n) {
+	if (n <= 0)
+		return "";
+	else if (n > String(str).length)
+		return str;
+	else
+		return String(str).substring(0, n);
+}
+
+function right(str, n) {
+	if (n <= 0)
+		return "";
+	else if (n > String(str).length)
+		return str;
+	else {
+		var iLen = String(str).length;
+		return String(str).substring(iLen, iLen - n);
+	}
 }
 
 zeraParametros();

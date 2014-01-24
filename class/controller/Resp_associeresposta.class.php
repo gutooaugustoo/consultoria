@@ -116,6 +116,10 @@ class Resp_associeresposta extends Resp_associeresposta_m {
 		$this -> set_idResp_associeresposta($idResp_associeresposta);	
 		return (	$this -> deleteResp_associeresposta() );
 	}
-	
+  
+  function montarRespostas_html($idPergunta){
+    
+  }
+  
 }
 

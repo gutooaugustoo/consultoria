@@ -42,9 +42,9 @@ class Servico_candidato extends Servico_candidato_m {
     if ( $Servico -> get_temRedacaoServico() ) $etapas[] = "redacao";
     if ( $Servico -> get_temEscritoServico() ) $etapas[] = "escrito"; 
         
+    $linhas = array();
     $Etapa = new Etapa();
     $where = " WHERE servico_id = ".$Servico->get_idServico()." AND excluido = 0";
-    $linhas = array();
      
     foreach ($etapas as $key_etapas => $value_etapas) {
       
@@ -60,7 +60,7 @@ class Servico_candidato extends Servico_candidato_m {
           $Candidato_oral = new Candidato_oral($where_oral);
           $status = $Candidato_oral->get_finalizadoCandidato_oral();
           
-          $editar = "";    
+          $onclick = "";    
           
           break;
         
@@ -74,12 +74,12 @@ class Servico_candidato extends Servico_candidato_m {
           $Candidato_redacao = new Candidato_redacao($where_redacao);                 
           $status = $Candidato_redacao->get_finalizadoCandidato_redacao();
           
-          $editar = "";
+          $onclick = "";
           
           break;
         
         case 'escrito':
-          $descricao = "Teste escrito";
+          $descricao = "Avaliação escrita";
           
           $Escrito = new Escrito($where);                   
           $etapa = $Escrito->get_etapa_idEscrito();
@@ -87,29 +87,30 @@ class Servico_candidato extends Servico_candidato_m {
           $where_escrito = " WHERE servico_candidato_id = ".$this -> get_idServico_candidato(). " AND escrito_id = ".$Escrito->get_idEscrito();
           if( $Escrito->get_randomicoEscrito() ){
             $Candidato_escrito_randomica = new Candidato_escrito_randomica($where_escrito);
-            $status = $Candidato_escrito_randomica->get_finalizadoCandidato_escrito_randomica();      
+            $status = $Candidato_escrito_randomica->get_finalizadoCandidato_escrito_randomica();
+            
+            $onclick = "";                
           }else{
             $Candidato_escrito = new Candidato_escrito($where_escrito);
-            $status = $Candidato_escrito->get_finalizadoCandidato_escrito();            
+            $status = $Candidato_escrito->get_finalizadoCandidato_escrito();                        
+            $onclick = CAM_VIEW . "candidato_escrito/abas.php?escrito_id=".$Escrito->get_idEscrito();
           }
-          
-          $editar = "<img src=\"" . CAM_IMG . "prova.png\" title=\"Realizar teste\" 
-          onclick=\"abrirNivelPagina(this, '" . $caminho . "abas.php?idServico_candidato=" . $this -> get_idServico_candidato() . "', '$atualizarFinal', '$ondeAtualizar')\" >";
           
           break;
                     
         default:
           break 2;              
       }
-      //Uteis::pr($rs);    
+            
       $Etapa->__construct($etapa);
-      $status = Uteis::exibirStatus($status);
-       
+      $botao = "<img src=\"" . CAM_IMG . "prova.png\" title=\"Iniciar $descricao\" onclick=\"abrirNivelPagina(this, '$onclick', '$atualizar', '$ondeAtualizar')\" 
+      id=\"bt_$value_etapas\" >";
+            
       $colunas = array();      
       $colunas[] = $Etapa->get_etapaEtapa();
       $colunas[] = $descricao;       
-      $colunas[] = array($status);
-      $colunas[] = array($editar);
+      $colunas[] = array(Uteis::exibirStatus($status));
+      $colunas[] = array($botao);
                
       $linhas[] = $colunas;
       

@@ -92,7 +92,7 @@ class Modulo extends Database {
 			$sql = $sqlBase . " WHERE M.tipoUsuario_id = 1 ";
 		}
 
-		$sql .= $where . " ORDER BY M.ordem ASC, M.nome ASC ";
+		$sql .= $where . " AND M.inativo = 0 ORDER BY M.ordem ASC, M.nome ASC ";
 		//echo "<br>".$sql;
 		return $this -> executarQuery($sql);
 	}

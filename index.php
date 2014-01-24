@@ -22,3 +22,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
     </div>
   </body>
 </html>
+
+<script>  
+<?php switch ($_SESSION['logado']) {
+	  
+	case 'candidato': ?>
+		carregarModulo('/consultoria/view_candidato/lista.php', '#centro');
+	<?php break;	
+    
+  case 'funcionario': ?>    
+  <?php break;  
+    
+  case 'gestor': ?>    
+  <?php break;
+    
+  case 'avaliador': ?>    
+  <?php break;
+    
+}?>
+</script>
