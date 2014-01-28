@@ -88,10 +88,10 @@ class Redacao_temaredacao extends Redacao_temaredacao_m {
 		
 		//CARREGAR DO POST
 		$redacao_id = ($post['redacao_id']);
-		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redacao");
+		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redação");
 		
 		$temaRedacao_id = ($post['temaRedacao_id']);
-		if( $temaRedacao_id == '' ) return array(false, MSG_OBRIGAT." Tema Redacao");
+		if( $temaRedacao_id == '' ) return array(false, MSG_OBRIGAT." Tema Redação");
 		
     $where = " WHERE excluido = 0 AND temaRedacao_id = ".Uteis::escapeRequest($temaRedacao_id)." AND redacao_id = ".Uteis::escapeRequest($redacao_id);
     if( $idRedacao_temaredacao ) $where .= " AND id NOT IN (".Uteis::escapeRequest($idRedacao_temaredacao).") ";

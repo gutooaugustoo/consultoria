@@ -27,13 +27,13 @@ $url = "&servico_id=".$servico_id."&etapa_id=".$etapa_id."&escrito_id=".$idEscri
 		  ?>
 
       <div id="aba_redacao" divExibir="div_redacao" class="aba_interna"
-      onclick="carregarModulo('<?php echo CAM_VIEW.$caminhoEscrito."/lista.php?".$url?>' , '#div_escrito')" >        
-      Perguntas</div>
-            
-      <div id="aba_redacao" divExibir="div_redacao" class="aba_interna"
       onclick="carregarModulo('<?php echo CAM_VIEW."peso_nivel/lista.php?".$url?>' , '#div_escrito')" >        
       Peso do teste</div>
       
+      <div id="aba_redacao" divExibir="div_redacao" class="aba_interna"
+      onclick="carregarModulo('<?php echo CAM_VIEW.$caminhoEscrito."/lista.php?".$url?>' , '#div_escrito')" >        
+      Perguntas</div>
+            
     <?php }?>
     
 	</div>

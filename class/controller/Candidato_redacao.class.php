@@ -95,10 +95,10 @@ class Candidato_redacao extends Candidato_redacao_m {
 		
 		//CARREGAR DO POST
 		$redacao_id = ($post['redacao_id']);
-		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redacao");
+		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redação");
 		
 		$redacao_temaRedacao_id = ($post['redacao_temaRedacao_id']);
-		if( $redacao_temaRedacao_id == '' ) return array(false, MSG_OBRIGAT." Redacao Tema Redacao");
+		if( $redacao_temaRedacao_id == '' ) return array(false, MSG_OBRIGAT." Tema Redação");
 		
 		$servico_candidato_id = ($post['servico_candidato_id']);
 		if( $servico_candidato_id == '' ) return array(false, MSG_OBRIGAT." Servico Candato");

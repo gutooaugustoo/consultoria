@@ -86,10 +86,10 @@ class Redacao_itemavaliar extends Redacao_itemavaliar_m {
 		
 		//CARREGAR DO POST
 		$itemAvaliarRedacao_id = ($post['itemAvaliarRedacao_id']);
-		if( $itemAvaliarRedacao_id == '' ) return array(false, MSG_OBRIGAT." Item Avaliar Redacao");
+		if( $itemAvaliarRedacao_id == '' ) return array(false, MSG_OBRIGAT." Critério avaliação");
 		
 		$redacao_id = ($post['redacao_id']);
-		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redacao");
+		if( $redacao_id == '' ) return array(false, MSG_OBRIGAT." Redação");
 		
 		$obsTem = ($post['obsTem']);
 		
