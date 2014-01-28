@@ -579,8 +579,11 @@ class Uteis {
   }
   
   //ALERT OU ALERTA PERSONALIZADO
-  static function timer($onde, $segundos) {    
-    self::executarJava("timer('$onde', '$segundos');");    
+  static function timer($onde, $segundos) {       
+    self::executarJava("
+      clearTimeout(myTimer);
+      timer('$onde', '$segundos');
+    ");    
   }
   
 }

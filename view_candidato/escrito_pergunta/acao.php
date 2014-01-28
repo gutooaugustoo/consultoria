@@ -16,9 +16,13 @@ switch ($_REQUEST['tipoPergunta']) {
       $post["resp_alternativacorreta_id"] = $resp;
       $Resp = new Resposta_escrito_alternativacorreta();
       $rs = $Resp -> cadastrarResposta_escrito_alternativacorreta("", $post);
-      if( $rs[0] != false ) $gravado = true;
+      if( $rs[0] != false ) {
+        $gravado = true;
+      }else{
+        $arrayRetorno['mensagem'] = "Não foi possível gravar sua resposta.";
+      }
     } else {
-      $arrayRetorno['mensagem'] = "Se não quiser escolher nenhuma opção. clique em pular";
+      $arrayRetorno['mensagem'] = "Se não quiser escolher nenhuma opção, clique em pular";
     }
     break;
   
@@ -30,12 +34,10 @@ switch ($_REQUEST['tipoPergunta']) {
     foreach ($rs as $valor) {
       $id = $valor['id'];            
       if( !$_REQUEST["resp_".$id] ) {
-        $arrayRetorno['mensagem'] = "Responda todas as questões";
-        echo json_encode($arrayRetorno);
-        exit;
+        $arrayRetorno['mensagem'] = "Responda todas as questões";        
+        break 2; //SAIR DO FOR E DO SWITCH
       }
-    } 
-    
+    }     
     //GRAVA
     $Resp = new Resposta_escrito_verdadeirofalso();
     $gravouTudo = true;   
@@ -68,8 +70,6 @@ if ( $gravado ) {
   $arrayRetorno['mensagem'] = "Resposta gravada com sucesso.";
   $arrayRetorno['pagina'] = CAM_VIEW . "escrito_pergunta/form.php?escrito_id=" . $Escrito_pergunta -> get_escrito_idEscrito_pergunta() . "&candidato_escrito_id=" . $candidato_escrito_id;
   $arrayRetorno['ondeAtualizar'] = "#div_candidato_escrito";
-} else {
-  $arrayRetorno['mensagem'] = "Não foi possível gravar sua resposta";  
 }
 
 echo json_encode($arrayRetorno);

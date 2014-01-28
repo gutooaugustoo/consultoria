@@ -1,5 +1,6 @@
 //MARCA QUAL NIVEL (janela) ATUAL
 var nivel = 0;
+var myTimer;
 
 //CAMINHO GLOBAL PARA A PASTA config
 var caminhoCfg = '/consultoria/config/';
@@ -741,14 +742,19 @@ function timer(onde, segundos) {
 
 	o.html( right(h, 2) + ':' + right(m, 2) );
 
-	if (segundos <= 0) {
+	if (segundos <= 0) {		
 		alerta('Tempo esgotado.');
 	} else {
 
-		if (segundos <= 10) o.css({'color' : 'red'});
+		if (segundos <= 15){
+			o.addClass('timerRed');
+		}else{
+			o.removeClass('timerRed');
+		}
+		
 		if (segundos == 15) alerta('Você tem apenas '+segundos+' segundos para responder');
 
-		setTimeout(function() {
+		myTimer = setTimeout(function() {
 			timer(onde, segundos - 1);
 		}, 1000);
 	}

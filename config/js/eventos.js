@@ -32,7 +32,7 @@ function eventRolarParaTopo() {
 	});
 }
 
-function eventDestacar(tipo) {
+/*function eventDestacar(tipo) {
 
 	var mouseover;
 	var mouseout;
@@ -61,7 +61,7 @@ function eventDestacar(tipo) {
 
 	$('body').off('mouseover,mouseout', '.destacaLinha').on('mouseover', '.destacaLinha', mouseover).on('mouseout', '.destacaLinha', mouseout);
 
-}
+}*/
 
 function eventValidateForm() {
 	$('body').off('submit', '.validate').on('submit', '.validate', validateForm);

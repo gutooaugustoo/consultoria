@@ -1,29 +1,29 @@
-*{
-	font-family:Arial, Helvetica, sans-serif;
-	font-size: 12px;		
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
 }
 
-html, body{
-    height:100%;
+html, body {
+	height: 100%;
 }
 
-img{
-	cursor:pointer;
+img {
+	cursor: pointer;
 	/*text-transform: capitalize;*/
 }
 
-fieldset{
+fieldset {
 	border-top: solid 0.1em rgba(78, 78, 70, 0.31);
 	margin: 5px 20px;
 }
 
 legend {
-  text-align:center;
-  padding: 0.2em 0.3em;
-  /*border: solid 0.1em gray;*/
-  color: #2F4F4F;
-  font-weight: bold;
-  font-size:15px;
+	text-align: center;
+	padding: 0.2em 0.3em;
+	/*border: solid 0.1em gray;*/
+	color: #2F4F4F;
+	font-weight: bold;
+	font-size: 15px;
 }
 
 .camada_fundo {
@@ -34,56 +34,56 @@ legend {
 	height: 100%;
 	background-color: black;
 	-moz-opacity: 0.8;
-	opacity:.80;
+	opacity: .80;
 	filter: alpha(opacity=80);
 }
 
 .camada {
 	position: absolute;
-	width:100%;
-	min-height:100%;	
+	width: 100%;
+	min-height: 100%;
 }
 
-.camadaFundo_load{
+.camadaFundo_load {
 	position: fixed;
-	cursor: wait !important; 
+	cursor: wait !important;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: white;
 	-moz-opacity: 0.2;
-	opacity:.2;
+	opacity: .2;
 	filter: alpha(opacity=20);
 }
 
-.camada_load{
+.camada_load {
 	position: fixed;
 }
 
-.conteudo_nivel{
+.conteudo_nivel {
 	background: url('/consultoria/images/_marca_dagua.png') no-repeat center center #FFF fixed;
-	position: absolute;	
+	position: absolute;
 	width: 95%;
-	left:2.5%;
+	left: 2.5%;
 	top: 50px;
-	min-width:850px;
-	border-radius:5px;
-	padding:5px;
-	padding-top: 2em;	
+	min-width: 850px;
+	border-radius: 5px;
+	padding: 5px;
+	padding-top: 2em;
 	overflow: auto;
 }
 
 .body {
 	background: url('/consultoria/images/_marca_dagua.png') no-repeat center center fixed;
-	min-width:850px;
-	min-height:600px;
+	min-width: 850px;
+	min-height: 600px;
 }
 
 #centro {
-	width:100%;
-	height:94%;	
-	min-height:590px;	
+	width: 100%;
+	height: 94%;
+	min-height: 590px;
 }
 
 .img_loading {
@@ -95,29 +95,29 @@ legend {
 	margin-left: -250px;
 }
 .registros {
-	width:100%;
+	width: 100%;
 }
-.registros td{
-	padding:10px;
+.registros td {
+	padding: 10px;
 }
-.registros tr:hover, .registros tr td:hover{
+.registros tr:hover, .registros tr td:hover {
 	background-color: rgba(163, 200, 238, 0.5) !important;
-	cursor:pointer;
+	cursor: pointer;
 }
 
-.lista{
-	width:98%;	
+.lista {
+	width: 98%;
 	margin-top: 10px;
 	margin-left: 1%;
 }
 
-.menu_interno{
+.menu_interno {
 	text-align: right;
 	width: 98%;
 	margin-left: 1%;
 }
 
-.fechar{
+.fechar {
 	position: absolute;
 	background: url('/consultoria/images/fechar.png') no-repeat;
 	width: 22px;
@@ -127,123 +127,137 @@ legend {
 	cursor: pointer;
 }
 
-.agrupa{
+.agrupa {
 }
 
-.off{
-	display:none;	
+.off {
+	display: none;
 }
 
-.esquerda{
-	float:left;
-	width:50%;
-	overflow: auto;
-
-}
-
-.direita{
-	float:right;
-	width:50%;
+.esquerda {
+	float: left;
+	width: 50%;
 	overflow: auto;
 }
 
-.linha-inteira{	
-	float:left;
-	width:100%;	
-	padding:.7em 0;
-}
-
-.logoff{
+.direita {
 	float: right;
-	padding: 8px;	
-	color:#FFF;
+	width: 50%;
+	overflow: auto;
+}
+
+.linha-inteira {
+	float: left;
+	width: 100%;
+	padding: .7em 0;
+}
+
+.logoff {
+	float: right;
+	padding: 8px;
+	color: #FFF;
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
 }
 
-.logoff *{
-	vertical-align:middle;
+.logoff * {
+	vertical-align: middle;
 	font-weight: normal;
 }
 
-.destacado{
-	background-color:#ede7d0;	
+.destaca_bege {
+	background-color: #ede7d0;
+	padding: 5px;
+	margin: 5px;	
 }
 
-.destacaLinha{
-	margin-bottom:6px;
-	padding:3px;
-	min-height:18px;
+.destaca_azul {
+	background-color: #D0E5ED;
+	padding: 5px;
+	margin: 5px;	
+}
+
+.destaca_verde {
+	background-color: rgba(158, 214, 112, 0.5) !important;
+	padding: 5px;
+	margin: 5px;	
+}
+
+.destacaLinha {
+	margin-bottom: 6px;
+	padding: 3px;
+	min-height: 18px;
 }
 
 /*USADO NA DISPONIBILIDADE DO PROFESSOR*/
-.disponibilidadeIndisponivel{
+.disponibilidadeIndisponivel {
 	cursor: pointer;
-	border:thin solid #df5f5f;
+	border: thin solid #df5f5f;
 	background-color: #df5f5f;
 	text-align: justify;
-	color:#ffffff;
+	color: #ffffff;
 	margin: 0px 1px;
 }
 
-.disponibilidadeIndisponivel2{
+.disponibilidadeIndisponivel2 {
 	background-color: #d40005;
 	text-align: center;
 }
 
-.disponibilidadeDisponivel{
+.disponibilidadeDisponivel {
 	cursor: pointer;
-	border:thin solid #90e18b;
+	border: thin solid #90e18b;
 	background-color: #90e18b;
 	text-align: justify;
-	color:#ffffff;
+	color: #ffffff;
 	margin: 0px 1px;
 }
 
-.disponibilidadeDisponivel2{
+.disponibilidadeDisponivel2 {
 	background-color: #4dc146;
-	text-align: center;	
+	text-align: center;
 }
 
-.legenda_box{
-	width:1em;
-	height:1em;
-	margin:3px;
-	float:left;
+.legenda_box {
+	width: 1em;
+	height: 1em;
+	margin: 3px;
+	float: left;
 }
 
-.legenda{
-	float:left;
-	padding:1px;
-	
+.legenda {
+	float: left;
+	padding: 1px;
 }
 
-.clear{	clear:both; }
+.clear {
+	clear: both;
+}
 
-.alerta{
-	display:none;
-	border: thin solid #3790e8;	
+.alerta {
+	display: none;
+	border: thin solid #3790e8;
 	padding: 12px;
-	padding-left:48px;			
+	padding-left: 48px;
 	overflow-wrap: break-word;
 	color: #333;
 	background-color: #fafafa;
 	background-image: url('/consultoria/images/info.png');
 	background-repeat: no-repeat;
-	background-position:5px;	
-	border-radius: 5px 5px 5px 5px;	
+	background-position: 5px;
+	border-radius: 5px 5px 5px 5px;
 	margin-bottom: .5em;
 	font-size: 16px;
 }
 
-#alertas{
+#alertas {
 	position: fixed;
 	width: 28em;
 	margin-left: 50%;
 	text-align: left;
-	font-size:14px;
-	left: -14em;	
+	font-size: 14px;
+	left: -14em;
 }
 
 /*CSS PARA ABAS*/
@@ -252,38 +266,37 @@ legend {
 	left: 2.5%;
 	z-index: 1001;
 	top: 24px;
-	min-width:715px;
+	min-width: 715px;
 }
 
 #abas .aba_interna {
 	float: left;
 	padding: 5px 5px 15px 5px;
-	cursor: pointer;	
-	border-radius:5px;
+	cursor: pointer;
+	border-radius: 5px;
 	border: none;
 	border-right: thin solid rgba(204, 204, 204, 0.5);
-	text-align:center;
+	text-align: center;
 	/*border:solid 1px #333333;
-	border-bottom: none;
-	border-right: none;*/			
-	color:#EEE;
+	 border-bottom: none;
+	 border-right: none;*/
+	color: #EEE;
 	background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
 	background: -moz-linear-gradient(top,  #00adee,  #00678e);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
-		
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
 }
 
-.div_aba_interna{
+.div_aba_interna {
 	overflow: auto;
 }
 
-#abas .ativa{
+#abas .ativa {
 	color: #333333;
-	font-weight:bold;
-	background:#FFFFFF;	
+	font-weight: bold;
+	background: #FFFFFF;
 }
 
-.novoAviso{
+.novoAviso {
 	position: fixed;
 	width: 12em;
 	border: thin solid #3790e8;
@@ -302,10 +315,10 @@ legend {
 	border-radius: 5px 5px 5px 5px;
 }
 
-.onlink:hover{
-	cursor:pointer;
-	text-decoration:underline;
-	color:#09F;
+.onlink:hover {
+	cursor: pointer;
+	text-decoration: underline;
+	color: #09F;
 }
 
 .container {
@@ -322,25 +335,29 @@ legend {
 	text-align: left;
 }
 
-.reposicao{
-	background-color:rgba(158, 214, 112, 0.5) !important;
+.aulaInexistente {
+	background-color: rgba(214, 112, 112, 0.5) !important;
 }
 
-.aulaInexistente{
-	background-color:rgba(214, 112, 112, 0.5) !important;
+.desabilitado {
+	display: none !important;
 }
 
-.desabilitado{ display:none !important; }
-
-.tab1{	padding-left:1em;}
-.tab2{	padding-left:2em;}
-.tab3{	padding-left:3em;}
-
-.emFoco{
-	border-color:#090 !important;
+.tab1 {
+	padding-left: 1em;
+}
+.tab2 {
+	padding-left: 2em;
+}
+.tab3 {
+	padding-left: 3em;
 }
 
-.mostrarTitle{
+.emFoco {
+	border-color: #090 !important;
+}
+
+.mostrarTitle {
 	position: fixed;
 	background-color: white;
 	border-radius: 5px 5px 5px 5px;
@@ -348,7 +365,7 @@ legend {
 	padding: 5px;
 	overflow-wrap: break-word;
 	width: 26em;
-	text-align: left;	
+	text-align: left;
 }
 
 #div_login {
@@ -356,10 +373,19 @@ legend {
 	width: 350px;
 }
 
-.hora{
+.hora {
 	min-width: 75px !important;
 }
 
-.textoGrande{
+.textoGrande {
 	width: 500px !important;
+}
+
+.timerRed {
+	color: red;
+}
+
+.small {
+	font-size: 11px;
+	color: gray;
 }
