@@ -33,7 +33,7 @@ $acao = CAM_VIEW."telefone/acao.php";
 				<input type="hidden" id="empresa_id" name="empresa_id" value="<?php echo $Telefone -> get_empresa_idTelefone() ?>" />
 						
 				<p>
-				<label>Descricao Telefone:</label>
+				<label>Descrição Telefone:</label>
 				<?php $Descricaotelefone = new Descricaotelefone();
 				Html::set_cssClass(array("required"));
 				echo $Descricaotelefone -> selectDescricaotelefone_html('descricaoTelefone_id', $Telefone -> get_descricaoTelefone_idTelefone()); ?>
@@ -45,7 +45,7 @@ $acao = CAM_VIEW."telefone/acao.php";
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Numero:</label>
+				<label>Número:</label>
 				<input type="text" name="numero" id="numero" value="<?php echo $Telefone -> get_numeroTelefone()?>" class="required fone" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		

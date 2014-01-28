@@ -60,7 +60,7 @@ $acao = CAM_VIEW."oral/acao.php";
 				<p><label for="temAreaAtencao" >
 				<input type="checkbox" name="temAreaAtencao" id="temAreaAtencao" value="1" class=""
 				<?php echo Uteis::verificaChecked($Oral -> get_temAreaAtencaoOral())?> />
-				O avaliador deverá preencher <b>área de atenção</b></label>
+				O avaliador deverá preencher <b>qualidade da comunicação</b></label>
 				<span class="placeholder" >Campo obrigatório</span></p>
 		    
 		    <p><label for="temPlanoAcao" >

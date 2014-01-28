@@ -40,7 +40,7 @@ if( $status != "" ) $where .= " AND A.inativo IN(".$status.")";
 ?>
 
 <fieldset>
-  <legend>Área atenção</legend>
+  <legend>Qualidade da comunicação</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 

@@ -5,7 +5,7 @@ $nomeTable = "areaatencao";
 ?>
 
 <fieldset>
-  <legend>Filtrar Área atenção</legend>
+  <legend>Filtrar Qualidade da comunicação</legend>
   
   <img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar filtros" id="imgGrupoFiltro_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoFiltro_<?php echo $nomeTable ?>', 'imgGrupoFiltro_<?php echo $nomeTable ?>');" />

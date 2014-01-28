@@ -107,10 +107,10 @@ class Endereco extends Endereco_m {
 		if( $bairro == '' ) return array(false, MSG_OBRIGAT." Bairro");
 		
 		$numero = ($post['numero']);
-		if( $numero == '' ) return array(false, MSG_OBRIGAT." Numero");
+		if( $numero == '' ) return array(false, MSG_OBRIGAT." Número");
 		
 		$cep = ($post['cep']);
-		if( $cep == '' ) return array(false, MSG_OBRIGAT." Cep");
+		if( $cep == '' ) return array(false, MSG_OBRIGAT." CEP");
 		
 		$complemento = ($post['complemento']);
 						

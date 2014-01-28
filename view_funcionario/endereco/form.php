@@ -47,13 +47,13 @@ $acao = CAM_VIEW . "endereco/acao.php";
 				</p>
 
 				<p>
-					<label>Numero:</label>
+					<label>Número:</label>
 					<input type="text" name="numero" id="numero" value="<?php echo $Endereco -> get_numeroEndereco()?>" class="required numeric" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>
 
 				<p>
-					<label>Cep:</label>
+					<label>CEP:</label>
 					<input type="text" name="cep" id="cep" value="<?php echo $Endereco -> get_cepEndereco()?>" class="required cep" />
 					<span class="placeholder" >Campo obrigatório</span>
 				</p>

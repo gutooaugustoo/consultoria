@@ -7,7 +7,7 @@ $nomeTable = "areaatencao";
 $acao = CAM_VIEW."areaatencao/acao.php";
 ?>
 <fieldset>
-	<legend>Área atenção</legend>
+	<legend>Qualidade da comunicação</legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />

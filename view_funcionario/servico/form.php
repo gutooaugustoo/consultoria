@@ -36,12 +36,12 @@ $acao = CAM_VIEW."servico/acao.php";
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Data Inicio:</label>
+				<label>Data ínicio:</label>
 				<input type="text" name="dataInicio" id="dataInicio" value="<?php echo $Servico -> get_dataInicioServico()?>" class="required data" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 		
 				<p>
-				<label>Data Validade:</label>
+				<label>Data validade:</label>
 				<input type="text" name="dataValidade" id="dataValidade" value="<?php echo $Servico -> get_dataValidadeServico()?>" class="required data" />
 				<span class="placeholder" >Campo obrigatório</span></p>
 						

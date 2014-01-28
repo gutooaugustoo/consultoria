@@ -48,7 +48,7 @@ if( $empresa_id ) $where .= " AND T.empresa_id = ".$empresa_id;
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Descrição Telefone", "Ddd", "Numero", ""));
+		Html::set_colunas(array("Descrição Telefone", "DDD", "Numero", ""));
 		echo $Telefone -> tabelaTelefone_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>
 	</div>

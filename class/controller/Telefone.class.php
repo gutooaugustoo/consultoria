@@ -96,7 +96,7 @@ class Telefone extends Telefone_m {
 			 if( $descricaoTelefone_id == '' ) return array(false, MSG_OBRIGAT." Descrição Telefone");
 		
 		$ddd = ($post['ddd']);
-			 if( $ddd == '' ) return array(false, MSG_OBRIGAT." Ddd");
+			 if( $ddd == '' ) return array(false, MSG_OBRIGAT." DDD");
 		
 		$numero = ($post['numero']);
 			 if( $numero == '' ) return array(false, MSG_OBRIGAT." Numero");

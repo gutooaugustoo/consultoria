@@ -7,7 +7,7 @@ $nomeTable = "itemavaliarredacao";
 $acao = CAM_VIEW."itemavaliarredacao/acao.php";
 ?>
 <fieldset>
-	<legend>Item a avaliar redação</legend>
+	<legend>Critérios de avaliação</legend>
 	
 	<img src="<?php echo CAM_IMG."menos.png"?>" title="Abrir/Fechar formuário" id="imgGrupoForm_<?php echo $nomeTable ?>" 
 	onclick="abrirFormulario('divGrupoForm_<?php echo $nomeTable ?>', 'imgGrupoForm_<?php echo $nomeTable ?>');" />

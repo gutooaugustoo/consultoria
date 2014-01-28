@@ -36,7 +36,7 @@ if( $status != "" ) $where .= " AND I.inativo IN(".$status.")";
 ?>
 
 <fieldset>
-  <legend>Item a avaliar redação</legend>
+  <legend>Critérios de avaliação</legend>
   
   <div class="menu_interno"> 
   	<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
@@ -45,7 +45,7 @@ if( $status != "" ) $where .= " AND I.inativo IN(".$status.")";
   
   <div class="lista">
 		<?php //IMPRIMIR TABELA		
-		Html::set_colunas(array("Item", "Padrão", "Status", ""));
+		Html::set_colunas(array("Critério", "Padrão", "Status", ""));
 		echo $Itemavaliarredacao -> tabelaItemavaliarredacao_html($where, $caminho, $atualizar, $ondeAtualizar, $campos);
 		?>
 	</div>

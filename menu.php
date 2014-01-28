@@ -122,7 +122,7 @@ if ($rsModulo) {
 <div class="logoff" >
 	Companhia de Idiomas | Consultoria
 	<?php echo ICON_SEPARATOR;?>
-	<?php echo $Pessoa -> get_nomePessoa(); ?>
+	<?php if( is_object($Pessoa) ) echo $Pessoa -> get_nomePessoa(); ?>
 	<?php echo ICON_SEPARATOR;?>
 	<img src="<?php echo CAM_IMG."sair.png"?>" title="Sair do sistema" onclick="$('#logoff').click()"/>
 </div>
