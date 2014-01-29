@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php");
 
 $servico_candidato_id = $_SESSION['servico_candidato_id'];
 $escrito_id = $_REQUEST["escrito_id"];

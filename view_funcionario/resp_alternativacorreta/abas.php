@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $idResp_alternativacorreta = $_REQUEST["idResp_alternativacorreta"];
 

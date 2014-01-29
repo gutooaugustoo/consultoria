@@ -4,7 +4,7 @@ class Pessoa_m extends Database {
 	// ATRIBUTOS
 	protected $idPessoa;
 	protected $pais_idPessoa = ID_PAIS;
-	protected $tipoDocumentoUnico_idPessoa;
+	protected $tipoDocumentoUnico_idPessoa = 1;
 	protected $estadoCivil_idPessoa;
 	protected $nomePessoa;
 	protected $emailPrincipalPessoa;

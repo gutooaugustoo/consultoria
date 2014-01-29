@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php";
 
 $Modulo = new Modulo();
 
@@ -127,7 +127,7 @@ if ($rsModulo) {
 	<img src="<?php echo CAM_IMG."sair.png"?>" title="Sair do sistema" onclick="$('#logoff').click()"/>
 </div>
 
-<form id="login" class="validate" action="logoff.php" method="post" style="display:none;">
+<form id="login" class="validate" action="login.php" method="post" style="display:none;">
 	<input type="submit" name="logoff" id="logoff" />
 </form>
 

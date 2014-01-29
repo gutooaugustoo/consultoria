@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Local_oral = new Local_oral();
 

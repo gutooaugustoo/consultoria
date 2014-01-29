@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Peso_nivel = new Peso_nivel();
 if( $idPeso_nivel = $_REQUEST["idPeso_nivel"] ){

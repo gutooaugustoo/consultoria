@@ -61,36 +61,42 @@ class Login extends Database {
   }
 
   function efetuarLogin($id, $session, $add_session = array()) {
-
+                    
     $this -> efetuarLogoff(false);
-
+    
+    session_name('companhiadeidiomas');        
+    session_start();
+    session_regenerate_id(true);
+    
     $_SESSION['logado'] = $session;
     $_SESSION['id' . ucfirst($session)] = $id;
-
+     
     foreach ($add_session as $key => $value)
       $_SESSION[$key] = $value;
-
+    //echo CAM_ROOT . "/";exit;                
     header("Location:" . CAM_ROOT . "/");
     return true;
 
   }
 
-  function efetuarLogoff($redireciona = true) {
-
-    foreach ($_SESSION as $key => $value)
-      unset($_SESSION[$key]);
-
-    if ($redireciona == true) {
-      session_destroy();
-      header("Location:" . CAM_ROOT . "/");
+  static function efetuarLogoff($redireciona = true) {
+            
+    session_name('companhiadeidiomas');
+    session_start();   
+    unset($_SESSION);
+    session_destroy();
+    
+    if ($redireciona == true) {            
+      header("Location:" . CAM_ROOT . "/login.php");      
     }
 
   }
 
-  function verificarLogin() {
+  static function verificarLogin() {    
     if ($_SESSION['logado'] && $_SESSION['id' . ucfirst($_SESSION['logado'])]) {
+      //session_write_close();       
       return true;
-    } else {
+    } else {      
       return false;
     }
   }

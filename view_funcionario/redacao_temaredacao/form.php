@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Redacao_temaredacao = new Redacao_temaredacao();
 if( $idRedacao_temaredacao = $_REQUEST["idRedacao_temaredacao"] ){

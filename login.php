@@ -1,12 +1,14 @@
 <?php
-$pgLogin = true;
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/config.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/padrao.php";
+
+Login::efetuarLogoff(false);
 
 $documentoUnico = $_POST['documento'];
 $senhaAcesso = $_POST['password'];
 
 if ($documentoUnico != '' && $senhaAcesso != '') {
-
+  $Login = new Login();
 	switch ($_POST['quem']) {
 		case 'candidato' :      
 			$res = $Login -> efetuarLogin_candidato($documentoUnico, $senhaAcesso, $_REQUEST['hash']);			
@@ -37,7 +39,7 @@ if ($documentoUnico != '' && $senhaAcesso != '') {
 		<link rel="shortcut icon" href="logoico.ico" />
 
 		<?php
-		require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include.php");		
+		require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "bibliotecas.php");		
 		?>
 	</head>
 

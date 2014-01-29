@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php";
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo NOME_APP?></title>  
-  	<?php require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "include.php"); ?>  
+  	<?php require_once ($_SERVER['DOCUMENT_ROOT'] . CAM_CFG . "bibliotecas.php"); ?>  
   </head>
   
   <body class="body" >

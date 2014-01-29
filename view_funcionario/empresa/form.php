@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $idEmpresa = $_REQUEST["idEmpresa"];
 $Empresa = new Empresa($idEmpresa);

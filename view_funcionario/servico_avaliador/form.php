@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php");
 
 $Servico_avaliador = new Servico_avaliador();
 if ($idServico_avaliador = $_REQUEST["idServico_avaliador"]) {

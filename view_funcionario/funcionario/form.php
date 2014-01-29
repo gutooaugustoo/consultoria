@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php");
 
 $idFuncionario = $_REQUEST["idFuncionario"];
 $Pessoa = new Funcionario($idFuncionario);
@@ -17,7 +17,7 @@ $acao = CAM_VIEW . "funcionario/acao.php";
 	<div class="agrupa" id="divGrupoForm_<?php echo $nomeTable ?>">
 
 		<form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
-
+<?php //Uteis::pr($_SESSION);?>
 			<input type="hidden" id="idFuncionario" name="idFuncionario" value="<?php echo $Pessoa -> get_idFuncionario() ?>" />
 
 			<?php

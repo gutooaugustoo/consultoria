@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Oral_dicas = new Oral_dicas();
 if( $idOral_dicas = $_REQUEST["idOral_dicas"] ){

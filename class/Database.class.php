@@ -1,115 +1,121 @@
 <?php
 class Database {
 
-	// class attributes
-	protected $connect;
+  // class attributes
+  private $connectDB;
+  private $serverDB;
+  private $databaseDB;
+  private $userDB;
+  private $passwordDB;
+  private $errDB = 0;
 
-	// constructor
-	function __construct() {
-		$this -> connect(DATABASE_DB);
-	}
+  // constructor
+  function __construct() {
+    if (!EMPRESA) {//LOCALHOST
+      $this -> serverDB = "localhost";
+      $this -> databaseDB = "consultoria";
+      $this -> userDB = "root";
+      $this -> passwordDB = "";
+    } elseif (EMPRESA == "CIA") {//BD OFICIAL DA COMPANHIA DE IDIOMAS
+      $this -> serverDB = "186.202.152.113";
+      $this -> databaseDB = "companhiadeidi23";
+      $this -> userDB = "companhiadeidi23";
+      $this -> passwordDB = "con1456@";
+    }
+    $this -> connect();
+  }
 
-	// constructor
-	function __destruct() {
-		//if( $this->connect ) mysql_close($this->connect);
-	}
+  // constructor
+  function __destruct() {
 
-	// class methods
-	function connect($database = false) {
+  }
 
-		$this -> connect = mysql_connect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASS);
+  // class methods
+  function connect() {
 
-		if (!$this -> connect)
-			$this -> mostraErr("Erro ao conctar db");
+    $this -> connectDB = mysql_connect($this -> serverDB, $this -> userDB, $this -> passwordDB);
 
-		if ($database) {
-			$this -> selectDb($database);
-			mysql_set_charset('utf8');
-		}
+    if (!$this -> connectDB)
+      $this -> mostraErr("Erro ao conctar db");
 
-	}
+    $this -> selectDb();
+    mysql_set_charset('utf8');
 
-	function selectDb($database) {
-		if (!mysql_select_db($database, $this -> connect))
-			$this -> mostraErr("Erro ao selecionar db");
-	}
+  }
 
-	function fetchArray($result) {
-		if (!$result) {
-			return false;
-		} else {
-			$array = array_map("stripslashes", mysql_fetch_array($result, MYSQL_ASSOC));
-			return $array;
-		}
-	}
+  function selectDb() {
+    if (!mysql_select_db($this -> databaseDB, $this -> connectDB))
+      $this -> mostraErr("Erro ao selecionar db");
+  }
 
-	function query($sql, $msg = "") {
+  function fetchArray($result) {
+    if (!$result) {
+      return false;
+    } else {
+      $array = array_map("stripslashes", mysql_fetch_array($result, MYSQL_ASSOC));
+      return $array;
+    }
+  }
 
-		if (!($query = mysql_query($sql))) {
-			return array(
-				false,
-				$this -> mostraErr($sql)
-			);
-		} else {
-			return array(
-				$query,
-				$msg
-			);
-		}
+  function query($sql, $msg = "") {
 
-	}
+    if (!($query = mysql_query($sql))) {
+      return array(false, $this -> mostraErr($sql));
+    } else {
+      return array($query, $msg);
+    }
 
-	function mostraErr($sql = "") {
+  }
 
-		if (EMPRESA) {
-			$mensagemErro = MSG_ERR;
+  function mostraErr($sql = "") {
 
-			/*$emails = array(0 => array(
-			 "email" => ENVIO_TESTE,
-			 "nome" => "Administrador"
-			 ));
-			 Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);*/
+    if (EMPRESA) {
+      $mensagemErro = MSG_ERR;
+      //$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
+      return $mensagemErro;
 
-		} else {
-			$mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connect) . ": " . mysql_error($this -> connect);
+      //$emails = array(0 => array(			 "email" => ENVIO_TESTE,			 "nome" => "Administrador"			 ));
+      //Uteis::enviarEmail("ERRO SIS", $mensagemErro, $emails);
 
-		}
-		echo $mensagemErro;
-		exit ;
-		//return $mensagemErro;
-	}
+    } else {
+      $mensagemErro = "<br />$sql<br />" . mysql_errno($this -> connectDB) . ": " . mysql_error($this -> connectDB);
+      echo $mensagemErro;
+      exit ;
+    }
 
-	function numRows($result) {
-		if (!$result) {
-			return false;
-		} else {
-			return mysql_num_rows($result);
-		}
-	}
+  }
 
-	function executarQuery($sql) {
-		$result = $this -> query($sql);
-		$result = $result[0];
-		$array = array();
-		for ($i = 0; $i < $this -> numRows($result); $i++) {
-			$array[$i] = $this -> fetchArray($result);
-		}
-		mysql_free_result($result);
-		return $array;
-	}
+  function numRows($result) {
+    if (!$result) {
+      return false;
+    } else {
+      return mysql_num_rows($result);
+    }
+  }
 
-	function gravarBD($texto) {
+  function executarQuery($sql) {
+    $result = $this -> query($sql);
+    $result = $result[0];
+    $array = array();
+    for ($i = 0; $i < $this -> numRows($result); $i++) {
+      $array[$i] = $this -> fetchArray($result);
+    }
+    mysql_free_result($result);
+    return $array;
+  }
 
-		$res = mysql_real_escape_string(trim($texto));
+  function gravarBD($texto) {
 
-		if (is_numeric($res)) {
-			return $res;
-		} elseif (is_null($res) || $res === '' || $res == "NULL") {
-			return "NULL";
-		} else {
-			return "'" . $res . "'";
-		}
+    $res = mysql_real_escape_string(trim($texto));
 
-	}
+    if (is_numeric($res)) {
+      return $res;
+    } elseif (is_null($res) || $res === '' || $res == "NULL") {
+      return "NULL";
+    } else {
+      return "'" . $res . "'";
+    }
+
+  }
 
 }

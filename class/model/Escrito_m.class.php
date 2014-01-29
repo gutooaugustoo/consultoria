@@ -9,7 +9,7 @@ class Escrito_m extends Database {
   protected $porcentagemCorte;
 	protected $randomicoEscrito = 0;
 	protected $temPlanoAcaoEscrito = 0;
-    
+  
 	//CONSTRUTOR
 	function __construct( $idEscrito = "" ) {
 		

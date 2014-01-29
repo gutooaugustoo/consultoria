@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/includes.php");
 
 $servico_candidato_id = $_SESSION['servico_candidato_id'];
 $escrito_id = $_REQUEST["escrito_id"];
@@ -15,7 +15,7 @@ AND E.id NOT IN(
 ORDER BY ordem ASC ";
 $Escrito_pergunta = new Escrito_pergunta($where);
 
-$where = " WHERE  excluido = 0 AND escrito_pergunta_id = " . $Escrito_pergunta -> get_idEscrito_pergunta() . " AND candidato_escrito_id = " . Uteis::escapeRequest($candidato_escrito_id);
+$where = " WHERE excluido = 0 AND escrito_pergunta_id = " . $Escrito_pergunta -> get_idEscrito_pergunta() . " AND candidato_escrito_id = " . Uteis::escapeRequest($candidato_escrito_id);
 $Perguntavisualizada = new Perguntavisualizada($where);
 if ($Perguntavisualizada -> get_idPerguntavisualizada()) {
   Uteis::alertJava("Essa questão não está mais disponível para visualização");
@@ -30,7 +30,7 @@ $temResposta = false;
 switch ($Pergunta->get_tipoPergunta_idPergunta()) {
   case '1' :
     $Opcao_resp = new Resp_alternativacorreta();
-    $Resposta = new Resposta_escrito_alternativacorreta($where_resp);
+    $Resposta = new Resposta_escrito_alternativacorreta($where_resp);    
     $temResposta = $Resposta -> get_idResposta_escrito_alternativacorreta();
     break;
 

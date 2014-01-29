@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/verificar.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Escrito_pergunta_randomica = new Escrito_pergunta_randomica();
 if( $idEscrito_pergunta_randomica = $_REQUEST["idEscrito_pergunta_randomica"] ){
