@@ -73,7 +73,7 @@ class Login extends Database {
      
     foreach ($add_session as $key => $value)
       $_SESSION[$key] = $value;
-    //echo CAM_ROOT . "/";exit;                
+                    
     header("Location:" . CAM_ROOT . "/");
     return true;
 
@@ -92,9 +92,10 @@ class Login extends Database {
 
   }
 
-  static function verificarLogin() {    
+  static function verificarLogin() {
+    
     if ($_SESSION['logado'] && $_SESSION['id' . ucfirst($_SESSION['logado'])]) {
-      //session_write_close();       
+      session_write_close();       
       return true;
     } else {      
       return false;

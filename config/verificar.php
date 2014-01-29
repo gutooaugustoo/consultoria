@@ -1,5 +1,5 @@
-<?php
+<?php 
 if ( !Login::verificarLogin() ) {	
-	header('Location:'.CAM_ROOT.'/login.php');	
+	header("Location:".CAM_ROOT."/login.php");	
 }
 

@@ -1,10 +1,9 @@
 <?php
-//CONGFIGUYRAÇOES DE SESSÃO
 session_name('companhiadeidiomas');
 session_start();
-ob_start();
-//echo "".session_id();
-
+//echo "//".session_id();
+    
+//CONGFIGUYRAÇOES DE SESSÃO
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/config.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/padrao.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";

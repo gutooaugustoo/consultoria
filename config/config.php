@@ -5,6 +5,7 @@ ini_set("session.hash_function", "1");
 ini_set("session.gc_maxlifetime", "3600");
  
 //CONFIGURA DE LOCAL
+ob_start();
 mb_internal_encoding("UTF-8");
 define("LOCALE", (strpos($_SERVER["SERVER_SOFTWARE"], "Win32") ? "ptb" : "pt_BR")); 
 setlocale(LC_ALL, LOCALE);

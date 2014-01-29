@@ -95,7 +95,7 @@ class Resposta_escrito_verdadeirofalso_m extends Database {
 			" . $this -> verdadeiroFalsoResposta_escrito_verdadeirofalso . "
 		)";
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

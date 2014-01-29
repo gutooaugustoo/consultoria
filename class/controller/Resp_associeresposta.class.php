@@ -123,8 +123,10 @@ class Resp_associeresposta extends Resp_associeresposta_m {
     foreach ($rs as $key => $valor) {
       $tr[$key]["td1"] = 
         "<div class=\"destaca_azul sortable\" >
-          <input type=\"checkbox\" name=\"perg".$valor['id']."\" id=\"perg".$valor['id']."\" value=\"".$valor['id']."\" />
-          <span>" . $valor['descPergunta'] . "</span>
+          <input type=\"checkbox\" id=\"perg".$valor['id']."\" />
+          <span>" . $valor['descPergunta'] . "
+            <input type=\"hidden\" id=\"perg_".$valor['id']."\" name=\"perg_".$valor['id']."\" value=\"".$valor['id']."\" />
+          </span>
         </div>";
     }
     
@@ -132,8 +134,10 @@ class Resp_associeresposta extends Resp_associeresposta_m {
     foreach ($rs as $key => $valor) {
       $tr[$key]["td2"] = 
         "<div class=\"destaca_bege sortable2\" >
-          <input type=\"checkbox\" name=\"resp".$valor['id']."\" id=\"resp".$valor['id']."\" value=\"".$valor['id']."\" />
-          <span>" . $valor['descResposta'] . "</span>
+          <input type=\"checkbox\" id=\"resp".$valor['id']."\" />
+          <span>" . $valor['descResposta'] . "
+            <input type=\"hidden\" id=\"resp_".$valor['id']."\" name=\"resp_".$valor['id']."\" value=\"".$valor['id']."\" />
+          </span>
         </div>"; 
     }
     
@@ -146,15 +150,7 @@ class Resp_associeresposta extends Resp_associeresposta_m {
       }      
     }
    
-    $html .= "</div>
-    
-    <hr/>
-    
-    <div id=\"chooses\" class=\"linha-inteira\" >
-      <div class=\"esquerda\" ></div>
-      <div class=\"direita\" ></div>
-    </div>
-    ";
+    $html .= "</div>    ";
     
     return $html;
         

@@ -70,8 +70,8 @@ class Perguntavisualizada_m extends Database {
 			" . $this -> candidato_escrito_idPerguntavisualizada . ", 	
 			" . $this -> escrito_pergunta_idPerguntavisualizada . "
 		)";
-		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+		if( $this -> query($sql) ){		  
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

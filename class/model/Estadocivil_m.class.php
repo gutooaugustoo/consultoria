@@ -52,7 +52,7 @@ class Estadocivil_m extends Database {
 		$sql = "INSERT INTO estadocivil (nome) 
 		VALUES ($this -> nomeEstadocivil)";
 		if( $this -> query($sql) ){
-			return mysql_insert_id($this -> connect, MSG_CADNEW);
+			return mysql_insert_id($this -> connectDB, MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

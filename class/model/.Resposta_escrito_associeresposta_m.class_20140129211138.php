@@ -5,8 +5,7 @@ class Resposta_escrito_associeresposta_m extends Database {
 	protected $idResposta_escrito_associeresposta;
 	protected $candidato_escrito_idResposta_escrito_associeresposta;
 	protected $escrito_pergunta_idResposta_escrito_associeresposta;
-	protected $resp_associeResposta_id1Resposta_escrito_associeresposta;
-	protected $resp_associeResposta_id2Resposta_escrito_associeresposta;
+	protected $resp_associeResposta_idResposta_escrito_associeresposta;
 	protected $ordemResposta_escrito_associeresposta = 0;
 	
 	//CONSTRUTOR
@@ -24,8 +23,7 @@ class Resposta_escrito_associeresposta_m extends Database {
 			$this -> idResposta_escrito_associeresposta = $array[0]['id'];
 			$this -> candidato_escrito_idResposta_escrito_associeresposta = $array[0]['candidato_escrito_id'];
 			$this -> escrito_pergunta_idResposta_escrito_associeresposta = $array[0]['escrito_pergunta_id'];
-			$this -> resp_associeResposta_id1Resposta_escrito_associeresposta = $array[0]['resp_associeResposta_id1'];
-			$this -> resp_associeResposta_id2Resposta_escrito_associeresposta = $array[0]['resp_associeResposta_id2'];
+			$this -> resp_associeResposta_idResposta_escrito_associeresposta = $array[0]['resp_associeResposta_id'];
 			$this -> ordemResposta_escrito_associeresposta = $array[0]['ordem'];
 			
 		}
@@ -53,13 +51,8 @@ class Resposta_escrito_associeresposta_m extends Database {
 		return $this;
 	}
 	
-	function set_resp_associeResposta_id1Resposta_escrito_associeresposta($valor) {
-		$this -> resp_associeResposta_id1Resposta_escrito_associeresposta = ($valor) ? $this -> gravarBD($valor) : "NULL";
-		return $this;
-	}
-	
-	function set_resp_associeResposta_id2Resposta_escrito_associeresposta($valor) {
-		$this -> resp_associeResposta_id2Resposta_escrito_associeresposta = ($valor) ? $this -> gravarBD($valor) : "NULL";
+	function set_resp_associeResposta_idResposta_escrito_associeresposta($valor) {
+		$this -> resp_associeResposta_idResposta_escrito_associeresposta = ($valor) ? $this -> gravarBD($valor) : "NULL";
 		return $this;
 	}
 	
@@ -82,12 +75,8 @@ class Resposta_escrito_associeresposta_m extends Database {
 		return ($this -> escrito_pergunta_idResposta_escrito_associeresposta);
 	}
 	
-	function get_resp_associeResposta_id1Resposta_escrito_associeresposta() {
-		return ($this -> resp_associeResposta_id1Resposta_escrito_associeresposta);
-	}
-	
-	function get_resp_associeResposta_id2Resposta_escrito_associeresposta() {
-		return ($this -> resp_associeResposta_id2Resposta_escrito_associeresposta);
+	function get_resp_associeResposta_idResposta_escrito_associeresposta() {
+		return ($this -> resp_associeResposta_idResposta_escrito_associeresposta);
 	}
 	
 	function get_ordemResposta_escrito_associeresposta() {
@@ -98,12 +87,11 @@ class Resposta_escrito_associeresposta_m extends Database {
 		
 	function insertResposta_escrito_associeresposta() {
 		$sql = "INSERT INTO resposta_escrito_associeresposta 
-		(candidato_escrito_id, escrito_pergunta_id, resp_associeResposta_id1, resp_associeResposta_id2, ordem) 
+		(candidato_escrito_id, escrito_pergunta_id, resp_associeResposta_id, ordem) 
 		VALUES (	
 			" . $this -> candidato_escrito_idResposta_escrito_associeresposta . ", 	
 			" . $this -> escrito_pergunta_idResposta_escrito_associeresposta . ", 	
-			" . $this -> resp_associeResposta_id1Resposta_escrito_associeresposta . ", 	
-			" . $this -> resp_associeResposta_id2Resposta_escrito_associeresposta . ", 	
+			" . $this -> resp_associeResposta_idResposta_escrito_associeresposta . ", 	
 			" . $this -> ordemResposta_escrito_associeresposta . "
 		)";
 		if( $this -> query($sql) ){
@@ -124,8 +112,7 @@ class Resposta_escrito_associeresposta_m extends Database {
 				array(		
 					"candidato_escrito_id" => $this -> candidato_escrito_idResposta_escrito_associeresposta, 		
 					"escrito_pergunta_id" => $this -> escrito_pergunta_idResposta_escrito_associeresposta, 		
-					"resp_associeResposta_id1" => $this -> resp_associeResposta_id1Resposta_escrito_associeresposta, 		
-					"resp_associeResposta_id2" => $this -> resp_associeResposta_id2Resposta_escrito_associeresposta, 		
+					"resp_associeResposta_id" => $this -> resp_associeResposta_idResposta_escrito_associeresposta, 		
 					"ordem" => $this -> ordemResposta_escrito_associeresposta				
 				)	
 			);

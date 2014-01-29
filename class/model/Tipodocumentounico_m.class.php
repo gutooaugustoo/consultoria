@@ -63,7 +63,7 @@ class Tipodocumentounico_m extends Database {
 		$sql = "INSERT INTO tipodocumentounico (nome, class) 
 		VALUES ($this -> nomeTipodocumentounico, $this -> classTipodocumentounico)";
 		if( $this -> query($sql) ){
-			return mysql_insert_id($this -> connect, MSG_CADNEW);
+			return mysql_insert_id($this -> connectDB, MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

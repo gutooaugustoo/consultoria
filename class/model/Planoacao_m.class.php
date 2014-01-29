@@ -67,7 +67,7 @@ class Planoacao_m extends Database {
 			" . $this -> planoPlanoacao . "
 		)";
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

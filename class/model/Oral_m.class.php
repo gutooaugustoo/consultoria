@@ -131,7 +131,7 @@ class Oral_m extends Database {
 			" . $this -> temPlanoAcaoOral . "
 		)";
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

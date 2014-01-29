@@ -736,6 +736,7 @@ function mostrarTitle(origem) {
 }
 
 function timer(onde, segundos) {
+	
 	var o = $(onde);
 	var h = '0' + parseInt(segundos / 60);
 	var m = '0' + parseInt(segundos % 60);

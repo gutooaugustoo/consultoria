@@ -95,7 +95,7 @@ class Candidato_escrito_randomica_m extends Database {
 			" . $this -> finalizadoCandidato_escrito_randomica . "
 		)";
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		

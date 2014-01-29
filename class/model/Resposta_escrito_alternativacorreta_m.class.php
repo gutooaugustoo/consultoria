@@ -83,7 +83,7 @@ class Resposta_escrito_alternativacorreta_m extends Database {
 			" . $this -> resp_alternativacorreta_idResposta_escrito_alternativacorreta . "
 		)";
 		if( $this -> query($sql) ){
-			return array(mysql_insert_id($this -> connect), MSG_CADNEW);
+			return array(mysql_insert_id($this -> connectDB), MSG_CADNEW);
 		}else{
 			return array(false, MSG_ERR);
 		}		
