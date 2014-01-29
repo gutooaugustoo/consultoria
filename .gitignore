@@ -1,6 +1,3 @@
-config/config.php
-config/CIAconfig.php
 _anarcho/
 .project
-consultoria.mwb
-consultoria.mwb.bak
+class/Database.class.php
