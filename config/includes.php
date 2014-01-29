@@ -10,6 +10,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/padrao.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/consultoria/config/verificar.php";
 
 //phpinfo();
-//Uteis::pr($_SESSION);
+//Uteis::pr($_SESSION); 
 //Uteis::pr($_COOKIE);
 ?>
