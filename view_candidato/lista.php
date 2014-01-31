@@ -32,7 +32,7 @@ Html::set_idTabela($idTabela);
 	
 	<script>
 	tabelaDataTable('<?php echo $idTabela?>', 'simples');
-	$('#bt_escrito').click()
+	//$('#bt_escrito').click()
 	</script>
 	   	      
 </fieldset>

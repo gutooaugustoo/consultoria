@@ -22,8 +22,11 @@ if ($Escrito_pergunta -> get_idEscrito_pergunta()) {
     Uteis::fecharNivel();
   }
 } else {
-  Uteis::alertJava("Prova finalizada");  exit ;
+  $Candidato_escrito  = new Candidato_escrito($candidato_escrito_id);
+  $Candidato_escrito->updateCampoCandidato_escrito(array("finalizado"=>"1"));
+  Uteis::alertJava("Prova finalizada");
   Uteis::fecharNivel();
+  exit;
 }
 
 $Pergunta = new Pergunta($Escrito_pergunta -> get_pergunta_idEscrito_pergunta());
