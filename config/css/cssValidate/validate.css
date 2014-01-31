@@ -80,7 +80,7 @@ body
     padding-right: 20px !important;  
 }
 
-.validate p span{
+.validate p span.placeholder{
 	color:red;
 	display: none;
 	font-size: 12px;    

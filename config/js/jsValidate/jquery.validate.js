@@ -60,7 +60,7 @@ function ativarForm(){
 	try{
 		$(function(){	
 							
-			$('.validate p span').hide();
+			$('.validate p span.placeholder').hide();
 										
 			/* mascara data */
 			$('.data')

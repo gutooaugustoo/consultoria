@@ -114,10 +114,10 @@ class Resp_associeresposta extends Resp_associeresposta_m {
 
   function montarRespostas_html($idPergunta) {
     
-    $html .= "<div class=\"linha-inteira\" >";
-    
     $this -> set_pergunta_idResp_associeresposta($idPergunta);
     $where = " WHERE excluido = 0 AND pergunta_id = " . $this -> get_pergunta_idResp_associeresposta() . " ORDER BY RAND()";
+    
+    
     
     $rs = $this -> selectResp_associeresposta($where);    
     foreach ($rs as $key => $valor) {
@@ -141,17 +141,17 @@ class Resp_associeresposta extends Resp_associeresposta_m {
         </div>"; 
     }
     
-    if( $tr ){      
+    if( $tr ){
+      $html .= "<div class=\"linha-inteira\" >";      
       foreach ($tr as $key => $valor) {        
         $html .= "          
           <div class=\"esquerda\">".$tr[$key]["td1"]."</div>
           <div class=\"direita\">".$tr[$key]["td2"]."</div>               
         ";
-      }      
+      }
+      $html .= "</div>    ";      
     }
-   
-    $html .= "</div>    ";
-    
+       
     return $html;
         
   }

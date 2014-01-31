@@ -34,7 +34,7 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 
 				<p>
 					<label>Ordem:</label>
-					<?php echo $Resp_preenchelacuna -> get_ordemResp_preenchelacuna();?>					
+					<span id="ordem_respLacuna" ><?php echo $Resp_preenchelacuna -> get_ordemResp_preenchelacuna();?></span>					
 				</p>
 
 				<p>
@@ -54,10 +54,8 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 
 			<div class="linha-inteira">
 				<p>
-					<button class="button blue"
-					onclick="postForm_editor('enunciado', 'formCad_<?php echo $nomeTable ?>', '<?php echo $acao?>')" >
-						Enviar
-					</button>
+					<button class="button blue"	onclick="gravarLacuna();" >Enviar</button>					
+					<div class="off" id="bt_confirmarGravarLacuna" onclick="confirmarGravarLacuna();" ></div>
 				</p>
 			</div>
 		</form>
@@ -67,4 +65,14 @@ $acao = CAM_VIEW . "resp_preenchelacuna/acao.php";
 <script>
 	ativarForm();
 	viraEditor_lacuna('enunciado'); 
+	
+	function gravarLacuna(){
+	  postForm_editor('enunciado', 'formCad_<?php echo $nomeTable ?>', '<?php echo $acao?>');	  
+	}
+	
+	function confirmarGravarLacuna(){
+	  if( confirm("Deseja gravar agora?") ){
+	    gravarLacuna();	  
+	  }  	    
+	}
 </script>

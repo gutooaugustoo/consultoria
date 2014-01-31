@@ -95,16 +95,13 @@
 	  $(this).attr('disabled', true);
 	});
 
-	//$('.esquerda .destaca_verde').each(function() { alerta($(this).index()+' - '+$(this).find('span').text()) })
-	//$('.direita .destaca_verde').each(function() { alerta($(this).index()+' - '+$(this).find('span').text()) })
-
-	$(check).first().click();	
+	/*$(check).first().click();	
 	$(check2).first().click();
 	
 	$(check).first().click();
   $(check2).first().click();
   
   $(check).first().click();
-  $(check2).first().click();
+  $(check2).first().click();*/
 		
 </script> 

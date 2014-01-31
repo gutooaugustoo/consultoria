@@ -32,7 +32,7 @@ class Resposta_escrito_associeresposta extends Resposta_escrito_associeresposta_
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	/*function tabelaResposta_escrito_associeresposta_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
+	function tabelaResposta_escrito_associeresposta_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
 			
 		$array = $this -> selectResposta_escrito_associeresposta($where, array("R.id"));
 		
@@ -54,8 +54,8 @@ class Resposta_escrito_associeresposta extends Resposta_escrito_associeresposta_
 				$colunas[] = $Escrito_pergunta -> get_idEscrito_pergunta();
 				$Resp_associeresposta = new Resp_associeresposta( $this -> get_resp_associeResposta_id1Resposta_escrito_associeresposta() );
 				$colunas[] = $Resp_associeresposta -> get_idResp_associeresposta();
-				$Resp_associeresposta = new Resp_associeresposta( $this -> get_resp_associeResposta_id2Resposta_escrito_associeresposta() );
-				$colunas[] = $Resp_associeresposta -> get_idResp_associeresposta();
+				$colunas[] = $this -> get_resp_associeResposta_id2Resposta_escrito_associeresposta();
+				$colunas[] = $this -> get_ordemResposta_escrito_associeresposta();
 				
 				$ordem = ( $apenasLinha !== false ) ? $apenasLinha : $cont++;								
 				$urlAux = "&ordem=".$ordem."&tabela=".Html::get_idTabela();				
@@ -86,7 +86,7 @@ class Resposta_escrito_associeresposta extends Resposta_escrito_associeresposta_
 		return ( $apenasLinha !== false ) ? $colunas : Html::montarColunas($linhas);
 		
 	}
-	*/
+	
 	//AÇÕES
 	function cadastrarResposta_escrito_associeresposta($idResposta_escrito_associeresposta, $post = array()){
 		
@@ -102,13 +102,17 @@ class Resposta_escrito_associeresposta extends Resposta_escrito_associeresposta_
 		
 		$resp_associeResposta_id2 = ($post['resp_associeResposta_id2']);
 		if( $resp_associeResposta_id2 == '' ) return array(false, MSG_OBRIGAT." Resp Associe Resposta 2");
+		
+		$ordem = ($post['ordem']);
+		if( $ordem == '' ) return array(false, MSG_OBRIGAT." Ordem");
 				
 		//SETAR
 		$this
 			 -> set_candidato_escrito_idResposta_escrito_associeresposta($candidato_escrito_id)
 			 -> set_escrito_pergunta_idResposta_escrito_associeresposta($escrito_pergunta_id)
 			 -> set_resp_associeResposta_id1Resposta_escrito_associeresposta($resp_associeResposta_id1)
-			 -> set_resp_associeResposta_id2Resposta_escrito_associeresposta($resp_associeResposta_id2);
+			 -> set_resp_associeResposta_id2Resposta_escrito_associeresposta($resp_associeResposta_id2)
+			 -> set_ordemResposta_escrito_associeresposta($ordem);
 		
 		if( $idResposta_escrito_associeresposta ){			
 			$this -> set_idResposta_escrito_associeresposta($idResposta_escrito_associeresposta);			

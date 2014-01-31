@@ -12,6 +12,7 @@ $post = array("candidato_escrito_id" => $candidato_escrito_id, "escrito_pergunta
 switch ($_REQUEST['tipoPergunta']) {
   //ALTERNATIVA CORRETA
   case '1' :
+    
     if ($resp = $_REQUEST['resp']) {
       $post["resp_alternativacorreta_id"] = $resp;
       $Resp = new Resposta_escrito_alternativacorreta();
@@ -22,7 +23,7 @@ switch ($_REQUEST['tipoPergunta']) {
         $arrayRetorno['mensagem'] = "Não foi possível gravar sua resposta.";
       }
     } else {
-      $arrayRetorno['mensagem'] = "Se não quiser escolher nenhuma opção, clique em pular";
+      $arrayRetorno['mensagem'] = "Se não quiser escolher nenhuma opção, aguarde o término do tempo";
     }
     break;
   
@@ -31,6 +32,7 @@ switch ($_REQUEST['tipoPergunta']) {
     //VERIFICA SE PREENCHEU TUDO
     $Resp = new Resp_verdadeirofalso();    
     $rs = $Resp->selectResp_verdadeirofalso(" WHERE excluido = 0 AND pergunta_id = ".$Escrito_pergunta->get_pergunta_idEscrito_pergunta());    
+    
     foreach ($rs as $valor) {
       $id = $valor['id'];            
       if( !$_REQUEST["resp_".$id] ) {
@@ -39,8 +41,9 @@ switch ($_REQUEST['tipoPergunta']) {
       }
     }     
     //GRAVA
-    $Resp = new Resposta_escrito_verdadeirofalso();
     $gravouTudo = true;   
+    $Resp = new Resposta_escrito_verdadeirofalso();    
+    
     foreach ($rs as $valor) {
       $id = $valor['id'];   
       $post["resp_verdadeirofalso_id"] = $id;
@@ -54,12 +57,55 @@ switch ($_REQUEST['tipoPergunta']) {
   break;
 
   case '3' :
+    //VERIFICA SE PREENCHEU TUDO
     $Resp = new Resp_associeresposta();
-    break;
+    $rs = $Resp->selectResp_associeresposta(" WHERE excluido = 0 AND pergunta_id = ".$Escrito_pergunta->get_pergunta_idEscrito_pergunta());    
+    
+    foreach ($rs as $valor) {
+      $id = $valor['id'];      
+      if( !$_REQUEST["perg_".$id] || !$_REQUEST["resp_".$id] ) {
+        $arrayRetorno['mensagem'] = "É necessário associar todas as alternativas";        
+        break 2; //SAIR DO FOR E DO SWITCH
+      }
+    }     
+    
+    //GRAVA
+    $gravouTudo = true;  
+    $Resp = new Resposta_escrito_associeresposta();
+    
+    foreach ($rs as $valor) {     
+      $id = $valor['id'];   
+      $post["resp_associeResposta_id1"] = $_REQUEST["perg_".$id];
+      $post["resp_associeResposta_id2"] = $_REQUEST["resp_".$id];
+      $rs = $Resp->cadastrarResposta_escrito_associeresposta("", $post);     
+      if( $rs[0] == false ) $gravouTudo = false; 
+      
+    }
+    
+    if( $gravouTudo ) $gravado = true;
+    
+  break;
 
   case '4' :
+    
     $Resp = new Resp_preenchelacuna();
-    break;
+    $rs = $Resp->selectResp_preenchelacuna(" WHERE excluido = 0 AND pergunta_id = ".$Escrito_pergunta->get_pergunta_idEscrito_pergunta());    
+    
+    //GRAVA
+    $gravouTudo = true;  
+    $Resp = new Resposta_escrito_lacuna();
+    
+    foreach ($rs as $valor) {     
+      $id = $valor['id'];   
+      $post["resp_associeResposta_id1"] = $_REQUEST["perg_".$id];
+      $post["resp_associeResposta_id2"] = $_REQUEST["resp_".$id];
+      $rs = $Resp->cadastrarResposta_escrito_lacuna("", $post);     
+      if( $rs[0] == false ) $gravouTudo = false; 
+      
+    }
+    
+    if( $gravouTudo ) $gravado = true;
+  break;
 
   case '5' :
     //

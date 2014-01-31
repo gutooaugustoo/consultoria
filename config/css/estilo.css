@@ -390,3 +390,17 @@ legend {
 	font-size: 11px;
 	color: gray;
 }
+
+.lacuna { 
+	border: none !important;
+	border-bottom: 1px solid black !important;
+	box-shadow: 0 0 !important;
+	padding: 0 !important;
+	min-width: 0 !important;
+	border-radius: 0 !important;
+	text-align: center !important;
+	margin: 0 !important;
+	height: 15px !important;
+	color: blue !important;
+	font-weight: bold !important;
+}

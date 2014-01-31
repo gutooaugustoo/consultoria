@@ -127,8 +127,19 @@ class Resp_preenchelacuna extends Resp_preenchelacuna_m {
     }
   }
   
-  function montarRespostas_html($idPergunta){
-    
+  function montarRespostas_html( $Pergunta ){
+            
+     $ereg = "/#_[0-9]{1,2}_#/";     
+     $texto = $Pergunta->get_enunciadoPergunta();
+     
+     preg_match_all($ereg, $texto, $encontrados);
+     
+     foreach ($encontrados[0] as $key => $value) {
+       $input = "<input type=\"text\" name=\"resp_".($key+1)."\" id=\"resp_".($key+1)."\" value=\"\" class=\"lacuna\" />";       
+       $texto = str_replace($value, $input, $texto);
+     }
+          
+     return $texto;
   }
   
 }

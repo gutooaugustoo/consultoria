@@ -15,13 +15,17 @@ AND E.id NOT IN(
 ORDER BY ordem ASC ";
 $Escrito_pergunta = new Escrito_pergunta($where);
 
-$where = " WHERE excluido = 0 AND escrito_pergunta_id = " . $Escrito_pergunta -> get_idEscrito_pergunta() . " AND candidato_escrito_id = " . Uteis::escapeRequest($candidato_escrito_id);
-$Perguntavisualizada = new Perguntavisualizada($where);
-if ($Perguntavisualizada -> get_idPerguntavisualizada()) {
-  Uteis::alertJava("Essa questão não está mais disponível para visualização");
+if( $Escrito_pergunta -> get_idEscrito_pergunta() ){
+  $where = " WHERE excluido = 0 AND escrito_pergunta_id = " . $Escrito_pergunta -> get_idEscrito_pergunta() . " AND candidato_escrito_id = " . Uteis::escapeRequest($candidato_escrito_id);
+  $Perguntavisualizada = new Perguntavisualizada($where);
+  if ($Perguntavisualizada -> get_idPerguntavisualizada()) {
+    Uteis::alertJava("Essa questão não está mais disponível para visualização");
+    Uteis::fecharNivel();
+  }
+}else{
+  Uteis::alertJava("Prova finalizada");exit;
   Uteis::fecharNivel();
 }
-
 $Pergunta = new Pergunta($Escrito_pergunta -> get_pergunta_idEscrito_pergunta());
 
 $where_resp = " WHERE excluido = 0 AND escrito_pergunta_id = " . $Escrito_pergunta -> get_idEscrito_pergunta() . " AND candidato_escrito_id = " . Uteis::escapeRequest($candidato_escrito_id);
@@ -58,11 +62,14 @@ Uteis::timer("#formCad_$nomeTable #timer", Uteis::gravarHoras($Pergunta -> get_t
       $Opcao_resp = new Resp_associeresposta();
       $Resposta = new Resposta_escrito_associeresposta($where_resp);
       $temResposta = $Resposta -> get_idResposta_escrito_associeresposta();
-      include_once '_respostaAssocia.php';
-      break;
+      include_once '_resposta_associa.php';
+    break;
 
     case '4' :
       $Opcao_resp = new Resp_preenchelacuna();
+      $Resposta = new Resposta_escrito_lacuna($where_resp);
+      $temResposta = $Resposta -> get_idResposta_escrito_lacuna();
+      include_once '_resposta_lacuna.php';
       break;
 
     case '5' :

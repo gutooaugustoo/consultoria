@@ -193,7 +193,8 @@ function viraEditor_lacuna(id) {
 						$('#lacuna_respLacuna:first').val($.trim(editor.selection.getContent({
 							format : 'text'
 						})));
-						editor.insertContent('#_' + $('#ordem_respLacuna:first').val() + '_#');
+						editor.insertContent('#_' + $('#ordem_respLacuna:first').text() + '_#');
+						$('#bt_confirmarGravarLacuna').click();
 					}
 				}
 			});

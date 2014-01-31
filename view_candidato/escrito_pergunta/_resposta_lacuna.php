@@ -4,11 +4,10 @@
   
   <div class="linha-inteira">
     <p><?php echo $Pergunta -> get_tituloPergunta(); ?></p>       
-    <?php if( $Pergunta->get_enunciadoPergunta() ) echo "<p>".$Pergunta->get_enunciadoPergunta()."</p>" ?>
   </div>
     
   <div id="divRespostas" class="linha-inteira">
-    <?php echo $Opcao_resp -> montarRespostas_html($Pergunta -> get_idPergunta()); ?>
+    <p><?php echo $Opcao_resp -> montarRespostas_html($Pergunta); ?></p>
   </div>
       
   <input type="hidden" name="tipoPergunta" value="<?php echo $Pergunta->get_tipoPergunta_idPergunta()?>" />
