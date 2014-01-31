@@ -271,4 +271,15 @@ class Pergunta extends Pergunta_m {
     }
   }
     
+  function verificarGrupoQuestoes(){
+      
+    $where = " WHERE P.excluido = 0 AND P.id NOT IN(
+      SELECT EP.pergunta_id FROM perguntaVisualizada AS PV
+      INNER JOIN escrito_pergunta AS EP ON EP.id = PV.escrito_pergunta_id
+      WHERE EP.pergunta_id = P.id 
+    ) AND P.pergunta_id = ".$this->get_idPergunta();
+    $rs = $this->selectPergunta($where, array("id"));
+    return count($rs);
+  }
+  
 }

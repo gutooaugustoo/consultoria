@@ -7,7 +7,7 @@
 <div id="divRespostas" class="linha-inteira textoAux">
 
 <?php
-if( 1 ){
+if( $Pergunta->verificarGrupoQuestoes() == "1" ){
   $Perguntavisualizada -> marcarPergunta(
     array(
       "candidato_escrito_id" => $candidato_escrito_id, 

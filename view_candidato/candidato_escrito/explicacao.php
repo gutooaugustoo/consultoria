@@ -20,4 +20,4 @@ $escrito_id = $_REQUEST["escrito_id"];
 		</p>
 	</div>
 </fieldset>
-<script>//$('#iniciarAvalaicao').click()</script>
+<script>$('#iniciarAvalaicao').click()</script>
