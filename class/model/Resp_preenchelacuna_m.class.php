@@ -12,16 +12,19 @@ class Resp_preenchelacuna_m extends Database {
 		
 		parent::__construct();
 		
-		if( is_numeric($idResp_preenchelacuna) ){
-		
+		if( is_numeric($idResp_preenchelacuna) ){		
 			$array = $this -> selectResp_preenchelacuna(" WHERE R.id = ".$this -> gravarBD($idResp_preenchelacuna) );			
-			
+    }elseif( $idResp_preenchelacuna != "" ){
+      $array = $this -> selectResp_preenchelacuna($idResp_preenchelacuna." LIMIT 1");
+    }	
+    
+    if( $array ){
 			$this -> idResp_preenchelacuna = $array[0]['id'];
 			$this -> pergunta_idResp_preenchelacuna = $array[0]['pergunta_id'];
 			$this -> ordemResp_preenchelacuna = $array[0]['ordem'];
-			$this -> lacunaResp_preenchelacuna = $array[0]['lacuna'];
-			
+			$this -> lacunaResp_preenchelacuna = $array[0]['lacuna'];			
 		}
+    
 	}
 
 	function __destruct(){

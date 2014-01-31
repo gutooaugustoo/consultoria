@@ -93,18 +93,18 @@ switch ($_REQUEST['tipoPergunta']) {
     
     //GRAVA
     $gravouTudo = true;  
-    $Resp = new Resposta_escrito_lacuna();
+    $Resp = new Resposta_escrito_preenchelacuna();
     
     foreach ($rs as $valor) {     
       $id = $valor['id'];   
-      $post["resp_associeResposta_id1"] = $_REQUEST["perg_".$id];
-      $post["resp_associeResposta_id2"] = $_REQUEST["resp_".$id];
-      $rs = $Resp->cadastrarResposta_escrito_lacuna("", $post);     
-      if( $rs[0] == false ) $gravouTudo = false; 
-      
+      $post["resp_preenchelacuna_id"] = $id;
+      $post["lacuna"] = $_REQUEST["resp_".$id];      
+      $rs = $Resp->cadastrarResposta_escrito_preenchelacuna("", $post);     
+      if( $rs[0] == false ) $gravouTudo = false;       
     }
     
     if( $gravouTudo ) $gravado = true;
+    
   break;
 
   case '5' :

@@ -134,9 +134,11 @@ class Resp_preenchelacuna extends Resp_preenchelacuna_m {
      
      preg_match_all($ereg, $texto, $encontrados);
      
-     foreach ($encontrados[0] as $key => $value) {
-       $input = "<input type=\"text\" name=\"resp_".($key+1)."\" id=\"resp_".($key+1)."\" value=\"\" class=\"lacuna\" />";       
-       $texto = str_replace($value, $input, $texto);
+     foreach ($encontrados[0] as $value) {
+       $ordem = str_replace(array("#", "_"), "", $value); //REMOVE CARACTERES DE MARCAÇÃO (#_num_#)
+       $this->__construct(" WHERE excluido = 0 AND pergunta_id = ".$Pergunta->get_idPergunta()." AND ordem = ".Uteis::escapeRequest($ordem));
+       $input = "<input type=\"text\" name=\"resp_".$this->get_idResp_preenchelacuna()."\" id=\"resp_".$this->get_idResp_preenchelacuna()."\" value=\"\" class=\"lacuna\" />";                    
+       $texto = str_replace($value, $input, $texto); //SUBSTITUI NO TEXTO O VALOR ENCONTRADO COM A EXPRESSÃO REGULAR, PELA INPUT
      }
           
      return $texto;

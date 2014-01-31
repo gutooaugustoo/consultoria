@@ -67,8 +67,8 @@ Uteis::timer("#formCad_$nomeTable #timer", Uteis::gravarHoras($Pergunta -> get_t
 
     case '4' :
       $Opcao_resp = new Resp_preenchelacuna();
-      $Resposta = new Resposta_escrito_lacuna($where_resp);
-      $temResposta = $Resposta -> get_idResposta_escrito_lacuna();
+      $Resposta = new Resposta_escrito_preenchelacuna($where_resp);
+      $temResposta = $Resposta -> get_idResposta_escrito_preenchelacuna();
       include_once '_resposta_lacuna.php';
       break;
 
@@ -80,8 +80,9 @@ Uteis::timer("#formCad_$nomeTable #timer", Uteis::gravarHoras($Pergunta -> get_t
 </fieldset>
 
 <?php
-exit ;
+//exit ;
 if (!$Perguntavisualizada -> get_idPerguntavisualizada()) {
+  
   $post = array("candidato_escrito_id" => $candidato_escrito_id, "escrito_pergunta_id" => $Escrito_pergunta -> get_idEscrito_pergunta(), );
   $rs = $Perguntavisualizada -> cadastrarPerguntavisualizada("", $post);
   
