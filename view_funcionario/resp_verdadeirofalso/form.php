@@ -26,7 +26,7 @@ $acao = CAM_VIEW . "resp_verdadeirofalso/acao.php";
 
 			<input type="hidden" id="acao" name="acao" value="cadastrar" />
 
-			<div class="esquerda">
+			<div class="linha-inteira">
 
 				<input type="hidden" id="idResp_verdadeirofalso" name="idResp_verdadeirofalso" value="<?php echo $Resp_verdadeirofalso -> get_idResp_verdadeirofalso() ?>" />
 				<input type="hidden" id="pergunta_id" name="pergunta_id" value="<?php echo $Resp_verdadeirofalso -> get_pergunta_idResp_verdadeirofalso() ?>" />

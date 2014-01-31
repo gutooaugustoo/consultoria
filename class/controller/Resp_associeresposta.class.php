@@ -117,8 +117,6 @@ class Resp_associeresposta extends Resp_associeresposta_m {
     $this -> set_pergunta_idResp_associeresposta($idPergunta);
     $where = " WHERE excluido = 0 AND pergunta_id = " . $this -> get_pergunta_idResp_associeresposta() . " ORDER BY RAND()";
     
-    
-    
     $rs = $this -> selectResp_associeresposta($where);    
     foreach ($rs as $key => $valor) {
       $tr[$key]["td1"] = 
@@ -142,7 +140,8 @@ class Resp_associeresposta extends Resp_associeresposta_m {
     }
     
     if( $tr ){
-      $html .= "<div class=\"linha-inteira\" >";      
+      $html .= "<div class=\"linha-inteira\" >
+      <p><label>Obs.: Para associar, clique em um item da coluna azul (esquerda), e depois em um da coluna amarela (direita)</label></p>";      
       foreach ($tr as $key => $valor) {        
         $html .= "          
           <div class=\"esquerda\">".$tr[$key]["td1"]."</div>

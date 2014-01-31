@@ -19,7 +19,7 @@ $nomeTable = "planoacao";
           $array[] = array("id" => "1", "legenda" => "Escrito");
           $array[] = array("id" => "2", "legenda" => "Redação");
           $array[] = array("id" => "3", "legenda" => "Oral");
-          Html::set_cssClass(array("required"));
+          //Html::set_cssClass(array("required"));
           echo Html::selectMultiple("tipo", array(), $array);
           ?>
           </p>    

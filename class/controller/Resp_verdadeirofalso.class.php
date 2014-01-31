@@ -32,7 +32,7 @@ class Resp_verdadeirofalso extends Resp_verdadeirofalso_m {
 		return Html::selectMultiple($nomeId, $idAtual, $array);
 	}*/
 			
-	/*function tabelaResp_verdadeirofalso_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
+	function tabelaResp_verdadeirofalso_html($where = "", $caminho = "", $atualizar = "", $ondeAtualizar = "", $apenasLinha = false){
 			
 		$array = $this -> selectResp_verdadeirofalso($where, array("R.id"));
 		
@@ -80,7 +80,7 @@ class Resp_verdadeirofalso extends Resp_verdadeirofalso_m {
 		return ( $apenasLinha !== false ) ? $colunas : Html::montarColunas($linhas);
 		
 	}
-	*/
+	
 	//AÇÕES
 	function cadastrarResp_verdadeirofalso($idResp_verdadeirofalso, $post = array()){
 		

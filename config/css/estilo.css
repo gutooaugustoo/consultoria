@@ -384,6 +384,7 @@ legend {
 
 .timerRed {
 	color: red;
+	font-weight: bold;
 }
 
 .small {
@@ -403,4 +404,17 @@ legend {
 	height: 15px !important;
 	color: blue !important;
 	font-weight: bold !important;
+}
+
+#timer{
+	font-size: 16px;
+	width: 100px;
+	float: right;
+	text-align: right;	
+	margin-left: 1%;
+}
+
+.textoAux{
+	max-height: 450px;
+	overflow: auto;	
 }

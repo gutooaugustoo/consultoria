@@ -169,7 +169,7 @@ class Pergunta extends Pergunta_m {
       return array(false, MSG_OBRIGAT . " Complemento da questão");
 
     if ($tipoPergunta_id == "5") {
-      $tempoResposta = "-1";
+      $tempoResposta = "0";
     } else {
       $tempoResposta = ($post['tempoResposta']);
     }
@@ -195,4 +195,80 @@ class Pergunta extends Pergunta_m {
     return ($this -> deletePergunta());
   }
 
+  function ver_objetoResposta() {
+    switch ($this->get_tipoPergunta_idPergunta()) {
+      //ALTERNATIVAS
+      case '1' :
+        return new Resp_alternativacorreta();
+        break;
+      //VERDADEIRO FALSO
+      case '2' :
+        return new Resp_verdadeirofalso();
+        break;
+      //ASSOCIAÇÃO
+      case '3' :
+        return new Resp_associeresposta();
+        break;
+      //PREENCHER LACUNA
+      case '4' :
+        return new Resp_preenchelacuna();
+        break;
+    }
+  }
+
+  function ver_temRespostaCadastrada($escrito_pergunta_id, $candidato_escrito_id) {
+    $where_resp = " WHERE excluido = 0 AND escrito_pergunta_id = " . $escrito_pergunta_id . " AND candidato_escrito_id = " . $candidato_escrito_id;
+    switch ($this->get_tipoPergunta_idPergunta()) {
+      //ALTERNATIVAS
+      case '1' :
+        $Resposta = new Resposta_escrito_alternativacorreta($where_resp);
+        return $Resposta -> get_idResposta_escrito_alternativacorreta();
+        break;
+      //VERDADEIRO FALSO
+      case '2' :
+        $Resposta = new Resposta_escrito_verdadeirofalso($where_resp);
+        return $Resposta -> get_idResposta_escrito_verdadeirofalso();
+        break;
+      //ASSOCIAÇÃO
+      case '3' :
+        $Resposta = new Resposta_escrito_associeresposta($where_resp);
+        return $Resposta -> get_idResposta_escrito_associeresposta();
+        break;
+      //PREENCHER LACUNA
+      case '4' :
+        $Resposta = new Resposta_escrito_preenchelacuna($where_resp);
+        return $Resposta -> get_idResposta_escrito_preenchelacuna();
+        break;
+      //INTERPRETAÇÃO DE TEXTO
+      case '5' :
+        $temResposta = false;
+        break;
+    }
+  }
+  
+  function ver_includeResposta() {
+    switch ($this->get_tipoPergunta_idPergunta()) {
+      //ALTERNATIVAS
+      case '1' :        
+        return '_resposta.php';
+        break;
+      //VERDADEIRO FALSO
+      case '2' :
+        return '_resposta.php';
+        break;
+      //ASSOCIAÇÃO
+      case '3' :
+        return '_resposta_associa.php';
+        break;
+      //PREENCHER LACUNA
+      case '4' :
+        return '_resposta_lacuna.php';
+        break;
+      //INTERPRETAÇÃO DE TEXTO
+      case '5' :
+        return '_form_interpretacao.php';
+        break;
+    }
+  }
+    
 }

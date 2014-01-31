@@ -1,24 +1,22 @@
-<div class="menu_interno" id="timer" style="font-size: 16px">    
-</div>
+<div id="timer"></div>
 
 <div class="linha-inteira">
-  <p><?php echo $Pergunta -> get_tituloPergunta(); ?></p>       
-  <?php if( $Pergunta->get_enunciadoPergunta() ) echo "<p>".$Pergunta->get_enunciadoPergunta()."</p>" ?>
+  <p><b><?php echo $Escrito_pergunta -> get_ordemEscrito_pergunta().") ". $Pergunta -> get_tituloPergunta(); ?></b></p>       
+  <?php if( $Pergunta->get_enunciadoPergunta() ) echo "<div class=\"textoAux\" >".$Pergunta->get_enunciadoPergunta()."</div>" ?>
 </div>
   
-<div id="divRespostas" class="linha-inteira">
+<div id="divRespostas" class="validate esquerda">
   <?php echo $Opcao_resp -> montarRespostas_html($Pergunta -> get_idPergunta()); ?>
 </div>
-   
+ 
 <form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
   
   <input type="hidden" name="tipoPergunta" value="<?php echo $Pergunta->get_tipoPergunta_idPergunta()?>" />
   <input type="hidden" name="escrito_pergunta_id" value="<?php echo $Escrito_pergunta->get_idEscrito_pergunta()?>" />
   <input type="hidden" name="candidato_escrito_id" value="<?php echo $candidato_escrito_id?>" />
   
-  <hr/>
-  
-  <div id="chooses" class="linha-inteira" >     
+  <div id="chooses" class="esquerda" >
+    <p><label>Itens seleciondos:</label></p>     
     <div class="esquerda" ></div>
     <div class="direita" ></div>
   </div>

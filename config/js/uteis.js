@@ -748,13 +748,13 @@ function timer(onde, segundos) {
 		alerta('Tempo esgotado.');
 	} else {
 
-		if (segundos <= 15){
+		if (segundos <= 10){
 			o.addClass('timerRed');
 		}else{
 			o.removeClass('timerRed');
 		}
 		
-		if (segundos == 15) alerta('Você tem apenas '+segundos+' segundos para responder');
+		//if (segundos == 15) alerta('Você tem apenas '+segundos+' segundos para responder');
 
 		myTimer = setTimeout(function() {
 			timer(onde, segundos - 1);

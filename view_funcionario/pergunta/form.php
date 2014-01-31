@@ -113,23 +113,24 @@ $acao = CAM_VIEW . "pergunta/acao.php";
 				<?php 
 				//AGRUPAMENTO NAO PRECISA DE TEMPO
 				if( $tipoPergunta_id != "5" ){?>		
-				<p>
-					<label>Tempo para responder (mm:ss):</label>
-					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required hora" />
-					<span class="placeholder" >Campo obrigatório</span>
-				</p>
+  				<p>
+  					<label>Tempo para responder (mm:ss):</label>
+  					<input type="text" name="tempoResposta" id="tempoResposta" value="<?php echo $Pergunta -> get_tempoRespostaPergunta()?>" class="required hora" />
+  					<span class="placeholder" >Campo obrigatório</span>
+  				</p>
 				<?php } ?>
 				
 				<?php //SE PERTENCER A OUTRA PERGUNTA, SEGUE A REGRA DA PERGUNTA PAI 
 				if( !$Pergunta->get_pergunta_idPergunta() ){?>								
-				<p>
-					<label>Exclusiva para a empresa (deixe em branco caso não seja exclusiva):</label>
-					<?php $Empresa = new Empresa();
-            echo $Empresa -> selectEmpresa_html('empresa_id', $Pergunta -> get_empresa_idPergunta());
-					?>
-					<span class="placeholder" ></span>
-				</p>
+  				<p>
+  					<label>Exclusiva para a empresa (deixe em branco caso não seja exclusiva):</label>
+  					<?php $Empresa = new Empresa();
+              echo $Empresa -> selectEmpresa_html('empresa_id', $Pergunta -> get_empresa_idPergunta());
+  					?>
+  					<span class="placeholder" ></span>
+  				</p>
 				<?php } ?>	
+				
 				<p>
 					<label for="inativo" >
 						<input type="checkbox" name="inativo" id="inativo" value="1" class=""

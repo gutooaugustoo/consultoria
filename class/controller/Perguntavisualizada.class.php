@@ -111,6 +111,17 @@ class Perguntavisualizada extends Perguntavisualizada_m {
 		$this -> set_idPerguntavisualizada($idPerguntavisualizada);	
 		return (	$this -> deletePerguntavisualizada() );
 	}
-	
+  
+  function marcarPergunta($post){
+    //return false;
+    if (!$this -> get_idPerguntavisualizada()) {          
+      $rs =  $this -> cadastrarPerguntavisualizada("", $post);      
+      if ($rs[0] == false) {
+        //Uteis::fecharNivel();
+        Uteis::alertJava("Não é possível responder essa questão");
+      }
+    }
+  }   
+  	
 }
 

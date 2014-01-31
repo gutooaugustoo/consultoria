@@ -19,10 +19,13 @@ class Pergunta_m extends Database {
 		
 		parent::__construct();
 		
-		if( is_numeric($idPergunta) ){
-		
+		if( is_numeric($idPergunta) ){		
 			$array = $this -> selectPergunta(" WHERE P.id = ".$this -> gravarBD($idPergunta) );			
-			
+    }elseif( $idPergunta != "" ){
+      $array = $this -> selectPergunta($idPergunta." LIMIT 1");
+    }
+    
+    if( $array ){ 	
 			$this -> idPergunta = $array[0]['id'];
 			$this -> tipoPergunta_idPergunta = $array[0]['tipoPergunta_id'];
 			$this -> pergunta_idPergunta = $array[0]['pergunta_id'];
@@ -137,8 +140,8 @@ class Pergunta_m extends Database {
 		return ($this -> enunciadoPergunta);
 	}
 	
-	function get_tempoRespostaPergunta() {
-		return Uteis::exibirHorasInput($this -> tempoRespostaPergunta);
+	function get_tempoRespostaPergunta($formatar = true) {
+		return !$formatar ? $this -> tempoRespostaPergunta : Uteis::exibirHorasInput($this -> tempoRespostaPergunta);
 	}
 	
 	function get_inativoPergunta($mostrarImagem = false) {
@@ -207,6 +210,7 @@ class Pergunta_m extends Database {
 
 	function selectPergunta($where = "", $campos = array("P.*") ) {	
 		$sql = "SELECT SQL_CACHE ".implode(",", $campos)." FROM pergunta AS P ".$where;
+    //echo "//$sql";
 		return $this -> executarQuery($sql);
 	}
 		

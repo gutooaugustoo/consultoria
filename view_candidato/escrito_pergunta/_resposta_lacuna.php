@@ -1,14 +1,15 @@
 <form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
   
-  <div class="menu_interno" id="timer" style="font-size: 16px"></div>
+  <div id="timer" ></div>
   
   <div class="linha-inteira">
-    <p><?php echo $Pergunta -> get_tituloPergunta(); ?></p>       
+    <p><b><?php echo $Escrito_pergunta -> get_ordemEscrito_pergunta().") ". $Pergunta -> get_tituloPergunta(); ?></b></p>       
   </div>
     
-  <div id="divRespostas" class="linha-inteira">
+  <div id="divRespostas" class="linha-inteira" >
     <p><?php echo $Opcao_resp -> montarRespostas_html($Pergunta); ?></p>
   </div>
+   
       
   <input type="hidden" name="tipoPergunta" value="<?php echo $Pergunta->get_tipoPergunta_idPergunta()?>" />
   <input type="hidden" name="escrito_pergunta_id" value="<?php echo $Escrito_pergunta->get_idEscrito_pergunta()?>" />

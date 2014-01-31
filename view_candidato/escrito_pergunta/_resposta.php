@@ -1,10 +1,10 @@
 <form id="formCad_<?php echo $nomeTable ?>" class="validate" method="post" onsubmit="return false" >
   
-  <div class="menu_interno" id="timer" style="font-size: 16px"></div>
+  <div id="timer" ></div>
   
   <div class="linha-inteira">
-    <p><?php echo $Pergunta -> get_tituloPergunta(); ?></p>       
-    <?php if( $Pergunta->get_enunciadoPergunta() ) echo "<p>".$Pergunta->get_enunciadoPergunta()."</p>" ?>
+    <p><b><?php echo $Escrito_pergunta -> get_ordemEscrito_pergunta().") ". $Pergunta -> get_tituloPergunta(); ?></b></p>       
+    <?php if( $Pergunta->get_enunciadoPergunta() ) echo "<div class=\"textoAux\" >".$Pergunta->get_enunciadoPergunta()."</div>" ?>
   </div>
     
   <div id="divRespostas" class="linha-inteira">

@@ -2,6 +2,7 @@
 require_once($_SERVER['DOCUMENT_ROOT']."/consultoria/config/includes.php");
 
 $Escrito_pergunta = new Escrito_pergunta();
+$Tipopergunta = new Tipopergunta();
 
 $idTabela = "tb_escrito_pergunta";
 
@@ -38,30 +39,15 @@ $where = " WHERE E.excluido = 0 AND E.escrito_id = ".$escrito_id;
   <legend>Perguntas</legend>
   
   <div class="menu_interno"> 
-  	<!--<img src="<?php echo CAM_IMG."novo.png";?>" title="Novo cadastro" 
-		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url?>', '<?php echo $atualizar?>', '#div_escrito')" />-->
-		
-		<button class="button gray"
-    onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=1"?>', '<?php echo $atualizar?>', '#div_escrito')" >
-      Alternativa Correta
-    </button>
-    <button class="button gray"
-    onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=2"?>', '<?php echo $atualizar?>', '#div_escrito')" >
-      Verdadeiro ou Falso
-    </button>
-    <button class="button gray"
-    onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=3"?>', '<?php echo $atualizar?>', '#div_escrito')" >
-      Associe a resposta
-    </button>
-    <button class="button gray"
-    onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=4"?>', '<?php echo $atualizar?>', '#div_escrito')" >
-      Preencha a lacuna
-    </button>
-    <button class="button gray"
-    onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=5"?>', '<?php echo $atualizar?>', '#div_escrito')" >
-      Agrupamento
-    </button>
-     
+  	
+  	<?php $rs = $Tipopergunta->selectTipopergunta(" ORDER BY id");
+    foreach ($rs as $value) { ?>
+      <button class="button gray"
+      onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=".$value['id']?>', '<?php echo $atualizar?>', '#div_escrito')" >
+        <?php echo $value['descricao'] ?>
+      </button>  
+    <?php }?>
+	
   </div>
   
   <div class="lista">

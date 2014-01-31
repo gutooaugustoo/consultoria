@@ -44,7 +44,7 @@ $where = " WHERE P.excluido = 0 AND P.pergunta_id = " . Uteis::escapeRequest($pe
 
 		<button class="button gray"
 		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=1"?>', '<?php echo $atualizar?>', '<?php echo $ondeAtualizar?>')" >
-			Alternativa Correta
+			Alternativas
 		</button>
 		<button class="button gray"
 		onclick="abrirNivelPagina(this, '<?php echo $caminho."abas.php".$url."&tipoPergunta_id=2"?>', '<?php echo $atualizar?>', '<?php echo $ondeAtualizar?>')" >

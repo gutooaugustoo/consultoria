@@ -24,7 +24,7 @@ $acao = CAM_VIEW."resp_associeresposta/acao.php";
 		  
 		  <input type="hidden" id="acao" name="acao" value="cadastrar" />
 		  
-		  <div class="esquerda">		  					
+		  <div class="linha-inteira">		  					
 				
 				<input type="hidden" id="idResp_associeresposta" name="idResp_associeresposta" value="<?php echo $Resp_associeresposta -> get_idResp_associeresposta() ?>" />
 				<input type="hidden" id="pergunta_id" name="pergunta_id" value="<?php echo $Resp_associeresposta -> get_pergunta_idResp_associeresposta() ?>" />
